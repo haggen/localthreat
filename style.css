@@ -1,0 +1,72 @@
+body {
+	line-height: 1.5;
+	padding: 1.5rem 3rem;
+}
+
+a {
+	color: mediumblue;
+	text-decoration: none;
+}
+
+a:hover {
+	color: blue;
+	text-decoration: underline;
+}
+
+.welcome {
+	color: dimgray;
+	margin: 0 auto;
+	max-width: 30rem;
+	padding: 1.5rem;
+	text-align: center;
+}
+
+.welcome h1 {
+	font-size: 1.25em;
+}
+
+.welcome p {
+	margin-top: 1.5rem;
+}
+
+.table {
+}
+
+.table a {
+	display: inline-block;
+}
+
+.table table {
+	width: 100%;
+}
+
+.table thead th {
+	border-bottom: 1px solid gainsboro;
+}
+
+.table th,
+.table td {
+	background-color: white;
+	padding: .25rem .5rem;
+}
+
+.table th {
+	color: gray;
+	font-weight: bolder;
+	text-align: left;
+}
+
+.table td {
+	/* border-top: 1px solid gainsboro; */
+}
+
+.table tbody tr:nth-child(2n) td {
+	background-color: whitesmoke;
+}
+
+.table img {
+	background-color: #111;
+	border-radius: .25rem;
+	margin-right: .5rem;
+	vertical-align: -40%;
+}
