@@ -1,10 +1,14 @@
 import { Component } from 'preact';
+import ReactGA from 'react-ga';
 
 import Table from './components/table';
 import Welcome from './components/welcome';
 
 import './resetize';
 import './style';
+
+ReactGA.initialize('UA-111407712-1');
+ReactGA.pageview('/');
 
 export default class App extends Component {
 	state = {
