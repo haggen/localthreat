@@ -52,7 +52,8 @@ export default class Row extends Component {
   }
 
   render({ name }, { id, corporation, alliance, killboard }) {
-    const soloRatio = killboard.gangRatio ? `${100 - killboard.gangRatio}%` : '-';
+    const gangRatio = killboard.gangRatio ? `${killboard.gangRatio}%` : '-';
+    const gangRatioColor = killboard.gangRatio ? getDangerRatioColor(killboard.gangRatio) : 'inherit';
     const dangerRatio = killboard.dangerRatio ? `${killboard.dangerRatio}%` : '-';
     const dangerRatioColor = killboard.dangerRatio ? getDangerRatioColor(killboard.dangerRatio) : 'inherit';
     return (
@@ -67,7 +68,7 @@ export default class Row extends Component {
           {alliance.id ? (<Entity href={`https://zkillboard.com/alliance/${alliance.id}/`} image={`https://image.eveonline.com/Alliance/${alliance.id}_32.png`} size="32" name={alliance.name} />) : '-'}
         </td>
         <td style={`text-align: center; color: ${dangerRatioColor}`}><strong>{dangerRatio}</strong></td>
-        <td style="text-align: center">{soloRatio}</td>
+        <td style={`text-align: center; color: ${gangRatioColor}`}>{gangRatio}</td>
         <td style="text-align: right">{killboard.shipsDestroyed || 0}</td>
         <td>{killboard.shipsLost || 0}</td>
       </tr>
