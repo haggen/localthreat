@@ -55,19 +55,19 @@ export default class Row extends Component {
     return (
       <tr>
         <td>
-          <a href={`https://zkillboard.com/character/${id}/`}>
+          <a href={`https://zkillboard.com/character/${id}/`} target="blank" rel="noopener noreferrer">
             <img alt={name} src={`https://image.eveonline.com/Character/${id}_32.jpg`} width="32" height="32" />
             {name}
           </a>
         </td>
         <td>
-          {corporation.id ? (<a href={`https://zkillboard.com/corporation/${corporation.id}/`}>
+          {corporation.id ? (<a href={`https://zkillboard.com/corporation/${corporation.id}/`} target="blank" rel="noopener noreferrer">
             <img alt={corporation.name} src={`https://image.eveonline.com/Corporation/${corporation.id}_32.png`} width="32" height="32" />
             {corporation.name}
           </a>) : '-'}
         </td>
         <td>
-          {alliance.id ? (<a href={`https://zkillboard.com/alliance/${alliance.id}/`}>
+          {alliance.id ? (<a href={`https://zkillboard.com/alliance/${alliance.id}/`} target="blank" rel="noopener noreferrer">
             <img alt={alliance.name} src={`https://image.eveonline.com/Alliance/${alliance.id}_32.png`} width="32" height="32" />
             {alliance.name}
           </a>) : '-'}
