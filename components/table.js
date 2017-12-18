@@ -17,7 +17,6 @@ export default class Table extends Component {
   updateCharacter = (index, property, value) => {
     const characters = this.state.characters.slice();
     characters[index][property] = value;
-    console.log(characters);
     this.setState({ characters  });
   };
 
@@ -34,8 +33,6 @@ export default class Table extends Component {
   }
 
 	render({}, { characters }) {
-    console.log('render');
-
     const rows = characters.sort(this.compareCharactersByDangerRatio).map((character, index) => {
       return (
         <Row key={`${character.name}-${character.dangerRatio}`} name={character.name} onCharacterUpdate={(property, value) => this.updateCharacter(index, property, value)} />
