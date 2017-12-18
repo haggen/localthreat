@@ -1,4 +1,6 @@
 body {
+	color: black;
+	font-family: sans-serif;
 	line-height: 1.5;
 	padding: 1.5rem 3rem;
 }
@@ -21,7 +23,7 @@ a:hover {
 }
 
 .welcome h1 {
-	font-size: 1.25em;
+	font-size: 1.5em;
 }
 
 .welcome p {
@@ -32,7 +34,7 @@ a:hover {
 }
 
 .table a {
-	display: inline-block;
+	display: block;
 	max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -40,8 +42,12 @@ a:hover {
 }
 
 .table table {
+	border-bottom: 1px solid gainsboro;
 	table-layout: fixed;
 	width: 100%;
+}
+
+.table tr:last-child td {
 }
 
 .table thead th {
@@ -50,8 +56,7 @@ a:hover {
 
 .table th,
 .table td {
-	background-color: white;
-	padding: .25rem .5rem;
+	padding: .25rem;
 }
 
 .table th {
@@ -64,19 +69,19 @@ a:hover {
 	/* border-top: 1px solid gainsboro; */
 }
 
-.table tbody tr:nth-child(2n) td {
+.table tbody tr:nth-child(2n+1) td {
 	background-color: whitesmoke;
 }
 
 .table img {
-	background-color: #111;
-	border-radius: .25rem;
+	background-color: #333;
+	border-radius: 3px;
 	margin-right: .5rem;
 	vertical-align: -40%;
 }
 
 .foot {
-	margin-top: 3rem;
+	margin-top: 1.5rem;
 	text-align: center;
 }
 
@@ -86,7 +91,7 @@ a:hover {
 }
 
 .foot .ccp {
-	color: gray;
+	color: darkgray;
 	font-size: .75em;
 	margin-top: .75rem;
 }
