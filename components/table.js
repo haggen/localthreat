@@ -44,10 +44,10 @@ export default class Table extends Component {
   	    <table>
   	      <thead>
   	        <tr>
-  	          <th>Character</th>
-  	          <th>Corporation</th>
-  	          <th>Alliance</th>
-  	          <th>Danger</th>
+  	          <th style="width: 27%">Character</th>
+  	          <th style="width: 27%">Corporation</th>
+  	          <th style="width: 27%">Alliance</th>
+  	          <th style="text-align: center">Danger</th>
   	          <th style="text-align: right"><abbr title="Wins">W</abbr></th>
   	          <th><abbr title="Losses">L</abbr></th>
   	        </tr>

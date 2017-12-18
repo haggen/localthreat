@@ -71,7 +71,7 @@ export default class Row extends Component {
             {alliance.name}
           </a>) : '-'}
         </td>
-        <td style={`color: ${dangerRatioColor}`}><strong>{dangerRatio}</strong></td>
+        <td style={`text-align: center; color: ${dangerRatioColor}`}><strong>{dangerRatio}</strong></td>
         <td style="text-align: right">{killboard.shipsDestroyed || 0}</td>
         <td>{killboard.shipsLost || 0}</td>
       </tr>
