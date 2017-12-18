@@ -7,7 +7,6 @@ function esi(path, extra) {
       'Content-Type': 'application/json'
     }
   }, extra);
-  console.log(url, options);
   return fetch(url, options)
     .then((response) => response.json())
     .catch((error) => console.error(error));
