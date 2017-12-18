@@ -1,97 +1,154 @@
+html {
+  font-size: 16px;
+}
+
 body {
-	color: black;
-	font-family: sans-serif;
-	line-height: 1.5;
-	padding: 1.5rem 3rem;
+  color: black;
+  font-family: sans-serif;
+  line-height: 1.5;
+  padding: 1.5rem 3rem;
 }
 
 a {
-	color: mediumblue;
-	text-decoration: none;
+  color: mediumblue;
+  text-decoration: none;
 }
 
 a:hover {
-	color: blue;
-	text-decoration: underline;
+  color: blue;
+  text-decoration: underline;
 }
+
+/* - */
+/* - */
+/* - */
 
 .welcome {
-	margin: 3rem auto;
-	max-width: 30rem;
-	padding: 1.5rem;
-	text-align: center;
+  margin: 3rem auto;
+  max-width: 30rem;
+  padding: 1.5rem;
+  text-align: center;
 }
 
-.welcome h1 {
-	font-size: 1.5em;
+.welcome__heading {
+  font-size: 1.5em;
 }
 
-.welcome p {
-	margin-top: 1.5rem;
+.welcome__instruction {
+  margin-top: 1.5rem;
 }
 
-.table {
+/* - */
+/* - */
+/* - */
+
+.notification {
+  background-color: orangered;
+  border-radius: .25rem;
+  color: white;
+  font-weight: bold;
+  max-width: 100%;
+  overflow: hidden;
+  padding: .25rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.table a {
-	display: block;
-	max-width: 100%;
+.notification__icon {
+  background-color: white;
+  color: orangered;
+  border-radius: .125rem;
+  display: inline-block;
+  font-size: 1.5em;
+  height: 32px;
+  line-height: 32px;
+  margin-right: .5rem;
+  text-align: center;
+  vertical-align: -10%;
+  width: 32px;
+}
+
+/* - */
+/* - */
+/* - */
+
+.entity {
+  display: block;
+  max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
-	white-space: nowrap;
+  white-space: nowrap;
+}
+
+.entity__picture {
+  background-color: #333;
+  border-radius: .25rem;
+  display: inline-block;
+  margin-right: .5rem;
+  overflow: hidden;
+  vertical-align: -40%;
+}
+
+.entity__picture__img {
+  display: inline;
+}
+
+/* - */
+/* - */
+/* - */
+
+.table {
+  margin-top: .75rem;
 }
 
 .table table {
-	border-bottom: 1px solid gainsboro;
-	table-layout: fixed;
-	width: 100%;
+  border-bottom: 1px solid gainsboro;
+  table-layout: fixed;
+  width: 100%;
 }
 
 .table tr:last-child td {
 }
 
 .table thead th {
-	border-bottom: 1px solid gainsboro;
+  border-bottom: 1px solid gainsboro;
 }
 
 .table th,
 .table td {
-	padding: .25rem;
+  padding: .25rem;
 }
 
 .table th {
-	color: gray;
-	font-weight: bolder;
-	text-align: left;
+  color: gray;
+  font-weight: bolder;
+  text-align: left;
 }
 
 .table td {
-	/* border-top: 1px solid gainsboro; */
+  /* border-top: 1px solid gainsboro; */
 }
 
 .table tbody tr:nth-child(2n+1) td {
-	background-color: whitesmoke;
+  background-color: whitesmoke;
 }
 
-.table img {
-	background-color: #333;
-	border-radius: 3px;
-	margin-right: .5rem;
-	vertical-align: -40%;
+/* - */
+/* - */
+/* - */
+
+.footer {
+  margin-top: 1.5rem;
+  text-align: center;
 }
 
-.foot {
-	margin-top: 1.5rem;
-	text-align: center;
+.footer__legal-1 {
+  color: dimgray;
+  font-size: .875em;
 }
 
-.foot .localthreat {
-	color: dimgray;
-	font-size: .875em;
-}
-
-.foot .ccp {
-	color: darkgray;
-	font-size: .75em;
-	margin-top: .75rem;
+.footer__legal-2 {
+  color: darkgray;
+  font-size: .75em;
+  margin-top: .75rem;
 }

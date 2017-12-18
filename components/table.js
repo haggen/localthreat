@@ -32,31 +32,31 @@ export default class Table extends Component {
     });
   }
 
-	render({}, { characters }) {
+  render({}, { characters }) {
     const rows = characters.sort(this.compareCharactersByDangerRatio).map((character, index) => {
       return (
         <Row key={`${character.name}-${character.dangerRatio}`} name={character.name} onCharacterUpdate={(property, value) => this.updateCharacter(index, property, value)} />
       );
     });
 
-		return (
+    return (
       <section class="table">
-  	    <table>
-  	      <thead>
-  	        <tr>
-  	          <th style="width: 27%">Character</th>
-  	          <th style="width: 27%">Corporation</th>
-  	          <th style="width: 27%">Alliance</th>
-  	          <th style="text-align: center">Threat</th>
-  	          <th style="text-align: right"><abbr title="Wins">W</abbr></th>
-  	          <th><abbr title="Losses">L</abbr></th>
-  	        </tr>
-  	      </thead>
-  	      <tbody>
-  	        {rows}
-  	      </tbody>
-  	    </table>
-	    </section>
-		);
-	}
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 27%">Character</th>
+              <th style="width: 27%">Corporation</th>
+              <th style="width: 27%">Alliance</th>
+              <th style="text-align: center">Threat</th>
+              <th style="text-align: right"><abbr title="Kills">K</abbr></th>
+              <th><abbr title="Losses">L</abbr></th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows}
+          </tbody>
+        </table>
+      </section>
+    );
+  }
 }

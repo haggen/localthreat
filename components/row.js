@@ -1,5 +1,7 @@
 import { Component } from 'preact';
+
 import EVE from '../lib/eve';
+import Entity from './entity';
 
 function rescale(value, oldMin, oldMax, newMin, newMax) {
   return Math.floor((((value - oldMin) * (newMax - newMin)) / (oldMax - oldMin)) + newMin);
@@ -27,12 +29,12 @@ export default class Row extends Component {
 
       EVE.getCharacterAffiliation(id).then((affiliation) => {
 
-				// Get character's Corporation.
+        // Get character's Corporation.
         EVE.getCorporation(affiliation.corporationID).then((corporation) => {
           this.setState({ corporation });
         });
 
-				// Get character's Alliance.
+        // Get character's Alliance.
         if (affiliation.allianceID) {
           EVE.getAlliance(affiliation.allianceID).then((alliance) => {
             this.setState({ alliance });
@@ -40,12 +42,12 @@ export default class Row extends Component {
         }
       });
 
-			// Get character's Killboard.
-			EVE.getCharacterKillboard(id).then((killboard) => {
+      // Get character's Killboard.
+      EVE.getCharacterKillboard(id).then((killboard) => {
         killboard.dangerRatio = killboard.dangerRatio || 0;
         this.props.onCharacterUpdate('dangerRatio', killboard.dangerRatio);
-				this.setState({ killboard });
-			});
+        this.setState({ killboard });
+      });
     });
   }
 
@@ -55,22 +57,13 @@ export default class Row extends Component {
     return (
       <tr>
         <td>
-          <a href={`https://zkillboard.com/character/${id}/`} target="blank" rel="noopener noreferrer">
-            <img alt={name} src={`https://image.eveonline.com/Character/${id}_32.jpg`} width="32" height="32" />
-            {name}
-          </a>
+          <Entity href={`https://zkillboard.com/character/${id}/`} image={`https://image.eveonline.com/Character/${id}_32.jpg`} size="32" name={name} />
         </td>
         <td>
-          {corporation.id ? (<a href={`https://zkillboard.com/corporation/${corporation.id}/`} target="blank" rel="noopener noreferrer">
-            <img alt={corporation.name} src={`https://image.eveonline.com/Corporation/${corporation.id}_32.png`} width="32" height="32" />
-            {corporation.name}
-          </a>) : '-'}
+          {corporation.id ? (<Entity href={`https://zkillboard.com/corporation/${corporation.id}/`} image={`https://image.eveonline.com/Corporation/${corporation.id}_32.png`} size="32" name={corporation.name} />) : '-'}
         </td>
         <td>
-          {alliance.id ? (<a href={`https://zkillboard.com/alliance/${alliance.id}/`} target="blank" rel="noopener noreferrer">
-            <img alt={alliance.name} src={`https://image.eveonline.com/Alliance/${alliance.id}_32.png`} width="32" height="32" />
-            {alliance.name}
-          </a>) : '-'}
+          {alliance.id ? (<Entity href={`https://zkillboard.com/alliance/${alliance.id}/`} image={`https://image.eveonline.com/Alliance/${alliance.id}_32.png`} size="32" name={alliance.name} />) : '-'}
         </td>
         <td style={`text-align: center; color: ${dangerRatioColor}`}><strong>{dangerRatio}</strong></td>
         <td style="text-align: right">{killboard.shipsDestroyed || 0}</td>
