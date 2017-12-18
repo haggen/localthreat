@@ -1,5 +1,5 @@
 import { Component } from 'preact';
-import EVE from '../eve';
+import EVE from '../lib/eve';
 
 function rescale(value, oldMin, oldMax, newMin, newMax) {
   return Math.floor((((value - oldMin) * (newMax - newMin)) / (oldMax - oldMin)) + newMin);
