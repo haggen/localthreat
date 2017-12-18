@@ -21,6 +21,7 @@ export default class Row extends Component {
 
   componentDidMount() {
     EVE.queryIDs(this.props.name, 'character', true).then((json) => {
+      if (!json.character) return;
       const id = json.character[0];
       this.setState({ id });
 
@@ -60,10 +61,10 @@ export default class Row extends Component {
           </a>
         </td>
         <td>
-          <a href={`https://zkillboard.com/corporation/${corporation.id}/`}>
+          {corporation.id ? (<a href={`https://zkillboard.com/corporation/${corporation.id}/`}>
             <img alt={corporation.name} src={`https://image.eveonline.com/Corporation/${corporation.id}_32.png`} width="32" height="32" />
             {corporation.name}
-          </a>
+          </a>) : '-'}
         </td>
         <td>
           {alliance.id ? (<a href={`https://zkillboard.com/alliance/${alliance.id}/`}>
