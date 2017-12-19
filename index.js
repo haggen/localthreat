@@ -9,6 +9,7 @@ import './resetize';
 import './style';
 
 ReactGA.initialize('UA-111407712-1');
+ReactGA.pageview('/');
 
 export default class App extends Component {
   state = {
