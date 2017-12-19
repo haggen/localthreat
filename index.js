@@ -9,7 +9,6 @@ import './resetize';
 import './style';
 
 ReactGA.initialize('UA-111407712-1');
-ReactGA.pageview('/');
 
 export default class App extends Component {
   state = {
@@ -22,7 +21,7 @@ export default class App extends Component {
     const text = clipboard.getData('Text');
     if (!text) return;
     const paste = text.split("\n").map((name) => {
-      return { name, dangerRatio: 0 };
+      return name;
     });
     let notification = '';
     if (paste.length > 500) {

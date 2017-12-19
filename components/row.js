@@ -1,61 +1,25 @@
 import { Component } from 'preact';
 
-import EVE from '../lib/eve';
 import Entity from './entity';
 
 function rescale(value, oldMin, oldMax, newMin, newMax) {
   return Math.floor((((value - oldMin) * (newMax - newMin)) / (oldMax - oldMin)) + newMin);
 }
 
-function getDangerRatioColor(ratio) {
+function getRatioToColor(ratio) {
   const r = rescale(ratio, 0, 100, 40, 220);
   const g = rescale(ratio, 0, 100, 167, 53);
   return `rgb(${r}, ${g}, 69)`;
 }
 
 export default class Row extends Component {
-  state = {
-    id: 0,
-    corporation: {},
-    alliance: {},
-    killboard: {},
-  };
-
-  componentDidMount() {
-    EVE.queryIDs(this.props.name, 'character', true).then((json) => {
-      if (!json.character) return;
-      const id = json.character[0];
-      this.setState({ id });
-
-      EVE.getCharacterAffiliation(id).then((affiliation) => {
-
-        // Get character's Corporation.
-        EVE.getCorporation(affiliation.corporationID).then((corporation) => {
-          this.setState({ corporation });
-        });
-
-        // Get character's Alliance.
-        if (affiliation.allianceID) {
-          EVE.getAlliance(affiliation.allianceID).then((alliance) => {
-            this.setState({ alliance });
-          });
-        }
-      });
-
-      // Get character's Killboard.
-      EVE.getCharacterKillboard(id).then((killboard) => {
-        killboard.dangerRatio = killboard.dangerRatio || 0;
-        this.props.onCharacterUpdate('dangerRatio', killboard.dangerRatio);
-        this.setState({ killboard });
-      });
-    });
-  }
-
-  render({ name }, { id, corporation, alliance, killboard }) {
-    const gangRatio = killboard.gangRatio ? `${killboard.gangRatio}%` : '-';
-    const gangRatioColor = killboard.gangRatio ? getDangerRatioColor(killboard.gangRatio) : 'inherit';
-    const dangerRatio = killboard.dangerRatio ? `${killboard.dangerRatio}%` : '-';
-    const dangerRatioColor = killboard.dangerRatio ? getDangerRatioColor(killboard.dangerRatio) : 'inherit';
+  render({ id, name, corporation, alliance, threat, gangs, kills, losses }) {
+    const threatColor = threat > 0 ? getRatioToColor(threat) : 'inherit';
+    threat = threat > 0 ? `${threat}%` : '-';
+    const gangsColor = gangs > 0 ? getRatioToColor(gangs) : 'inherit';
+    gangs = gangs > 0 ? `${gangs}%` : '-';
+    kills = kills > 0 ? kills : '0';
+    losses = losses > 0 ? losses : '0';
     return (
       <tr>
         <td>
@@ -67,10 +31,18 @@ export default class Row extends Component {
         <td>
           {alliance.id ? (<Entity href={`https://zkillboard.com/alliance/${alliance.id}/`} image={`https://image.eveonline.com/Alliance/${alliance.id}_32.png`} size="32" name={alliance.name} />) : '-'}
         </td>
-        <td style={`text-align: center; color: ${dangerRatioColor}`}><strong>{dangerRatio}</strong></td>
-        <td style={`text-align: center; color: ${gangRatioColor}`}>{gangRatio}</td>
-        <td style="text-align: right">{killboard.shipsDestroyed || 0}</td>
-        <td>{killboard.shipsLost || 0}</td>
+        <td style={`text-align: center; color: ${threatColor}`}>
+          {threat}
+        </td>
+        <td style={`text-align: center; color: ${gangsColor}`}>
+          {gangs}
+        </td>
+        <td style="text-align: right">
+          {kills}
+        </td>
+        <td>
+          {losses}
+        </td>
       </tr>
     );
   }
