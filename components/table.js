@@ -5,71 +5,92 @@ import Row from './row';
 
 export default class Table extends Component {
   state = {
-    characters: [],
+    rows: [],
+    sortingKey: 'threat',
+    sortingDir: -1,
   };
 
-  compareCharactersByThreat = (a, b) => {
-    if (a.threat != b.threat) {
-      return a.threat > b.threat ? -1 : 1;
+  updateSorting = (sortingKey) => {
+    if (sortingKey === this.state.sortingKey) {
+      this.setState({ sortingDir: this.state.sortingDir * -1 });
+    } else {
+      this.setState({ sortingKey, sortingDir: -1 });
     }
-    return a.name.localeCompare(b.name);
   };
 
-  updateCharacters(props) {
-    const characters = props.characters.map((name) => {
-      const character = {
-        id: 0,
-        name,
-        corporation: {},
-        alliance: {},
+  compareRows = (a, b) => {
+    const { sortingKey, sortingDir } = this.state;
+    if (a[sortingKey] === b[sortingKey]) {
+      return 0;
+    } else {
+      return (a[sortingKey] < b[sortingKey] ? -1 : 1) * sortingDir;
+    }
+  };
+
+  getSortableClassFor = (sortingKey) => {
+    if (sortingKey === this.state.sortingKey) {
+      return 'table__sortable--active table__sortable--' + (this.state.sortingDir > 0 ? 'asc' : 'desc');
+    }
+    return '';
+  };
+
+  updateRows(props) {
+    const rows = props.rows.map((name) => {
+      const row = {
+        characterID: 0,
+        characterName: name,
+        corporationID: 0,
+        corporationName: '',
+        allianceID: 0,
+        allianceName: '',
         threat: 0,
         gangs: 0,
         kills: 0,
         losses: 0
       };
 
-      EVE.queryIDs(name, 'character', true).then((json) => {
-        if (!json.character) return;
-        character.id = json.character[0];
+      EVE.queryIDs(name, 'character', true).then((ids) => {
+        if (!ids.character) return;
+        row.characterID = ids.character[0];
 
-        EVE.getCharacterAffiliation(character.id).then((affiliation) => {
-          character.corporation.id = affiliation[0];
-          if (affiliation.length > 1) character.alliance.id = affiliation[1];
+        EVE.getCharacterAffiliation(row.characterID).then((affiliation) => {
+          row.corporationID = affiliation[0];
+          if (affiliation.length > 1) row.allianceID = affiliation[1];
 
           EVE.getNames(affiliation).then((names) => {
-            character.corporation.name = names[0];
-            if (names.length > 1) character.alliance.name = names[1];
-            this.setState({ characters: this.state.characters });
+            row.corporationName = names[0];
+            if (names.length > 1) row.allianceName = names[1];
+            this.setState({ rows: this.state.rows });
           });
         });
 
-        EVE.getCharacterKillboard(character.id).then((killboard) => {
+        EVE.getCharacterKillboard(row.characterID).then((killboard) => {
           if (!killboard) return;
-          character.threat = killboard.dangerRatio || 0;
-          character.gangs = killboard.gangRatio || 0;
-          character.kills = killboard.shipsDestroyed || 0;
-          character.losses = killboard.shipsLost || 0;
-          this.setState({ characters });
+          row.threat = killboard.dangerRatio || 0;
+          row.gangs = killboard.gangRatio || 0;
+          row.kills = killboard.shipsDestroyed || 0;
+          row.losses = killboard.shipsLost || 0;
+          this.setState({ rows });
         });
       });
 
-      return character;
+      return row;
     });
-    this.setState({ characters });
+    this.setState({ rows });
   }
 
   componentDidMount() {
-    this.updateCharacters(this.props);
+    this.updateRows(this.props);
   }
 
   componentWillReceiveProps(props) {
-    this.updateCharacters(props);
+    this.updateRows(props);
   }
 
-  render({}, { characters }) {
-    const rows = characters.map((character) => {
+  render({}, { rows, sortingKey, sortingDir }) {
+    const sortedRows = rows.sort(this.compareRows).map((row) => {
       return (
-        <Row id={character.id} name={character.name} corporation={character.corporation} alliance={character.alliance} threat={character.threat} gangs={character.gangs} kills={character.kills} losses={character.losses} />
+        <Row {...row} />
       );
     });
 
@@ -78,17 +99,45 @@ export default class Table extends Component {
         <table>
           <thead>
             <tr>
-              <th style="width: 25%">Character</th>
-              <th style="width: 25%">Corporation</th>
-              <th style="width: 25%">Alliance</th>
-              <th style="text-align: center"><abbr title="Threat">T</abbr></th>
-              <th style="text-align: center"><abbr title="% of fights in gangs">G</abbr></th>
-              <th style="text-align: right"><abbr title="Kills">K</abbr></th>
-              <th><abbr title="Losses">L</abbr></th>
+              <th style="width: 25%">
+                <a href="javascript:" class={`table__sortable ${this.getSortableClassFor('characterName')}`} onClick={(e) => this.updateSorting('characterName')}>
+                  Character
+                </a>
+              </th>
+              <th style="width: 25%">
+                <a href="javascript:" class={`table__sortable ${this.getSortableClassFor('corporationName')}`} onClick={(e) => this.updateSorting('corporationName')}>
+                  Corporation
+                </a>
+              </th>
+              <th style="width: 25%">
+                <a href="javascript:" class={`table__sortable ${this.getSortableClassFor('allianceName')}`} onClick={(e) => this.updateSorting('allianceName')}>
+                  Alliance
+                </a>
+              </th>
+              <th style="text-align: center">
+                <a href="javascript:" class={`table__sortable ${this.getSortableClassFor('threat')}`} onClick={(e) => this.updateSorting('threat')}>
+                  <abbr title="Threat">T</abbr>
+                </a>
+              </th>
+              <th style="text-align: center">
+                <a href="javascript:" class={`table__sortable ${this.getSortableClassFor('gangs')}`} onClick={(e) => this.updateSorting('gangs')}>
+                  <abbr title="% of fights in gangs">G</abbr>
+                </a>
+              </th>
+              <th style="text-align: right">
+                <a href="javascript:" class={`table__sortable ${this.getSortableClassFor('kills')}`} onClick={(e) => this.updateSorting('kills')}>
+                  <abbr title="Kills">K</abbr>
+                </a>
+              </th>
+              <th>
+                <a href="javascript:" class={`table__sortable ${this.getSortableClassFor('losses')}`} onClick={(e) => this.updateSorting('losses')}>
+                  <abbr title="Losses">L</abbr>
+                </a>
+              </th>
             </tr>
           </thead>
           <tbody>
-            {rows}
+            {sortedRows}
           </tbody>
         </table>
       </section>

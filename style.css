@@ -142,6 +142,28 @@ a:hover {
   background-color: whitesmoke;
 }
 
+.table__sortable {
+  color: inherit;
+}
+
+.table__sortable--active {
+  color: black;
+}
+
+.table__sortable--active::after {
+  display: inline;
+  content: '';
+  margin-left: .25rem;
+}
+
+.table__sortable--asc::after {
+  content: '↑';
+}
+
+.table__sortable--desc::after {
+  content: '↓';
+}
+
 /* - */
 /* - */
 /* - */

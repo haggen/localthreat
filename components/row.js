@@ -13,7 +13,7 @@ function getRatioToColor(ratio) {
 }
 
 export default class Row extends Component {
-  render({ id, name, corporation, alliance, threat, gangs, kills, losses }) {
+  render({ characterID, characterName, corporationID, corporationName, allianceID, allianceName, threat, gangs, kills, losses }) {
     const threatColor = threat > 0 ? getRatioToColor(threat) : 'inherit';
     threat = threat > 0 ? `${threat}%` : '-';
     const gangsColor = gangs > 0 ? getRatioToColor(gangs) : 'inherit';
@@ -21,15 +21,15 @@ export default class Row extends Component {
     kills = kills > 0 ? kills : '0';
     losses = losses > 0 ? losses : '0';
     return (
-      <tr>
+      <tr key={characterName}>
         <td>
-          <Entity href={`https://zkillboard.com/character/${id}/`} image={`https://image.eveonline.com/Character/${id}_32.jpg`} size="32" name={name} />
+          <Entity href={`https://zkillboard.com/character/${characterID}/`} image={`https://image.eveonline.com/Character/${characterID}_32.jpg`} size="32" name={characterName} />
         </td>
         <td>
-          {corporation.id ? (<Entity href={`https://zkillboard.com/corporation/${corporation.id}/`} image={`https://image.eveonline.com/Corporation/${corporation.id}_32.png`} size="32" name={corporation.name} />) : '-'}
+          {corporationID ? (<Entity href={`https://zkillboard.com/corporation/${corporationID}/`} image={`https://image.eveonline.com/Corporation/${corporationID}_32.png`} size="32" name={corporationName} />) : '-'}
         </td>
         <td>
-          {alliance.id ? (<Entity href={`https://zkillboard.com/alliance/${alliance.id}/`} image={`https://image.eveonline.com/Alliance/${alliance.id}_32.png`} size="32" name={alliance.name} />) : '-'}
+          {allianceID ? (<Entity href={`https://zkillboard.com/alliance/${allianceID}/`} image={`https://image.eveonline.com/Alliance/${allianceID}_32.png`} size="32" name={allianceName} />) : '-'}
         </td>
         <td style={`text-align: center; color: ${threatColor}`}>
           {threat}
