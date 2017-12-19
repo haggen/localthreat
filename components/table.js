@@ -47,8 +47,8 @@ export default class Table extends Component {
               <th style="width: 25%">Character</th>
               <th style="width: 25%">Corporation</th>
               <th style="width: 25%">Alliance</th>
-              <th style="text-align: center">Threat</th>
-              <th style="text-align: center">Gangs</th>
+              <th style="text-align: center"><abbr title="Threat level">T</abbr></th>
+              <th style="text-align: center"><abbr title="Gang ratio">G</abbr></th>
               <th style="text-align: right"><abbr title="Kills">K</abbr></th>
               <th><abbr title="Losses">L</abbr></th>
             </tr>
