@@ -26,7 +26,7 @@ export default class App extends Component {
     let notification = '';
     if (paste.length > 500) {
       paste.splice(500);
-      notification = 'Natural phenomena disrupts this paste (only 500 names at a time).';
+      notification = `You pasted ${paste.length} names but it can only take up to 500.`;
     }
     this.setState({ paste, notification });
   };
