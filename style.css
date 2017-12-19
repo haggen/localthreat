@@ -44,7 +44,7 @@ a:hover {
 
 .notification {
   background-color: orangered;
-  border-radius: .25rem;
+  border-radius: 3px;
   color: white;
   display: flex;
   align-items: center;
@@ -59,7 +59,7 @@ a:hover {
 .notification__icon {
   background-color: white;
   color: orangered;
-  border-radius: .125rem;
+  border-radius: 1px;
   display: inline-block;
   flex: 0 0 32px;
   font-size: 1.5em;
@@ -85,7 +85,7 @@ a:hover {
 
 .entity__picture {
   background-color: #333;
-  border-radius: .25rem;
+  border-radius: 3px;
   flex: 0 0 32px;
   margin-right: .5rem;
   overflow: hidden;
