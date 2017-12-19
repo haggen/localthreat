@@ -46,6 +46,8 @@ a:hover {
   background-color: orangered;
   border-radius: .25rem;
   color: white;
+  display: flex;
+  align-items: center;
   font-weight: bold;
   max-width: 100%;
   overflow: hidden;
@@ -59,13 +61,17 @@ a:hover {
   color: orangered;
   border-radius: .125rem;
   display: inline-block;
+  flex: 0 0 32px;
   font-size: 1.5em;
   height: 32px;
   line-height: 32px;
   margin-right: .5rem;
   text-align: center;
   vertical-align: -10%;
-  width: 32px;
+}
+
+.notification__text {
+  flex: 1 0 auto;
 }
 
 /* - */
@@ -73,24 +79,27 @@ a:hover {
 /* - */
 
 .entity {
-  display: block;
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  display: flex;
+  align-items: center;
 }
 
 .entity__picture {
   background-color: #333;
   border-radius: .25rem;
-  display: inline-block;
+  flex: 0 0 32px;
   margin-right: .5rem;
   overflow: hidden;
-  vertical-align: -40%;
 }
 
 .entity__picture__img {
   display: inline;
+}
+
+.entity__name {
+  flex: 1 0 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* - */
