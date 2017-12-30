@@ -1,5 +1,5 @@
 <h1 align="center">localthreat</h1>
-<p align="center">Paste your Local and get characters affiliations and PvP stats.</p>
+<p align="center">Paste the transcript or members from your chat channels and get characters affiliations and PvP stats.</p>
 
 ---
 

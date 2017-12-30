@@ -50,9 +50,8 @@ a:hover {
 /* - */
 
 .welcome {
-  margin: 3rem auto;
-  max-width: 27rem;
-  padding: 1.5rem;
+  margin: 4.5rem auto;
+  max-width: 42rem;
   text-align: center;
 }
 
@@ -61,7 +60,7 @@ a:hover {
 }
 
 .welcome__instruction {
-  margin-top: 1.5rem;
+  margin-top: .75rem;
 }
 
 /* - */
