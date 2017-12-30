@@ -7,24 +7,26 @@ import Row from './row';
 export default class Table extends Component {
   state = {
     rows: [],
-    sortingKey: 'threat',
-    sortingDir: -1,
+    sorting: {
+      key: 'threat',
+      dir: -1
+    }
   };
 
-  updateSorting = (sortingKey) => {
-    if (sortingKey === this.state.sortingKey) {
-      this.setState({ sortingDir: this.state.sortingDir * -1 });
+  handleSort = key => {
+    if (key === this.state.sorting.key) {
+      this.setState({ sorting: { key, dir: this.state.sorting.dir * -1 } });
     } else {
-      this.setState({ sortingKey, sortingDir: -1 });
+      this.setState({ sorting: { key, dir: -1 } });
     }
   };
 
   compareRows = (a, b) => {
-    const { sortingKey, sortingDir } = this.state;
-    if (a[sortingKey] === b[sortingKey]) {
+    const { key, dir } = this.state.sorting;
+    if (a[key] === b[key]) {
       return 0;
     } else {
-      return (a[sortingKey] < b[sortingKey] ? -1 : 1) * sortingDir}
+      return (a[key] < b[key] ? -1 : 1) * dir}
   };
 
   updateRows(props) {
@@ -80,7 +82,7 @@ export default class Table extends Component {
     this.updateRows(props);
   }
 
-  render({}, { rows, sortingKey, sortingDir }) {
+  render({}, { rows, sorting }) {
     const sortedRows = rows.sort(this.compareRows).map((row) => {
       return (
         <Row {...row} />
@@ -88,38 +90,36 @@ export default class Table extends Component {
     });
 
     return (
-      <section class="paste">
-        <table class="table">
-          <thead>
-            <tr>
-              <Sortable sortingKey="characterName" style="width: 25%" activeSortingKey={sortingKey} activeSortingDir={sortingDir} onClick={this.updateSorting}>
-                Character
-              </Sortable>
-              <Sortable sortingKey="corporationName" style="width: 25%" activeSortingKey={sortingKey} activeSortingDir={sortingDir} onClick={this.updateSorting}>
-                Corporation
-              </Sortable>
-              <Sortable sortingKey="allianceName" style="width: 25%" activeSortingKey={sortingKey} activeSortingDir={sortingDir} onClick={this.updateSorting}>
-                Alliance
-              </Sortable>
-              <Sortable sortingKey="threat" style="text-align: center" activeSortingKey={sortingKey} activeSortingDir={sortingDir} onClick={this.updateSorting}>
-                <abbr title="Threat">T</abbr>
-              </Sortable>
-              <Sortable sortingKey="gangs" style="text-align: center" activeSortingKey={sortingKey} activeSortingDir={sortingDir} onClick={this.updateSorting}>
-                <abbr title="% of fights in gangs">G</abbr>
-              </Sortable>
-              <Sortable sortingKey="kills" style="text-align: right" activeSortingKey={sortingKey} activeSortingDir={sortingDir} onClick={this.updateSorting}>
-                <abbr title="Kills">K</abbr>
-              </Sortable>
-              <Sortable sortingKey="losses" activeSortingKey={sortingKey} activeSortingDir={sortingDir} onClick={this.updateSorting}>
-                <abbr title="Losses">L</abbr>
-              </Sortable>
-            </tr>
-          </thead>
-          <tbody>
-            {sortedRows}
-          </tbody>
-        </table>
-      </section>
+      <table class="table">
+        <thead>
+          <tr>
+            <Sortable sortKey="characterName" style="width: 25%" activeSorting={sorting} onSort={this.handleSort}>
+              Character
+            </Sortable>
+            <Sortable sortKey="corporationName" style="width: 25%" activeSorting={sorting} onSort={this.handleSort}>
+              Corporation
+            </Sortable>
+            <Sortable sortKey="allianceName" style="width: 25%" activeSorting={sorting} onSort={this.handleSort}>
+              Alliance
+            </Sortable>
+            <Sortable sortKey="threat" style="text-align: center" activeSorting={sorting} onSort={this.handleSort}>
+              <abbr title="Threat">T</abbr>
+            </Sortable>
+            <Sortable sortKey="gangs" style="text-align: center" activeSorting={sorting} onSort={this.handleSort}>
+              <abbr title="% of fights in gangs">G</abbr>
+            </Sortable>
+            <Sortable sortKey="kills" style="text-align: right" activeSorting={sorting} onSort={this.handleSort}>
+              <abbr title="Kills">K</abbr>
+            </Sortable>
+            <Sortable sortKey="losses" activeSorting={sorting} onSort={this.handleSort}>
+              <abbr title="Losses">L</abbr>
+            </Sortable>
+          </tr>
+        </thead>
+        <tbody>
+          {sortedRows}
+        </tbody>
+      </table>
     );
   }
 }

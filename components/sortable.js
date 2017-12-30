@@ -1,38 +1,39 @@
-import { Component } from 'preact';
-
-export default class Sortable extends Component {
-  get isActive() {
-    if (this.props.sortingKey === this.props.activeSortingKey) {
-      return this.props.activeSortingDir;
-    }
-    return false;
+const isActive = (key, sorting) => {
+  if (key === sorting.key) {
+    return sorting.dir;
   }
+  return false;
+};
 
-  get cue() {
-    switch (this.isActive) {
-      case 1:
-        return (<span class="table__sortable">↑</span>);
-      case -1:
-        return (<span class="table__sortable">↓</span>);
-    }
-  }
 
-  get classes() {
-    switch (this.isActive) {
-      case 1:
-        return 'table__sortable table__sortable--asc';
-      case -1:
-        return 'table__sortable table__sortable--desc';
-      default:
-        return 'table__sortable';
-    }
+const getArrow = (key, sorting) => {
+  switch (isActive(key, sorting)) {
+    case 1:
+      return (<span class="table__sortable">↑</span>);
+    case -1:
+      return (<span class="table__sortable">↓</span>);
   }
+};
 
-  render({ sortingKey, style, children, onClick, activeSortingKey, activeSortingDir }, {}) {
-    return (
-      <th class={this.classes} onClick={e => this.props.onClick(sortingKey)} style={style}>
-        {/text-align:\s*right/.exec(style) ? [this.cue, children] : [children, this.cue]}
-      </th>
-    );
+const getClasses = (key, sorting) => {
+  switch (isActive(key, sorting)) {
+    case 1:
+      return 'table__sortable table__sortable--asc';
+    case -1:
+      return 'table__sortable table__sortable--desc';
+    default:
+      return 'table__sortable';
   }
-}
+};
+
+const Sortable = ({ children, sortKey, activeSorting, style, onSort  }) => {
+  const arrow = getArrow(sortKey, activeSorting);
+  const classes = getClasses(sortKey, activeSorting);
+  return (
+    <th class={classes} style={style} onClick={e => onSort(sortKey)}>
+      {/text-align:\s*right/.exec(style) ? [arrow, children] : [children, arrow]}
+    </th>
+  );
+};
+
+export default Sortable;
