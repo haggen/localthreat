@@ -1,6 +1,7 @@
 import { Component } from 'preact';
 
 import EVE from '../lib/eve';
+import Sortable from './sortable';
 import Row from './row';
 
 export default class Table extends Component {
@@ -23,15 +24,7 @@ export default class Table extends Component {
     if (a[sortingKey] === b[sortingKey]) {
       return 0;
     } else {
-      return (a[sortingKey] < b[sortingKey] ? -1 : 1) * sortingDir;
-    }
-  };
-
-  getSortableClassFor = (sortingKey) => {
-    if (sortingKey === this.state.sortingKey) {
-      return 'table__sortable--active table__sortable--' + (this.state.sortingDir > 0 ? 'asc' : 'desc');
-    }
-    return '';
+      return (a[sortingKey] < b[sortingKey] ? -1 : 1) * sortingDir}
   };
 
   updateRows(props) {
@@ -95,45 +88,31 @@ export default class Table extends Component {
     });
 
     return (
-      <section class="table">
-        <table>
+      <section class="paste">
+        <table class="table">
           <thead>
             <tr>
-              <th style="width: 25%">
-                <a href="javascript:" class={`table__sortable ${this.getSortableClassFor('characterName')}`} onClick={(e) => this.updateSorting('characterName')}>
-                  Character
-                </a>
-              </th>
-              <th style="width: 25%">
-                <a href="javascript:" class={`table__sortable ${this.getSortableClassFor('corporationName')}`} onClick={(e) => this.updateSorting('corporationName')}>
-                  Corporation
-                </a>
-              </th>
-              <th style="width: 25%">
-                <a href="javascript:" class={`table__sortable ${this.getSortableClassFor('allianceName')}`} onClick={(e) => this.updateSorting('allianceName')}>
-                  Alliance
-                </a>
-              </th>
-              <th style="text-align: center">
-                <a href="javascript:" class={`table__sortable ${this.getSortableClassFor('threat')}`} onClick={(e) => this.updateSorting('threat')}>
-                  <abbr title="Threat">T</abbr>
-                </a>
-              </th>
-              <th style="text-align: center">
-                <a href="javascript:" class={`table__sortable ${this.getSortableClassFor('gangs')}`} onClick={(e) => this.updateSorting('gangs')}>
-                  <abbr title="% of fights in gangs">G</abbr>
-                </a>
-              </th>
-              <th style="text-align: right">
-                <a href="javascript:" class={`table__sortable ${this.getSortableClassFor('kills')}`} onClick={(e) => this.updateSorting('kills')}>
-                  <abbr title="Kills">K</abbr>
-                </a>
-              </th>
-              <th>
-                <a href="javascript:" class={`table__sortable ${this.getSortableClassFor('losses')}`} onClick={(e) => this.updateSorting('losses')}>
-                  <abbr title="Losses">L</abbr>
-                </a>
-              </th>
+              <Sortable sortingKey="characterName" style="width: 25%" activeSortingKey={sortingKey} activeSortingDir={sortingDir} onClick={this.updateSorting}>
+                Character
+              </Sortable>
+              <Sortable sortingKey="corporationName" style="width: 25%" activeSortingKey={sortingKey} activeSortingDir={sortingDir} onClick={this.updateSorting}>
+                Corporation
+              </Sortable>
+              <Sortable sortingKey="allianceName" style="width: 25%" activeSortingKey={sortingKey} activeSortingDir={sortingDir} onClick={this.updateSorting}>
+                Alliance
+              </Sortable>
+              <Sortable sortingKey="threat" style="text-align: center" activeSortingKey={sortingKey} activeSortingDir={sortingDir} onClick={this.updateSorting}>
+                <abbr title="Threat">T</abbr>
+              </Sortable>
+              <Sortable sortingKey="gangs" style="text-align: center" activeSortingKey={sortingKey} activeSortingDir={sortingDir} onClick={this.updateSorting}>
+                <abbr title="% of fights in gangs">G</abbr>
+              </Sortable>
+              <Sortable sortingKey="kills" style="text-align: right" activeSortingKey={sortingKey} activeSortingDir={sortingDir} onClick={this.updateSorting}>
+                <abbr title="Kills">K</abbr>
+              </Sortable>
+              <Sortable sortingKey="losses" activeSortingKey={sortingKey} activeSortingDir={sortingDir} onClick={this.updateSorting}>
+                <abbr title="Losses">L</abbr>
+              </Sortable>
             </tr>
           </thead>
           <tbody>
