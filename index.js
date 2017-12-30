@@ -17,7 +17,7 @@ export default class App extends Component {
     paste: [],
   };
 
-  onPaste = (e) => {
+  handlePaste = (e) => {
     const clipboard = e.clipboardData || window.clipboardData;
     const text = clipboard.getData('Text');
     if (!text) return;
@@ -32,7 +32,6 @@ export default class App extends Component {
 
   render({}, { notification, paste }) {
     return (
-      <main onPaste={this.onPaste}>
         {notification ? (<Notification text={notification} />) : ''}
         {paste.length ? (<Table rows={paste} />) : (<Welcome />)}
         <footer class="footer">
