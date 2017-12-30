@@ -21,12 +21,22 @@ export default class App extends Component {
     const clipboard = e.clipboardData || window.clipboardData;
     const text = clipboard.getData('Text');
     if (!text) return;
-    const paste = text.split("\n");
+    let paste = [];
+    const re = /<url=showinfo:13..\/\/.+?>(.+?)<\/url>/g;
+    if (text.match(re)) {
+      let match;
+      while (match = re.exec(text)) {
+        paste.push(match[1]);
+      }
+    } else {
+      paste = text.split("\n");
+    }
     let notification = '';
     if (paste.length > 500) {
       paste.splice(500);
       notification = `You pasted ${paste.length} names but it can only take up to 500.`;
     }
+    paste = paste.filter((value, i) => paste.indexOf(value) === i);
     this.setState({ paste, notification });
   };
 
