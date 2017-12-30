@@ -5,7 +5,6 @@ const isActive = (key, sorting) => {
   return false;
 };
 
-
 const getArrow = (key, sorting) => {
   switch (isActive(key, sorting)) {
     case 1:
@@ -26,7 +25,7 @@ const getClasses = (key, sorting) => {
   }
 };
 
-const Sortable = ({ children, sortKey, activeSorting, style, onSort  }) => {
+export const Sortable = ({ children, sortKey, activeSorting, style, onSort  }) => {
   const arrow = getArrow(sortKey, activeSorting);
   const classes = getClasses(sortKey, activeSorting);
   return (
@@ -35,5 +34,3 @@ const Sortable = ({ children, sortKey, activeSorting, style, onSort  }) => {
     </th>
   );
 };
-
-export default Sortable;
