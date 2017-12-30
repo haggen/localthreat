@@ -21,9 +21,7 @@ export default class App extends Component {
     const clipboard = e.clipboardData || window.clipboardData;
     const text = clipboard.getData('Text');
     if (!text) return;
-    const paste = text.split("\n").map((name) => {
-      return name;
-    });
+    const paste = text.split("\n");
     let notification = '';
     if (paste.length > 500) {
       paste.splice(500);
