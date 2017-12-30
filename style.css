@@ -126,6 +126,17 @@ a:hover {
 }
 
 .table td {
+  overflow-y: auto;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.table td {
+  overflow-y: -moz-scrollbars-none;
+}
+
+.table td::-webkit-scrollbar {
+  display: none;
 }
 
 .table tbody tr:first-child td {
