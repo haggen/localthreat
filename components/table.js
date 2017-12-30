@@ -5,28 +5,70 @@ import { Sortable } from './sortable';
 import { Row } from './row';
 
 export default class Table extends Component {
+  compareChar = (a, b) => {
+    return a.char.name.localeCompare(b.char.name) * this.state.sorting.dir;
+  };
+
+  compareCorp = (a, b) => {
+    return a.corp.name.localeCompare(b.corp.name) * this.state.sorting.dir;
+  };
+
+  compareAlly = (a, b) => {
+    return a.ally.name.localeCompare(b.ally.name) * this.state.sorting.dir;
+  };
+
+  compareDanger = (a, b) => {
+    return (a.danger == b.danger) ? 0 : (a.danger < b.danger ? -1 : 1) * this.state.sorting.dir;
+  };
+
+  compareGangs = (a, b) => {
+    return (a.gangs == b.gangs) ? 0 : (a.gangs < b.gangs ? -1 : 1) * this.state.sorting.dir;
+  };
+
+  compareKills = (a, b) => {
+    return (a.kills == b.kills) ? 0 : (a.kills < b.kills ? -1 : 1) * this.state.sorting.dir;
+  };
+
+  compareLosses = (a, b) => {
+    return (a.losses == b.losses) ? 0 : (a.losses < b.losses ? -1 : 1) * this.state.sorting.dir;
+  };
+
   state = {
     rows: [],
     sorting: {
-      key: 'threat',
-      dir: -1
+      key: 'danger',
+      dir: -1,
+      func: this.compareDanger,
     }
   };
 
   handleSort = key => {
-    if (key === this.state.sorting.key) {
-      this.setState({ sorting: { key, dir: this.state.sorting.dir * -1 } });
-    } else {
-      this.setState({ sorting: { key, dir: -1 } });
+    const dir = (key === this.state.sorting.key) ? this.state.sorting.dir * -1 : -1;
+    let func;
+    switch (key) {
+      case 'char':
+        func = this.compareChar;
+        break;
+      case 'corp':
+        func = this.compareCorp;
+        break;
+      case 'ally':
+        func = this.compareAlly;
+        break;
+      case 'danger':
+        func = this.compareDanger;
+        break;
+      case 'gangs':
+        func = this.compareGangs;
+        break;
+      case 'kills':
+        func = this.compareKills;
+        break;
+      case 'losses':
+        func = this.compareLosses;
+        break;
     }
-  };
-
-  compareRows = (a, b) => {
-    const { key, dir } = this.state.sorting;
-    if (a[key] === b[key]) {
-      return 0;
-    } else {
-      return (a[key] < b[key] ? -1 : 1) * dir}
+    this.setState({ sorting: { key, dir, func } });
   };
 
   refreshRows = _ => {
@@ -47,9 +89,9 @@ export default class Table extends Component {
   }
 
   render({}, { rows, sorting }) {
-    const sortedRows = rows.sort(this.compareRows).map((row) => {
+    const sortedRows = rows.sort(sorting.func).map((row) => {
       return (
-        <Row {...row} />
+        <Row key={row.char.name} {...row} />
       );
     });
 
