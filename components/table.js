@@ -103,7 +103,7 @@ export default class Table extends Component {
               Alliance
             </Sortable>
             <Sortable sortKey="threat" style="text-align: center" activeSorting={sorting} onSort={this.handleSort}>
-              <abbr title="Threat">T</abbr>
+              <abbr title="Danger level">D</abbr>
             </Sortable>
             <Sortable sortKey="gangs" style="text-align: center" activeSorting={sorting} onSort={this.handleSort}>
               <abbr title="% of fights in gangs">G</abbr>
