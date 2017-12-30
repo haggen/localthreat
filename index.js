@@ -34,7 +34,7 @@ export default class App extends Component {
     return (
       <main onPaste={this.handlePaste}>
         {notification ? (<Notification>{notification}</Notification>) : null}
-        {paste.length ? (<Table rows={paste} />) : (<Welcome />)}
+        {paste.length ? (<Table paste={paste} />) : (<Welcome />)}
         <footer class="footer">
           <p class="footer__legal-1"><a href="https://localthreat.xyz">localthreat.xyz</a> &copy; 2017 Arthur Corenzan &middot; <a href="https://github.com/haggen/localthreat" target="blank" rel="noopener noreferrer">GitHub</a> &middot; Data provided by <a href="https://esi.tech.ccp.is/latest/" target="blank" rel="noopener noreferrer">ESI</a> and <a href="https://zkillboard.com/" target="blank" rel="noopener noreferrer">zKillboard</a> &middot; Tips go to <a href="https://zkillboard.com/character/95036967/" target="blank" rel="noopener noreferrer">Jason Chorant</a></p>
           <p class="footer__legal-2">EVE Online and the EVE logo are the registered trademarks of CCP hf. All rights are reserved worldwide. All other trademarks are the property of their respective owners. EVE Online, the EVE logo, EVE and all associated logos and designs are the intellectual property of CCP hf. All artwork, screenshots, characters, vehicles, storylines, world facts or other recognizable features of the intellectual property relating to these trademarks are likewise the intellectual property of CCP hf.</p>
