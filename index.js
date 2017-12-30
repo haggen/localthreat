@@ -32,7 +32,8 @@ export default class App extends Component {
 
   render({}, { notification, paste }) {
     return (
-        {notification ? (<Notification text={notification} />) : ''}
+      <main onPaste={this.handlePaste}>
+        {notification ? (<Notification>{notification}</Notification>) : null}
         {paste.length ? (<Table rows={paste} />) : (<Welcome />)}
         <footer class="footer">
           <p class="footer__legal-1"><a href="https://localthreat.xyz">localthreat.xyz</a> &copy; 2017 Arthur Corenzan &middot; <a href="https://github.com/haggen/localthreat" target="blank" rel="noopener noreferrer">GitHub</a> &middot; Data provided by <a href="https://esi.tech.ccp.is/latest/" target="blank" rel="noopener noreferrer">ESI</a> and <a href="https://zkillboard.com/" target="blank" rel="noopener noreferrer">zKillboard</a> &middot; Tips go to <a href="https://zkillboard.com/character/95036967/" target="blank" rel="noopener noreferrer">Jason Chorant</a></p>
