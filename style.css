@@ -3,9 +3,6 @@ html {
 }
 
 body {
-  color: black;
-  font-family: sans-serif;
-  line-height: 1.5;
   padding: 1.5rem 3rem;
 }
 
@@ -25,7 +22,7 @@ a:hover {
 
 .welcome {
   margin: 3rem auto;
-  max-width: 33rem;
+  max-width: 27rem;
   padding: 1.5rem;
   text-align: center;
 }
@@ -42,9 +39,10 @@ a:hover {
 /* - */
 /* - */
 
+
+
 .notification {
   background-color: orangered;
-  border-radius: 3px;
   color: white;
   display: flex;
   align-items: center;
@@ -59,7 +57,6 @@ a:hover {
 .notification__icon {
   background-color: white;
   color: orangered;
-  border-radius: 1px;
   display: inline-block;
   flex: 0 0 32px;
   font-size: 1.5em;
@@ -79,15 +76,17 @@ a:hover {
 /* - */
 
 .entity {
-  display: flex;
   align-items: center;
+  display: inline-flex;
+}
+
+.entity + .entity {
+  margin-left: 1px;
 }
 
 .entity__picture {
-  background-color: #333;
-  border-radius: 3px;
+  background-color: #111;
   flex: 0 0 32px;
-  margin-right: .5rem;
   overflow: hidden;
 }
 
@@ -96,7 +95,8 @@ a:hover {
 }
 
 .entity__name {
-  flex: 1 0 auto;
+  flex: 0 1 100%;
+  margin: 0 1.5rem 0 .5rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -107,25 +107,15 @@ a:hover {
 /* - */
 
 .table {
-  margin-top: .75rem;
-}
-
-.table table {
-  border-bottom: 1px solid gainsboro;
   table-layout: fixed;
   width: 100%;
-}
-
-.table tr:last-child td {
-}
-
-.table thead th {
-  border-bottom: 1px solid gainsboro;
 }
 
 .table th,
 .table td {
   padding: .25rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .table th {
@@ -135,33 +125,33 @@ a:hover {
 }
 
 .table td {
-  /* border-top: 1px solid gainsboro; */
+}
+
+.table tbody tr:first-child td {
+  border-top: 1px solid gainsboro;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: 1px solid gainsboro;
 }
 
 .table tbody tr:nth-child(2n+1) td {
   background-color: whitesmoke;
 }
 
+.table tbody tr:hover td {
+  box-shadow:
+}
+
 .table__sortable {
-  color: inherit;
+  cursor: pointer;
+  user-select: none;
 }
 
-.table__sortable--active {
+.table__sortable:hover,
+.table__sortable.table__sortable--asc,
+.table__sortable.table__sortable--desc {
   color: black;
-}
-
-.table__sortable--active::after {
-  display: inline;
-  content: '';
-  margin-left: .25rem;
-}
-
-.table__sortable--asc::after {
-  content: '↑';
-}
-
-.table__sortable--desc::after {
-  content: '↓';
 }
 
 /* - */
