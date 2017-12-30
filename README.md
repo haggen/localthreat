@@ -1,7 +1,5 @@
-<center>
-<h1>localthreat</h1>
-<p>Paste your Local to get affiliations and combat stats.</p>
-</center>
+<h1 align="center">localthreat</h1>
+<p align="center">Paste your Local and get characters affiliations and PvP stats.</p>
 
 ---
 
