@@ -78,6 +78,7 @@ a:hover {
 .entity {
   align-items: center;
   display: inline-flex;
+  max-width: 100%;
 }
 
 .entity + .entity {
@@ -91,12 +92,12 @@ a:hover {
 }
 
 .entity__picture__img {
-  display: inline;
+  display: block;
 }
 
 .entity__name {
-  flex: 0 1 100%;
-  margin: 0 1.5rem 0 .5rem;
+  flex: 0 1 auto;
+  margin: 0 .5rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

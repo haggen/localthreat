@@ -99,25 +99,28 @@ export default class Table extends Component {
       <table class="table">
         <thead>
           <tr>
-            <Sortable sortKey="char" style="width: 25%" activeSorting={sorting} onSort={this.handleSort}>
+            <Sortable sortKey="char" style="width: 20%" activeSorting={sorting} onSort={this.handleSort}>
               Character
             </Sortable>
-            <Sortable sortKey="corp" style="width: 25%" activeSorting={sorting} onSort={this.handleSort}>
+            <Sortable sortKey="corp" style="width: 20%" activeSorting={sorting} onSort={this.handleSort}>
               Corporation
             </Sortable>
-            <Sortable sortKey="ally" style="width: 25%" activeSorting={sorting} onSort={this.handleSort}>
+            <Sortable sortKey="ally" style="width: 20%" activeSorting={sorting} onSort={this.handleSort}>
               Alliance
             </Sortable>
-            <Sortable sortKey="danger" style="text-align: center" activeSorting={sorting} onSort={this.handleSort}>
+            <th>
+              <abbr title="Top used ships recently">Ships</abbr>
+            </th>
+            <Sortable sortKey="danger" style="width: 4rem; text-align: center" activeSorting={sorting} onSort={this.handleSort}>
               <abbr title="Danger level">D</abbr>
             </Sortable>
-            <Sortable sortKey="gangs" style="text-align: center" activeSorting={sorting} onSort={this.handleSort}>
+            <Sortable sortKey="gangs" style="width: 4rem; text-align: center" activeSorting={sorting} onSort={this.handleSort}>
               <abbr title="% of fights in gangs">G</abbr>
             </Sortable>
-            <Sortable sortKey="kills" style="text-align: right" activeSorting={sorting} onSort={this.handleSort}>
+            <Sortable sortKey="kills" style="width: 4rem; text-align: right" activeSorting={sorting} onSort={this.handleSort}>
               <abbr title="Kills">K</abbr>
             </Sortable>
-            <Sortable sortKey="losses" activeSorting={sorting} onSort={this.handleSort}>
+            <Sortable sortKey="losses" style="width: 4rem"activeSorting={sorting} onSort={this.handleSort}>
               <abbr title="Losses">L</abbr>
             </Sortable>
           </tr>

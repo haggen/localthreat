@@ -12,7 +12,7 @@ const ratioToColor = ratio => {
   return `rgb(${r}, ${g}, 69)`;
 };
 
-export const Row = ({ char, corp, ally, danger, gangs, kills, losses }, {}) => {
+export const Row = ({ char, corp, ally, ships, danger, gangs, kills, losses }, {}) => {
   return (
     <tr>
       <td>
@@ -23,6 +23,9 @@ export const Row = ({ char, corp, ally, danger, gangs, kills, losses }, {}) => {
       </td>
       <td>
         <Entity type="ally" {...ally} />
+      </td>
+      <td>
+        {ships.map((ship) => (<Entity type="type" {...ship} />))}
       </td>
       <td style={`text-align: center; color: ${ratioToColor(danger)}`}>
         {danger ? `${danger}%` : '-'}
