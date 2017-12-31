@@ -29,7 +29,7 @@ export const Entity = ({ type, id, name }) => {
   return (
     <a href={getEntityURL(type, id)} class="entity" target="blank" rel="noopener noreferrer">
       <figure class="entity__picture">
-        <img src={getImageSrc(type, id)} width="28" height="28" alt={name} title={name} />
+        <img src={getImageSrc(type, id)} width="32" height="32" alt={name} title={name} />
       </figure>
       {type === 'type' ? '' : (<span class="entity__name">
         {name}

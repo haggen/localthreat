@@ -1,13 +1,12 @@
-@import url('https://fonts.googleapis.com/css?family=Archivo:400,600');
+@import url('https://fonts.googleapis.com/css?family=Pangolin');
 
 html {
-  font-size: 14px;
+  font-size: 16px;
 }
 
 body {
-  background-color: white;
-  color: #333;
-  font-family: Archivo, sans-serif;
+  color: #444;
+  font-family: Pangolin, sans-serif;
 }
 
 a {
@@ -24,7 +23,7 @@ abbr[title] {
 }
 
 strong {
-  font-weight: 600;
+  font-weight: 400;
 }
 
 /* - */
@@ -40,9 +39,8 @@ strong {
 /* - */
 
 .brand {
-  border-bottom: 1px solid whitesmoke;
-  color: silver;
-  font-weight: 600;
+  box-shadow: 0 1px rgba(0, 50, 75, .05);
+  color: gray;
   text-align: center;
 }
 
@@ -124,7 +122,7 @@ strong {
 
 .entity__picture {
   background-color: #111;
-  border-radius: 3px;
+  /* border-radius: 3px; */
   flex: 0 0 auto;
   overflow: hidden;
 }
@@ -146,8 +144,8 @@ strong {
 /* - */
 
 .table {
-  border-spacing: 0;
   border-collapse: separate;
+  border-spacing: 0;
   margin-top: 1.5rem;
   table-layout: fixed;
   width: 100%;
@@ -162,7 +160,6 @@ strong {
 
 .table th {
   color: gray;
-  font-weight: 600;
   text-align: left;
 }
 
@@ -181,21 +178,20 @@ strong {
 }
 
 .table tbody tr:nth-child(2n+1) td {
-  background-color: whitesmoke;
+  background-color: rgba(0, 50, 75, .05);
 }
 
 .table tbody td:first-child {
-  border-radius: 5px 0 0 5px;
+  /* border-radius: 5px 0 0 5px; */
 }
 
 .table tbody td:last-child {
-  border-radius: 0 5px 5px 0;
+  /* border-radius: 0 5px 5px 0; */
 }
 
 .table__sortable {
   cursor: pointer;
   user-select: none;
-  transition: color .125s;
 }
 
 .table__sortable:hover,
@@ -211,10 +207,6 @@ strong {
 .footer {
   margin-top: 3rem;
   text-align: center;
-}
-
-.footer a {
-  text-decoration: underline;
 }
 
 .footer__legal-1 {
