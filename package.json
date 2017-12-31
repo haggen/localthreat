@@ -25,8 +25,8 @@
   },
   "dependencies": {
     "firebase": "^4.8.1",
-    "hashids": "^1.1.4",
     "preact": "^8.2.1",
-    "preact-compat": "^3.17.0"
+    "preact-compat": "^3.17.0",
+    "shortid": "^2.2.8"
   }
 }
