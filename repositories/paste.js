@@ -1,7 +1,5 @@
-import Hashids from 'hashids';
+import shortid from 'shortid';
 import firebase from 'firebase';
-
-const hashids = new Hashids('localthreat');
 
 const database = firebase.initializeApp({
   apiKey: 'AIzaSyCbVpgZHW9LE38m9J0YM3Tmrfob5rnqR9c',
@@ -9,29 +7,24 @@ const database = firebase.initializeApp({
 });
 
 export const PasteRepository = {
-  fetch(hashid) {
-    return new Promise((resolve, reject) => {
-      const id = hashids.decode(hashid);
-      const paste = localStorage.getItem(`paste-${id}`);
-      if (!paste) {
-        reject(null);
-      } else {
-        resolve(JSON.parse(paste));
-      }
+  fetch(id) {
+    const ref = firebase.database().ref(`pastes/${id}`);
+    return ref.once('value').then(snapshot => {
+      return snapshot.val();
     });
   },
 
   create(contents) {
-    return new Promise((resolve, reject) => {
-      const id = parseInt(localStorage.getItem(`paste-count`) || 1, 10);
-      const paste = { id: hashids.encode(id), timestamp: Date.now(), contents };
-      localStorage.setItem(`paste-${id}`, JSON.stringify(paste));
-      localStorage.setItem(`paste-count`, id + 1);
-      resolve(paste);
+    const id = shortid.generate();
+    const ref = firebase.database().ref(`pastes/${id}`);
+    const paste = { id, timestamp: Date.now(), contents };
+    return ref.set(paste).then(_ => {
+      return paste;
     });
   },
 
   update(hashid, update) {
+    // TODO: still reading/writing to local storage.
     return this.fetch(hashid).then(paste => {
       Object.assign(paste, update);
       const id = hashids.decode(hashid);
