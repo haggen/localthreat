@@ -81,11 +81,11 @@ export default class Table extends Component {
   };
 
   componentDidMount() {
-    this.updateRows(this.props.paste);
+    this.updateRows(this.props.paste.contents);
   }
 
   componentWillReceiveProps(props) {
-    this.updateRows(props.paste);
+    this.updateRows(props.paste.contents);
   }
 
   render({}, { rows, sorting }) {
