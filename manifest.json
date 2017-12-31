@@ -1,6 +1,6 @@
 {
-  "name": "localthreat.xyz",
-  "short_name": "localthreat.xyz",
+  "name": "localthreat",
+  "short_name": "localthreat",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
