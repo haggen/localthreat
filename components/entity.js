@@ -25,6 +25,7 @@ const getImageSrc = (type, id) => {
 };
 
 export const Entity = ({ type, id, name }) => {
+  if (id === null) return null;
   return (
     <a href={getEntityURL(type, id)} class="entity" target="blank" rel="noopener noreferrer">
       <figure class="entity__picture">

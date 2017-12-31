@@ -102,6 +102,7 @@ export const EntryRepository = {
       getCharacterAffiliation(entry.char.id).then((affiliation) => {
         entry.corp.id = affiliation[0];
         if (affiliation.length > 1) entry.ally.id = affiliation[1];
+        else entry.ally.id = null;
 
         getNames(affiliation).then((names) => {
           entry.corp.name = names[0];
