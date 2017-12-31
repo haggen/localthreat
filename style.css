@@ -6,14 +6,17 @@ html {
 
 body {
   background-color: white;
-  color: #222;
+  color: #333;
   font-family: Archivo, sans-serif;
 }
 
 a {
-  color: black;
+  color: inherit;
   text-decoration: none;
-  transition: color .125s;
+}
+
+a:hover {
+  color: black;
 }
 
 abbr[title] {
@@ -38,7 +41,7 @@ strong {
 
 .brand {
   border-bottom: 1px solid whitesmoke;
-  color: gray;
+  color: silver;
   font-weight: 600;
   text-align: center;
 }
@@ -122,14 +125,8 @@ strong {
 .entity__picture {
   background-color: #111;
   border-radius: 3px;
-  flex: 0 0 32px;
-  opacity: .75;
+  flex: 0 0 auto;
   overflow: hidden;
-  transition: opacity .125s;
-}
-
-.entity:hover .entity__picture {
-  opacity: 1;
 }
 
 .entity__picture__img {
@@ -216,13 +213,17 @@ strong {
   text-align: center;
 }
 
+.footer a {
+  text-decoration: underline;
+}
+
 .footer__legal-1 {
-  color: dimgray;
+  color: gray;
   font-size: .875em;
 }
 
 .footer__legal-2 {
-  color: gray;
+  color: darkgray;
   font-size: .75em;
   margin-top: .75rem;
 }
