@@ -1,18 +1,27 @@
+@import url('https://fonts.googleapis.com/css?family=Archivo:400,600');
+
 html {
-  font-size: 16px;
+  font-size: 14px;
 }
 
 body {
+  background-color: white;
+  color: #222;
+  font-family: Archivo, sans-serif;
 }
 
 a {
-  color: mediumblue;
+  color: black;
+  text-decoration: none;
+  transition: color .125s;
+}
+
+abbr[title] {
   text-decoration: none;
 }
 
-a:hover {
-  color: blue;
-  text-decoration: underline;
+strong {
+  font-weight: 600;
 }
 
 /* - */
@@ -29,8 +38,8 @@ a:hover {
 
 .brand {
   border-bottom: 1px solid whitesmoke;
-  color: silver;
-  /* font-size: 1.25em; */
+  color: gray;
+  font-weight: 600;
   text-align: center;
 }
 
@@ -42,7 +51,6 @@ a:hover {
 
 .brand a:hover {
   color: black;
-  text-decoration: none;
 }
 
 /* - */
@@ -108,13 +116,20 @@ a:hover {
 }
 
 .entity + .entity {
-  margin-left: 1px;
+  margin-left: 2px;
 }
 
 .entity__picture {
   background-color: #111;
+  border-radius: 3px;
   flex: 0 0 32px;
+  opacity: .75;
   overflow: hidden;
+  transition: opacity .125s;
+}
+
+.entity:hover .entity__picture {
+  opacity: 1;
 }
 
 .entity__picture__img {
@@ -134,6 +149,8 @@ a:hover {
 /* - */
 
 .table {
+  border-spacing: 0;
+  border-collapse: separate;
   margin-top: 1.5rem;
   table-layout: fixed;
   width: 100%;
@@ -148,7 +165,7 @@ a:hover {
 
 .table th {
   color: gray;
-  font-weight: bolder;
+  font-weight: 600;
   text-align: left;
 }
 
@@ -166,31 +183,28 @@ a:hover {
   display: none;
 }
 
-.table tbody tr:first-child td {
-  border-top: 1px solid gainsboro;
-}
-
-.table tbody tr:last-child td {
-  border-bottom: 1px solid gainsboro;
-}
-
 .table tbody tr:nth-child(2n+1) td {
   background-color: whitesmoke;
 }
 
-.table tbody tr:hover td {
-  box-shadow:
+.table tbody td:first-child {
+  border-radius: 5px 0 0 5px;
+}
+
+.table tbody td:last-child {
+  border-radius: 0 5px 5px 0;
 }
 
 .table__sortable {
   cursor: pointer;
   user-select: none;
+  transition: color .125s;
 }
 
 .table__sortable:hover,
 .table__sortable.table__sortable--asc,
 .table__sortable.table__sortable--desc {
-  color: black;
+  color: inherit;
 }
 
 /* - */
@@ -198,7 +212,7 @@ a:hover {
 /* - */
 
 .footer {
-  margin-top: 1.5rem;
+  margin-top: 3rem;
   text-align: center;
 }
 
@@ -208,7 +222,7 @@ a:hover {
 }
 
 .footer__legal-2 {
-  color: darkgray;
+  color: gray;
   font-size: .75em;
   margin-top: .75rem;
 }
