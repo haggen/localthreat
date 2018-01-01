@@ -7,8 +7,9 @@ import Table from './components/table';
 
 import { PasteRepository } from './repositories/paste';
 
-import './resetize';
-import './style';
+import './stylesheets/resetize';
+import './stylesheets/style';
+import './stylesheets/mobile';
 
 ReactGA.initialize('UA-111407712-1');
 
@@ -66,12 +67,14 @@ export default class App extends Component {
     return (
       <main class="main" onPaste={this.handlePaste}>
         <h1 class="brand">
-          <a href="/">localthreat</a>
+          <a href="/">
+            <span class="plate">localthreat</span>
+          </a>
         </h1>
         <Notification>{notification}</Notification>
         {paste ? (<Table paste={paste} />) : (<Welcome />)}
         <footer class="footer">
-          <p class="footer__legal-1">&copy; 2017 Arthur Corenzan &middot; <a href="https://github.com/haggen/localthreat" target="blank" rel="noopener noreferrer">GitHub</a> &middot; Data provided by <a href="https://esi.tech.ccp.is/latest/" target="blank" rel="noopener noreferrer">ESI</a> and <a href="https://zkillboard.com/" target="blank" rel="noopener noreferrer">zKillboard</a> &middot; Tips go to <a href="https://zkillboard.com/character/95036967/" target="blank" rel="noopener noreferrer">Jason Chorant</a></p>
+          <p class="footer__legal-1">&copy; 2017 Arthur Corenzan &middot; <a href="https://github.com/haggen/localthreat" target="blank" rel="noopener noreferrer"><span class="plate">GitHub</span></a> &middot; Data provided by <a href="https://esi.tech.ccp.is/latest/" target="blank" rel="noopener noreferrer"><span class="plate">ESI</span></a> and <a href="https://zkillboard.com/" target="blank" rel="noopener noreferrer"><span class="plate">zKillboard</span></a> &middot; Tips go to <a href="https://zkillboard.com/character/95036967/" target="blank" rel="noopener noreferrer"><span class="plate">Jason Chorant</span></a></p>
           <p class="footer__legal-2">EVE Online and the EVE logo are the registered trademarks of CCP hf. All rights are reserved worldwide. All other trademarks are the property of their respective owners. EVE Online, the EVE logo, EVE and all associated logos and designs are the intellectual property of CCP hf. All artwork, screenshots, characters, vehicles, storylines, world facts or other recognizable features of the intellectual property relating to these trademarks are likewise the intellectual property of CCP hf.</p>
         </footer>
       </main>

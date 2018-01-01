@@ -1,14 +1,16 @@
+@import "https://fonts.googleapis.com/css?family=Saira+Semi+Condensed:400,500";
+
 html {
   font-size: 16px;
 }
 
 body {
-  color: #333;
-  font-family: sans-serif;
+  color: #111;
+  font-family: Saira Semi Condensed, sans-serif;
 }
 
 a {
-  color: #333;
+  color: inherit;
   text-decoration: none;
 }
 
@@ -21,7 +23,20 @@ abbr[title] {
 }
 
 strong {
-  font-weight: bold;
+  font-weight: 500;
+}
+
+/* - */
+/* - */
+/* - */
+
+.plate {
+  border-radius: 3px;
+  padding: 0 .25em;
+}
+
+:hover > .plate {
+  background-color: rgba(0, 0, 50, .05);
 }
 
 /* - */
@@ -37,8 +52,9 @@ strong {
 /* - */
 
 .brand {
-  box-shadow: 0 1px whitesmoke;
+  box-shadow: 0 1px rgba(0, 0, 50, .05);
   color: gray;
+  font-weight: 500;
   text-align: center;
 }
 
@@ -79,7 +95,7 @@ strong {
   color: white;
   display: flex;
   align-items: center;
-  font-weight: bold;
+  font-weight: 500;
   max-width: 100%;
   overflow: hidden;
   padding: .25rem;
@@ -110,6 +126,7 @@ strong {
 
 .entity {
   align-items: center;
+  border-radius: 3px;
   display: inline-flex;
   max-width: 100%;
 }
@@ -120,6 +137,7 @@ strong {
 
 .entity__picture {
   background-color: #111;
+  border-radius: 3px;
   flex: 0 0 auto;
   overflow: hidden;
 }
@@ -151,17 +169,20 @@ strong {
 .table th,
 .table td {
   padding: .25rem;
+  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .table th {
   color: gray;
+  font-weight: 500;
   text-align: left;
 }
 
 .table td {
-  overflow-y: auto;
+  -webkit-scrollbar: touch;
+  overflow-x: scroll;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -174,8 +195,29 @@ strong {
   display: none;
 }
 
+.table td:first-child {
+  border-radius: 3px 0 0 3px;
+}
+
+.table td:last-child {
+  border-radius: 0 3px 3px 0;
+}
+
 .table tbody tr:nth-child(2n+1) td {
-  background-color: whitesmoke;
+  background-color: #f9f9f9;
+}
+
+.table tbody tr:hover td {
+  background-color: #e9ebee;
+  box-shadow: 0 1px #e9ebee, 0 -1px #e9ebee;
+}
+
+.table tbody tr:hover td:first-child {
+  box-shadow: 0 1px #e9ebee, 0 -1px #e9ebee, -1px 0 #e9ebee;
+}
+
+.table tbody tr:hover td:last-child {
+  box-shadow: 0 1px #e9ebee, 0 -1px #e9ebee, 1px 0 #e9ebee;
 }
 
 .table__sortable {
@@ -201,6 +243,10 @@ strong {
 .footer__legal-1 {
   color: dimgray;
   font-size: .875em;
+}
+
+.footer__legal-1 a {
+  color: #111;
 }
 
 .footer__legal-2 {
