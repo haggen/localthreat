@@ -61,7 +61,7 @@ strong {
 .brand a {
   color: inherit;
   display: inline-block;
-  padding: 1.125rem;
+  padding: .75rem 1.125rem;
 }
 
 .brand a:hover {
