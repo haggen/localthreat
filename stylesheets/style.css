@@ -143,7 +143,7 @@ strong {
 }
 
 .entity__picture__img {
-  display: block;
+  display: inline-block;
 }
 
 .entity__name {
