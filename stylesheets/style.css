@@ -143,7 +143,7 @@ strong {
 }
 
 .entity__picture__img {
-  display: inline-block;
+  display: inline;
 }
 
 .entity__name {
@@ -169,8 +169,6 @@ strong {
 .table th,
 .table td {
   padding: .25rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
@@ -178,17 +176,16 @@ strong {
   color: gray;
   font-weight: 500;
   text-align: left;
+  text-overflow: ellipsis;
 }
 
 .table td {
   -webkit-scrollbar: touch;
-  overflow-x: scroll;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow: scroll;
 }
 
 .table td {
-  overflow-y: -moz-scrollbars-none;
+  overflow: -moz-scrollbars-none;
 }
 
 .table td::-webkit-scrollbar {
