@@ -10,6 +10,7 @@ import { PasteRepository } from './repositories/paste';
 import './stylesheets/resetize';
 import './stylesheets/style';
 import './stylesheets/small';
+import './stylesheets/large';
 
 ReactGA.initialize('UA-111407712-1');
 
