@@ -16,6 +16,7 @@ ReactGA.initialize('UA-111407712-1');
 
 export default class App extends Component {
   state = {
+    loading: false,
     notification: null,
     paste: null,
   };
@@ -24,6 +25,7 @@ export default class App extends Component {
     const clipboard = e.clipboardData || window.clipboardData;
     const text = clipboard.getData('Text');
     if (!text) return;
+    this.setState({ loading: true });
     let contents = [];
     const re = /<url=showinfo:13..\/\/.+?>(.+?)<\/url>/g;
     if (text.match(re)) {
@@ -41,16 +43,17 @@ export default class App extends Component {
     }
     contents = contents.filter((value, i) => contents.indexOf(value) === i);
     PasteRepository.create(contents).then(paste => {
-      this.setState({ paste, notification });
+      this.setState({ paste, notification, loading: false });
     });
   };
 
   componentDidMount() {
     if (location.pathname != '/') {
+      this.setState({ loading: true });
       PasteRepository.fetch(location.pathname.substr(1)).then(paste => {
-        this.setState({ paste });
+        this.setState({ paste, loading: false });
       }).catch(_ => {
-        this.setState({ notification: (<p>Couldn't find the scan you requested.</p>) });
+        this.setState({ notification: (<p>Couldn't find the scan you requested.</p>), loading: false });
       });
     } else {
       ReactGA.pageview(location.pathname);
@@ -64,9 +67,9 @@ export default class App extends Component {
     }
   }
 
-  render({}, { notification, paste }) {
+  render({}, { notification, paste, loading }) {
     return (
-      <main class="main" onPaste={this.handlePaste}>
+      <main class={`main${loading ? ' main--loading' : ''}`} onPaste={this.handlePaste}>
         <h1 class="brand">
           <a href="/">
             <span class="plate">localthreat</span>

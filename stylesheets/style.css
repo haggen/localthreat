@@ -47,6 +47,11 @@ strong {
   margin: 0 3rem 3rem;
 }
 
+.main--loading {
+  opacity: 0.25;
+  transition: opacity .5s;
+}
+
 /* - */
 /* - */
 /* - */
