@@ -45,11 +45,12 @@ strong {
 
 .main {
   margin: 0 3rem 3rem;
+  transition: opacity .25s .125s;
 }
 
 .main--loading {
   opacity: 0.25;
-  transition: opacity .5s;
+  transition-delay: 0;
 }
 
 /* - */
