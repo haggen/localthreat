@@ -212,15 +212,9 @@ strong {
 
 .table tbody tr:hover td {
   background-color: #e9ebee;
-  box-shadow: 0 1px #e9ebee, 0 -1px #e9ebee;
-}
-
-.table tbody tr:hover td:first-child {
-  box-shadow: 0 1px #e9ebee, 0 -1px #e9ebee, -1px 0 #e9ebee;
-}
-
-.table tbody tr:hover td:last-child {
-  box-shadow: 0 1px #e9ebee, 0 -1px #e9ebee, 1px 0 #e9ebee;
+  box-shadow: 0 0 0 2px #e9ebee;
+  position: relative;
+  z-index: 1;
 }
 
 .table__sortable {
