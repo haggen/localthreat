@@ -76,7 +76,7 @@ export default class Table extends Component {
   };
 
   updateRows = paste => {
-    const rows = paste.map(name => EntryRepository.fetch(name, this.refreshRows));
+    const rows = EntryRepository.fetch(paste, this.refreshRows);
     this.setState({ rows });
   };
 

@@ -58,6 +58,13 @@ const getAlliance = id => {
   });
 };
 
+const getIDs = names => {
+  const path = 'universe/ids/';
+  const method = 'POST';
+  const body = JSON.stringify(names);
+  return esi(path, { method, body });
+};
+
 const getNames = ids => {
   const path = 'universe/names/';
   const method = 'POST';
@@ -73,64 +80,71 @@ const getNames = ids => {
 };
 
 export const EntryRepository = {
-  fetch(name, callback) {
-    const entry = {
-      char: {
-        name,
-        id: 0
-      },
-      corp: {
-        id: 0,
-        name: '',
-      },
-      ally: {
-        id: 0,
-        name: '',
-      },
-      ships: [],
-      danger: 0,
-      gangs: 0,
-      kills: 0,
-      losses: 0
-    };
+  fetch(names, callback) {
+    const entries = names.map(name => {
+      return {
+        char: {
+          name,
+          id: 0
+        },
+        corp: {
+          id: 0,
+          name: '',
+        },
+        ally: {
+          id: 0,
+          name: '',
+        },
+        ships: [],
+        danger: 0,
+        gangs: 0,
+        kills: 0,
+        losses: 0
+      };
+    });
 
-    queryIDs(name, 'character', true).then((ids) => {
-      if (!ids.character) return;
-      entry.char.id = ids.character[0];
-      callback();
+    getIDs(names).then(results => {
+      if (!results.characters) return;
+      results.characters.forEach(character => {
+        const entry = entries.find(entry => entry.char.name === character.name);
+        if (!entry) return;
 
-      getCharacterAffiliation(entry.char.id).then((affiliation) => {
-        entry.corp.id = affiliation[0];
-        if (affiliation.length > 1) entry.ally.id = affiliation[1];
-        else entry.ally.id = null;
+        entry.char.id = character.id;
 
-        getNames(affiliation).then((names) => {
-          entry.corp.name = names[0];
-          if (names.length > 1) entry.ally.name = names[1];
+        getCharacterAffiliation(entry.char.id).then((affiliation) => {
+          entry.corp.id = affiliation[0];
+          if (affiliation.length > 1) entry.ally.id = affiliation[1];
+          else entry.ally.id = null;
+
+          getNames(affiliation).then((names) => {
+            entry.corp.name = names[0];
+            if (names.length > 1) entry.ally.name = names[1];
+            callback();
+          });
+        });
+
+        getCharacterKillboard(entry.char.id).then((zkb) => {
+          if (!zkb) return;
+          entry.danger = zkb.dangerRatio || 0;
+          entry.gangs = zkb.gangRatio || 0;
+          entry.kills = zkb.shipsDestroyed || 0;
+          entry.losses = zkb.shipsLost || 0;
+          if (zkb.topLists) {
+            const ships = zkb.topLists.find(list => {
+              return list.type === 'shipType';
+            });
+            if (ships) {
+              entry.ships = ships.values.map(({ id, name }) => {
+                return { id, name };
+              });
+            }
+          }
           callback();
         });
       });
-
-      getCharacterKillboard(entry.char.id).then((zkb) => {
-        if (!zkb) return;
-        entry.danger = zkb.dangerRatio || 0;
-        entry.gangs = zkb.gangRatio || 0;
-        entry.kills = zkb.shipsDestroyed || 0;
-        entry.losses = zkb.shipsLost || 0;
-        if (zkb.topLists) {
-          const ships = zkb.topLists.find(list => {
-            return list.type === 'shipType';
-          });
-          if (ships) {
-            entry.ships = ships.values.map(({ id, name }) => {
-              return { id, name };
-            });
-          }
-        }
-        callback();
-      });
+      callback();
     });
 
-    return entry;
+    return entries;
   }
 };
