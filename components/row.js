@@ -16,16 +16,16 @@ export const Row = ({ char, corp, ally, ships, danger, gangs, kills, losses }, {
   return (
     <tr>
       <td>
-        <Entity type="char" {...char} />
+        <Entity type="char" { ...char } />
       </td>
       <td>
-        <Entity type="corp" {...corp} />
+        <Entity type="corp" { ...corp } />
       </td>
       <td>
-        <Entity type="ally" {...ally} />
+        <Entity type="ally" { ...ally } />
       </td>
       <td>
-        {ships.map((ship) => (<Entity type="type" {...ship} />))}
+        {ships.map((ship) => (<Entity type="ship" {...ship} char={char} />))}
       </td>
       <td style={`text-align: center; color: ${ratioToColor(danger)}`}>
         {danger ? `${danger}%` : '-'}
