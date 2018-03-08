@@ -17,17 +17,17 @@
     "build/*"
   ],
   "devDependencies": {
-    "copy-webpack-plugin": "^4.3.1",
-    "eslint": "^4.5.0",
+    "copy-webpack-plugin": "^4.5.0",
+    "eslint": "^4.18.2",
     "eslint-config-synacor": "^1.1.0",
-    "if-env": "^1.0.0",
-    "preact-cli": "^2.0.0"
+    "if-env": "^1.0.4",
+    "preact-cli": "^2.2.1"
   },
   "dependencies": {
-    "react-ga": "^2.3.5",
-    "firebase": "^4.8.1",
+    "firebase": "^4.10.1",
     "preact": "^8.2.1",
-    "preact-compat": "^3.17.0",
+    "preact-compat": "^3.18.0",
+    "react-ga": "^2.4.1",
     "shortid": "^2.2.8"
   }
 }
