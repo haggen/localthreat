@@ -18,7 +18,9 @@ You can also [create a new issue](issues/new) or comment on [existing ones](issu
 I do my best to keep the service running at the lowest cost possible, but it still has some. Namely the annual renewal for the domain. Help me help you by contributing to the upkeep of localthreat.xyz. 100% of the proceedings (minus the transfer fees) is destined to the project.
 
 <p align="center">
-  <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B9KBZJP99YAE8&source=url">Donate via <img src="paypal.svg?raw=true" alt="PayPal"></a>
+  <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B9KBZJP99YAE8&source=url">
+    Donate&nbsp;via&nbsp;&nbsp;<img src="paypal.svg" alt="PayPal" valign="middle">
+  </a>
 </p>
 
 ## Development
@@ -44,6 +46,6 @@ $ npm run serve
 
 ## Legal
 
-[The MIT License](LICENSE.md) © 2017 Arthur Corenzan
+[The MIT License](LICENSE.txt) © 2017 Arthur Corenzan
 
 EVE Online and the EVE logo are the registered trademarks of CCP hf. All rights are reserved worldwide. All other trademarks are the property of their respective owners. EVE Online, the EVE logo, EVE and all associated logos and designs are the intellectual property of CCP hf. All artwork, screenshots, characters, vehicles, storylines, world facts or other recognizable features of the intellectual property relating to these trademarks are likewise the intellectual property of CCP hf.
