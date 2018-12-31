@@ -18,7 +18,9 @@ You can also [create a new issue](issues/new) or comment on [existing ones](issu
 I do my best to keep the service running at the lowest cost possible, but it still has some. Namely the annual renewal for the domain. Help me help you by contributing to the upkeep of localthreat.xyz. 100% of the proceedings (minus the transfer fees) is destined to the project.
 
 <p align="center">
-  <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B9KBZJP99YAE8&source=url">Donate via <img src="paypal.svg?raw=true" alt="PayPal"></a>
+  <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B9KBZJP99YAE8&source=url">
+    Donate via <img src="../paypal.svg?raw=true" alt="PayPal">
+  </a>
 </p>
 
 ## Development
