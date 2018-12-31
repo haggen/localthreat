@@ -1,5 +1,5 @@
 const esi = (path, extra) => {
-  const url = `https://esi.tech.ccp.is/latest/${path}`;
+  const url = `https://esi.evetech.net/latest/${path}`;
   const options = Object.assign({
     method: 'GET',
     headers: {
