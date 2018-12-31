@@ -19,7 +19,7 @@ I do my best to keep the service running at the lowest cost possible, but it sti
 
 <p align="center">
   <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B9KBZJP99YAE8&source=url">
-    Donate via <img src="../paypal.svg?raw=true" alt="PayPal">
+    Donate via <img src="paypal.svg?raw=true" alt="PayPal">
   </a>
 </p>
 
@@ -46,6 +46,6 @@ $ npm run serve
 
 ## Legal
 
-[The MIT License](LICENSE.md) © 2017 Arthur Corenzan
+[The MIT License](LICENSE.txt) © 2017 Arthur Corenzan
 
 EVE Online and the EVE logo are the registered trademarks of CCP hf. All rights are reserved worldwide. All other trademarks are the property of their respective owners. EVE Online, the EVE logo, EVE and all associated logos and designs are the intellectual property of CCP hf. All artwork, screenshots, characters, vehicles, storylines, world facts or other recognizable features of the intellectual property relating to these trademarks are likewise the intellectual property of CCP hf.
