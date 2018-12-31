@@ -13,6 +13,14 @@ Visit the [announcement post](https://www.reddit.com/r/Eve/comments/7kl31a/local
 
 You can also [create a new issue](issues/new) or comment on [existing ones](issues).
 
+## Contribution
+
+I do my best to keep the service running at the lowest cost possible, but it still has some. Namely the annual renewal for the domain. Help me help you by contributing to the upkeep of localthreat.xyz. 100% of the proceedings (minus the transfer fees) is destined to the project.
+
+<p align="center">
+  <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B9KBZJP99YAE8&source=url">Donate via <img src="blob/master/paypal.svg?raw=true" alt="PayPal"></a>
+</p>
+
 ## Development
 
 First install all the dependencies:
