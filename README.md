@@ -19,7 +19,7 @@ I do my best to keep the service running at the lowest cost possible, but it sti
 
 <p align="center">
   <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B9KBZJP99YAE8&source=url">
-    Donate via <img src="paypal.svg?raw=true" alt="PayPal">
+    Donate via <img src="paypal.svg" alt="PayPal">
   </a>
 </p>
 
