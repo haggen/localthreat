@@ -1,15 +1,15 @@
-import shortid from 'shortid';
-import firebase from 'firebase';
+import shortid from "shortid";
+import firebase from "firebase";
 
 const database = firebase.initializeApp({
-  apiKey: 'AIzaSyCbVpgZHW9LE38m9J0YM3Tmrfob5rnqR9c',
-  databaseURL: 'https://localthreat-a8372.firebaseio.com/',
+  apiKey: "AIzaSyCbVpgZHW9LE38m9J0YM3Tmrfob5rnqR9c",
+  databaseURL: "https://localthreat-a8372.firebaseio.com/"
 });
 
 export const PasteRepository = {
   fetch(id) {
     const ref = firebase.database().ref(`pastes/${id}`);
-    return ref.once('value').then(snapshot => {
+    return ref.once("value").then(snapshot => {
       return snapshot.val();
     });
   },
@@ -31,5 +31,5 @@ export const PasteRepository = {
       localStorage.setItem(`paste-${id}`, JSON.stringify(paste));
       return paste;
     });
-  },
+  }
 };
