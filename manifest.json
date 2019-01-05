@@ -5,10 +5,10 @@
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#fff",
-  "theme_color": "#673ab8",
+  "theme_color": "#000",
   "icons": [
     {
-      "src": "/icon.png",
+      "src": "/assets/icon.png",
       "type": "image/png",
       "sizes": "512x512"
     }
