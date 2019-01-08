@@ -6513,6 +6513,11 @@ postcss@^6.0.0, postcss@^6.0.1, postcss@^6.0.17, postcss@^6.0.2:
     source-map "^0.6.1"
     supports-color "^5.4.0"
 
+preact-cli-sw-precache@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/preact-cli-sw-precache/-/preact-cli-sw-precache-1.0.3.tgz#13c64bd85214b34f2b1d7390583b26ce3c75b38b"
+  integrity sha512-IDgp/rmrhXXZzL8qIlu+kwM0abMwlHOYpvLyPFIfI+pXo2qZ26l1fWfnmH3tHsgIx9G4eHGAkHJVIjxXVMbu1g==
+
 preact-cli@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/preact-cli/-/preact-cli-2.2.1.tgz#05a3311e89bdb120a5273532c77b87bdd710e04b"
