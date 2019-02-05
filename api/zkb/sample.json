@@ -1,0 +1,1677 @@
+{
+  "allTimeSum": 16019,
+  "dangerRatio": 96,
+  "gangRatio": 65,
+  "groups": {
+    "25": {
+      "groupID": 25,
+      "shipsLost": 269,
+      "pointsLost": 2583,
+      "iskLost": 36640878793,
+      "shipsDestroyed": 5721,
+      "pointsDestroyed": 39346,
+      "iskDestroyed": 121508831173
+    },
+    "26": {
+      "groupID": 26,
+      "shipsLost": 75,
+      "pointsLost": 453,
+      "iskLost": 37308678976,
+      "shipsDestroyed": 1962,
+      "pointsDestroyed": 22485,
+      "iskDestroyed": 141908505243
+    },
+    "27": {
+      "groupID": 27,
+      "shipsLost": 5,
+      "pointsLost": 118,
+      "iskLost": 5277247042,
+      "shipsDestroyed": 182,
+      "pointsDestroyed": 3500,
+      "iskDestroyed": 78313566573
+    },
+    "29": {
+      "groupID": 29,
+      "shipsLost": 6,
+      "pointsLost": 6,
+      "iskLost": 9346941089,
+      "shipsDestroyed": 2424,
+      "pointsDestroyed": 2424,
+      "iskDestroyed": 109611800747
+    },
+    "237": {
+      "groupID": 237,
+      "shipsLost": 1,
+      "pointsLost": 1,
+      "iskLost": 27671,
+      "shipsDestroyed": 131,
+      "pointsDestroyed": 140,
+      "iskDestroyed": 212104680
+    },
+    "324": {
+      "groupID": 324,
+      "shipsLost": 4,
+      "pointsLost": 25,
+      "iskLost": 414111751,
+      "shipsDestroyed": 844,
+      "pointsDestroyed": 4031,
+      "iskDestroyed": 43608907270
+    },
+    "358": {
+      "groupID": 358,
+      "shipsLost": 3,
+      "pointsLost": 18,
+      "iskLost": 1629719709,
+      "shipsDestroyed": 148,
+      "pointsDestroyed": 1640,
+      "iskDestroyed": 37053037746
+    },
+    "419": {
+      "groupID": 419,
+      "shipsLost": 55,
+      "pointsLost": 323,
+      "iskLost": 5177079248,
+      "shipsDestroyed": 619,
+      "pointsDestroyed": 5299,
+      "iskDestroyed": 57015485960
+    },
+    "420": {
+      "groupID": 420,
+      "shipsLost": 64,
+      "pointsLost": 774,
+      "iskLost": 1059530411,
+      "shipsDestroyed": 2266,
+      "pointsDestroyed": 20024,
+      "iskDestroyed": 29028270538
+    },
+    "831": {
+      "groupID": 831,
+      "shipsLost": 2,
+      "pointsLost": 42,
+      "iskLost": 309101038,
+      "shipsDestroyed": 188,
+      "pointsDestroyed": 913,
+      "iskDestroyed": 5671963691
+    },
+    "834": {
+      "groupID": 834,
+      "shipsLost": 2,
+      "pointsLost": 9,
+      "iskLost": 153495109,
+      "shipsDestroyed": 360,
+      "pointsDestroyed": 3157,
+      "iskDestroyed": 17706476794
+    },
+    "893": {
+      "groupID": 893,
+      "shipsLost": 1,
+      "pointsLost": 10,
+      "iskLost": 465594700,
+      "shipsDestroyed": 86,
+      "pointsDestroyed": 781,
+      "iskDestroyed": 3696260408
+    },
+    "906": {
+      "groupID": 906,
+      "shipsLost": 5,
+      "pointsLost": 39,
+      "iskLost": 5305667704,
+      "shipsDestroyed": 48,
+      "pointsDestroyed": 1059,
+      "iskDestroyed": 13342227868
+    },
+    "963": {
+      "groupID": 963,
+      "shipsLost": 5,
+      "pointsLost": 20,
+      "iskLost": 8681389754,
+      "shipsDestroyed": 75,
+      "pointsDestroyed": 773,
+      "iskDestroyed": 55444803115
+    },
+    "1201": {
+      "groupID": 1201,
+      "shipsLost": 6,
+      "pointsLost": 84,
+      "iskLost": 781860277,
+      "shipsDestroyed": 98,
+      "pointsDestroyed": 1451,
+      "iskDestroyed": 12778836179
+    },
+    "1305": {
+      "groupID": 1305,
+      "shipsLost": 14,
+      "pointsLost": 148,
+      "iskLost": 2724438642,
+      "shipsDestroyed": 236,
+      "pointsDestroyed": 1852,
+      "iskDestroyed": 22892879297
+    },
+    "28": {
+      "groupID": 28,
+      "shipsDestroyed": 61,
+      "pointsDestroyed": 621,
+      "iskDestroyed": 1520519053
+    },
+    "31": {
+      "groupID": 31,
+      "shipsDestroyed": 139,
+      "pointsDestroyed": 139,
+      "iskDestroyed": 2261166449
+    },
+    "363": {
+      "groupID": 363,
+      "shipsDestroyed": 3,
+      "pointsDestroyed": 3,
+      "iskDestroyed": 54394523
+    },
+    "365": {
+      "groupID": 365,
+      "shipsDestroyed": 20,
+      "pointsDestroyed": 20,
+      "iskDestroyed": 3508489514
+    },
+    "404": {
+      "groupID": 404,
+      "shipsDestroyed": 7,
+      "pointsDestroyed": 7,
+      "iskDestroyed": 41211973
+    },
+    "416": {
+      "groupID": 416,
+      "shipsDestroyed": 4,
+      "pointsDestroyed": 4,
+      "iskDestroyed": 82426242
+    },
+    "426": {
+      "groupID": 426,
+      "shipsDestroyed": 19,
+      "pointsDestroyed": 19,
+      "iskDestroyed": 54854432
+    },
+    "430": {
+      "groupID": 430,
+      "shipsDestroyed": 8,
+      "pointsDestroyed": 8,
+      "iskDestroyed": 12632186
+    },
+    "438": {
+      "groupID": 438,
+      "shipsDestroyed": 2,
+      "pointsDestroyed": 2,
+      "iskDestroyed": 21979352
+    },
+    "439": {
+      "groupID": 439,
+      "shipsDestroyed": 7,
+      "pointsDestroyed": 7,
+      "iskDestroyed": 24404482
+    },
+    "441": {
+      "groupID": 441,
+      "shipsDestroyed": 1,
+      "pointsDestroyed": 1,
+      "iskDestroyed": 3569115
+    },
+    "443": {
+      "groupID": 443,
+      "shipsDestroyed": 4,
+      "pointsDestroyed": 4,
+      "iskDestroyed": 12818756
+    },
+    "444": {
+      "groupID": 444,
+      "shipsDestroyed": 9,
+      "pointsDestroyed": 9,
+      "iskDestroyed": 42179185
+    },
+    "449": {
+      "groupID": 449,
+      "shipsDestroyed": 4,
+      "pointsDestroyed": 4,
+      "iskDestroyed": 15888003
+    },
+    "463": {
+      "groupID": 463,
+      "shipsDestroyed": 47,
+      "pointsDestroyed": 258,
+      "iskDestroyed": 1656166019
+    },
+    "471": {
+      "groupID": 471,
+      "shipsDestroyed": 3,
+      "pointsDestroyed": 3,
+      "iskDestroyed": 13654151
+    },
+    "485": {
+      "groupID": 485,
+      "shipsDestroyed": 3,
+      "pointsDestroyed": 5,
+      "iskDestroyed": 11675372536
+    },
+    "513": {
+      "groupID": 513,
+      "shipsDestroyed": 3,
+      "pointsDestroyed": 3,
+      "iskDestroyed": 4676313384
+    },
+    "540": {
+      "groupID": 540,
+      "shipsDestroyed": 29,
+      "pointsDestroyed": 83,
+      "iskDestroyed": 13725221826
+    },
+    "541": {
+      "groupID": 541,
+      "shipsDestroyed": 11,
+      "pointsDestroyed": 129,
+      "iskDestroyed": 839841718
+    },
+    "543": {
+      "groupID": 543,
+      "shipsDestroyed": 47,
+      "pointsDestroyed": 131,
+      "iskDestroyed": 10050168201
+    },
+    "547": {
+      "groupID": 547,
+      "shipsDestroyed": 14,
+      "pointsDestroyed": 67,
+      "iskDestroyed": 28586853363
+    },
+    "659": {
+      "groupID": 659,
+      "shipsDestroyed": 1,
+      "pointsDestroyed": 1,
+      "iskDestroyed": 26279465589
+    },
+    "830": {
+      "groupID": 830,
+      "shipsDestroyed": 29,
+      "pointsDestroyed": 78,
+      "iskDestroyed": 1643540194
+    },
+    "832": {
+      "groupID": 832,
+      "shipsDestroyed": 33,
+      "pointsDestroyed": 172,
+      "iskDestroyed": 7831309560
+    },
+    "833": {
+      "groupID": 833,
+      "shipsDestroyed": 75,
+      "pointsDestroyed": 920,
+      "iskDestroyed": 17127446812
+    },
+    "883": {
+      "groupID": 883,
+      "shipsDestroyed": 1,
+      "pointsDestroyed": 15,
+      "iskDestroyed": 2327508207
+    },
+    "894": {
+      "groupID": 894,
+      "shipsDestroyed": 7,
+      "pointsDestroyed": 32,
+      "iskDestroyed": 2014983716
+    },
+    "898": {
+      "groupID": 898,
+      "shipsDestroyed": 3,
+      "pointsDestroyed": 148,
+      "iskDestroyed": 5368951611
+    },
+    "900": {
+      "groupID": 900,
+      "shipsDestroyed": 6,
+      "pointsDestroyed": 128,
+      "iskDestroyed": 12813864656
+    },
+    "902": {
+      "groupID": 902,
+      "shipsDestroyed": 1,
+      "pointsDestroyed": 1,
+      "iskDestroyed": 6949205641
+    },
+    "941": {
+      "groupID": 941,
+      "shipsDestroyed": 5,
+      "pointsDestroyed": 12,
+      "iskDestroyed": 4168191060
+    },
+    "1025": {
+      "groupID": 1025,
+      "shipsDestroyed": 7,
+      "pointsDestroyed": 7,
+      "iskDestroyed": 338825033
+    },
+    "1246": {
+      "groupID": 1246,
+      "shipsDestroyed": 13,
+      "pointsDestroyed": 13,
+      "iskDestroyed": 29220869
+    },
+    "1247": {
+      "groupID": 1247,
+      "shipsDestroyed": 1,
+      "pointsDestroyed": 1,
+      "iskDestroyed": 16213984
+    },
+    "1250": {
+      "groupID": 1250,
+      "shipsDestroyed": 13,
+      "pointsDestroyed": 13,
+      "iskDestroyed": 226931481
+    },
+    "1275": {
+      "groupID": 1275,
+      "shipsDestroyed": 1,
+      "pointsDestroyed": 1,
+      "iskDestroyed": 18905680
+    },
+    "1276": {
+      "groupID": 1276,
+      "shipsDestroyed": 3,
+      "pointsDestroyed": 3,
+      "iskDestroyed": 9640654
+    },
+    "1527": {
+      "groupID": 1527,
+      "shipsDestroyed": 4,
+      "pointsDestroyed": 5,
+      "iskDestroyed": 156534909
+    },
+    "1534": {
+      "groupID": 1534,
+      "shipsDestroyed": 7,
+      "pointsDestroyed": 63,
+      "iskDestroyed": 908731174
+    },
+    "1657": {
+      "groupID": 1657,
+      "shipsDestroyed": 1,
+      "pointsDestroyed": 1,
+      "iskDestroyed": 1589932064
+    }
+  },
+  "id": 1872100808,
+  "iskDestroyed": 918493484668,
+  "iskLost": 115275761921,
+  "months": {
+    "200906": {
+      "year": 2009,
+      "month": 6,
+      "shipsLost": 1,
+      "pointsLost": 5,
+      "iskLost": 16194048
+    },
+    "200907": {
+      "year": 2009,
+      "month": 7,
+      "shipsLost": 1,
+      "pointsLost": 8,
+      "iskLost": 115370474
+    },
+    "200910": {
+      "year": 2009,
+      "month": 10,
+      "shipsLost": 1,
+      "pointsLost": 38,
+      "iskLost": 198438536
+    },
+    "200911": {
+      "year": 2009,
+      "month": 11,
+      "shipsLost": 4,
+      "pointsLost": 15,
+      "iskLost": 53224335
+    },
+    "201001": {
+      "year": 2010,
+      "month": 1,
+      "shipsLost": 4,
+      "pointsLost": 18,
+      "iskLost": 783404257,
+      "shipsDestroyed": 1,
+      "pointsDestroyed": 7,
+      "iskDestroyed": 5091531
+    },
+    "201003": {
+      "year": 2010,
+      "month": 3,
+      "shipsLost": 5,
+      "pointsLost": 38,
+      "iskLost": 296866454,
+      "shipsDestroyed": 15,
+      "pointsDestroyed": 36,
+      "iskDestroyed": 927233069
+    },
+    "201004": {
+      "year": 2010,
+      "month": 4,
+      "shipsLost": 2,
+      "pointsLost": 16,
+      "iskLost": 113586914,
+      "shipsDestroyed": 10,
+      "pointsDestroyed": 77,
+      "iskDestroyed": 512299300
+    },
+    "201005": {
+      "year": 2010,
+      "month": 5,
+      "shipsLost": 3,
+      "pointsLost": 19,
+      "iskLost": 142015163,
+      "shipsDestroyed": 1,
+      "pointsDestroyed": 1,
+      "iskDestroyed": 450834
+    },
+    "201006": {
+      "year": 2010,
+      "month": 6,
+      "shipsLost": 2,
+      "pointsLost": 34,
+      "iskLost": 216424262,
+      "shipsDestroyed": 2,
+      "pointsDestroyed": 9,
+      "iskDestroyed": 47092228
+    },
+    "201007": {
+      "year": 2010,
+      "month": 7,
+      "shipsLost": 2,
+      "pointsLost": 3,
+      "iskLost": 806766674
+    },
+    "201009": {
+      "year": 2010,
+      "month": 9,
+      "shipsLost": 1,
+      "pointsLost": 11,
+      "iskLost": 79220161,
+      "shipsDestroyed": 1,
+      "pointsDestroyed": 12,
+      "iskDestroyed": 30512696
+    },
+    "201010": {
+      "year": 2010,
+      "month": 10,
+      "shipsLost": 2,
+      "pointsLost": 6,
+      "iskLost": 157756008
+    },
+    "201011": {
+      "year": 2010,
+      "month": 11,
+      "shipsLost": 1,
+      "pointsLost": 7,
+      "iskLost": 84336603,
+      "shipsDestroyed": 2,
+      "pointsDestroyed": 38,
+      "iskDestroyed": 98409579
+    },
+    "201012": {
+      "year": 2010,
+      "month": 12,
+      "shipsLost": 2,
+      "pointsLost": 26,
+      "iskLost": 114361812,
+      "shipsDestroyed": 3,
+      "pointsDestroyed": 56,
+      "iskDestroyed": 213122462
+    },
+    "201101": {
+      "year": 2011,
+      "month": 1,
+      "shipsLost": 3,
+      "pointsLost": 31,
+      "iskLost": 260403092,
+      "shipsDestroyed": 20,
+      "pointsDestroyed": 179,
+      "iskDestroyed": 490555352
+    },
+    "201102": {
+      "year": 2011,
+      "month": 2,
+      "shipsLost": 2,
+      "pointsLost": 17,
+      "iskLost": 329491072,
+      "shipsDestroyed": 12,
+      "pointsDestroyed": 142,
+      "iskDestroyed": 682361107
+    },
+    "201103": {
+      "year": 2011,
+      "month": 3,
+      "shipsLost": 12,
+      "pointsLost": 161,
+      "iskLost": 228256148,
+      "shipsDestroyed": 55,
+      "pointsDestroyed": 604,
+      "iskDestroyed": 1588346165
+    },
+    "201104": {
+      "year": 2011,
+      "month": 4,
+      "shipsLost": 8,
+      "pointsLost": 88,
+      "iskLost": 297894158,
+      "shipsDestroyed": 43,
+      "pointsDestroyed": 488,
+      "iskDestroyed": 1236160323
+    },
+    "201105": {
+      "year": 2011,
+      "month": 5,
+      "shipsLost": 9,
+      "pointsLost": 110,
+      "iskLost": 697041227,
+      "shipsDestroyed": 57,
+      "pointsDestroyed": 528,
+      "iskDestroyed": 4117817322
+    },
+    "201106": {
+      "year": 2011,
+      "month": 6,
+      "shipsLost": 11,
+      "pointsLost": 126,
+      "iskLost": 785156295,
+      "shipsDestroyed": 69,
+      "pointsDestroyed": 745,
+      "iskDestroyed": 4708436365
+    },
+    "201107": {
+      "year": 2011,
+      "month": 7,
+      "shipsLost": 11,
+      "pointsLost": 65,
+      "iskLost": 1452724666,
+      "shipsDestroyed": 92,
+      "pointsDestroyed": 811,
+      "iskDestroyed": 6920062083
+    },
+    "201108": {
+      "year": 2011,
+      "month": 8,
+      "shipsLost": 9,
+      "pointsLost": 52,
+      "iskLost": 737584759,
+      "shipsDestroyed": 108,
+      "pointsDestroyed": 1050,
+      "iskDestroyed": 6389077602
+    },
+    "201109": {
+      "year": 2011,
+      "month": 9,
+      "shipsLost": 8,
+      "pointsLost": 18,
+      "iskLost": 682218377,
+      "shipsDestroyed": 106,
+      "pointsDestroyed": 573,
+      "iskDestroyed": 36739538241
+    },
+    "201110": {
+      "year": 2011,
+      "month": 10,
+      "shipsLost": 7,
+      "pointsLost": 95,
+      "iskLost": 843023092,
+      "shipsDestroyed": 56,
+      "pointsDestroyed": 366,
+      "iskDestroyed": 6079393259
+    },
+    "201111": {
+      "year": 2011,
+      "month": 11,
+      "shipsLost": 1,
+      "pointsLost": 1,
+      "iskLost": 214510001,
+      "shipsDestroyed": 49,
+      "pointsDestroyed": 309,
+      "iskDestroyed": 4049600318
+    },
+    "201112": {
+      "year": 2011,
+      "month": 12,
+      "shipsLost": 6,
+      "pointsLost": 74,
+      "iskLost": 969787961,
+      "shipsDestroyed": 53,
+      "pointsDestroyed": 448,
+      "iskDestroyed": 3795163531
+    },
+    "201201": {
+      "year": 2012,
+      "month": 1,
+      "shipsLost": 10,
+      "pointsLost": 136,
+      "iskLost": 1642598803,
+      "shipsDestroyed": 92,
+      "pointsDestroyed": 841,
+      "iskDestroyed": 6496346062
+    },
+    "201202": {
+      "year": 2012,
+      "month": 2,
+      "shipsLost": 17,
+      "pointsLost": 57,
+      "iskLost": 3676137823,
+      "shipsDestroyed": 98,
+      "pointsDestroyed": 598,
+      "iskDestroyed": 6377707061
+    },
+    "201203": {
+      "year": 2012,
+      "month": 3,
+      "shipsLost": 15,
+      "pointsLost": 77,
+      "iskLost": 1049136017,
+      "shipsDestroyed": 122,
+      "pointsDestroyed": 776,
+      "iskDestroyed": 9111638934
+    },
+    "201204": {
+      "year": 2012,
+      "month": 4,
+      "shipsLost": 2,
+      "pointsLost": 39,
+      "iskLost": 123508098,
+      "shipsDestroyed": 128,
+      "pointsDestroyed": 842,
+      "iskDestroyed": 11399072442
+    },
+    "201205": {
+      "year": 2012,
+      "month": 5,
+      "shipsLost": 6,
+      "pointsLost": 59,
+      "iskLost": 1062421810,
+      "shipsDestroyed": 256,
+      "pointsDestroyed": 1303,
+      "iskDestroyed": 17229137508
+    },
+    "201206": {
+      "year": 2012,
+      "month": 6,
+      "shipsLost": 8,
+      "pointsLost": 56,
+      "iskLost": 5434668684,
+      "shipsDestroyed": 225,
+      "pointsDestroyed": 1297,
+      "iskDestroyed": 12852773932
+    },
+    "201207": {
+      "year": 2012,
+      "month": 7,
+      "shipsLost": 4,
+      "pointsLost": 94,
+      "iskLost": 490489500,
+      "shipsDestroyed": 281,
+      "pointsDestroyed": 1850,
+      "iskDestroyed": 16963196929
+    },
+    "201208": {
+      "year": 2012,
+      "month": 8,
+      "shipsLost": 6,
+      "pointsLost": 43,
+      "iskLost": 667215389,
+      "shipsDestroyed": 209,
+      "pointsDestroyed": 1564,
+      "iskDestroyed": 13787498137
+    },
+    "201209": {
+      "year": 2012,
+      "month": 9,
+      "shipsLost": 3,
+      "pointsLost": 3,
+      "iskLost": 3355440410,
+      "shipsDestroyed": 286,
+      "pointsDestroyed": 1488,
+      "iskDestroyed": 22384550097
+    },
+    "201210": {
+      "year": 2012,
+      "month": 10,
+      "shipsLost": 1,
+      "pointsLost": 3,
+      "iskLost": 449807514,
+      "shipsDestroyed": 291,
+      "pointsDestroyed": 1611,
+      "iskDestroyed": 23404549063
+    },
+    "201211": {
+      "year": 2012,
+      "month": 11,
+      "shipsLost": 4,
+      "pointsLost": 43,
+      "iskLost": 863057036,
+      "shipsDestroyed": 281,
+      "pointsDestroyed": 1906,
+      "iskDestroyed": 23090673942
+    },
+    "201212": {
+      "year": 2012,
+      "month": 12,
+      "shipsLost": 20,
+      "pointsLost": 151,
+      "iskLost": 2220496257,
+      "shipsDestroyed": 610,
+      "pointsDestroyed": 3969,
+      "iskDestroyed": 38820818911
+    },
+    "201301": {
+      "year": 2013,
+      "month": 1,
+      "shipsLost": 20,
+      "pointsLost": 154,
+      "iskLost": 1223483254,
+      "shipsDestroyed": 708,
+      "pointsDestroyed": 3801,
+      "iskDestroyed": 25637966361
+    },
+    "201302": {
+      "year": 2013,
+      "month": 2,
+      "shipsLost": 16,
+      "pointsLost": 140,
+      "iskLost": 960960431,
+      "shipsDestroyed": 520,
+      "pointsDestroyed": 3119,
+      "iskDestroyed": 21657110565
+    },
+    "201303": {
+      "year": 2013,
+      "month": 3,
+      "shipsLost": 13,
+      "pointsLost": 118,
+      "iskLost": 1532401396,
+      "shipsDestroyed": 581,
+      "pointsDestroyed": 3710,
+      "iskDestroyed": 32431965819
+    },
+    "201304": {
+      "year": 2013,
+      "month": 4,
+      "shipsLost": 13,
+      "pointsLost": 64,
+      "iskLost": 1016191144,
+      "shipsDestroyed": 343,
+      "pointsDestroyed": 2893,
+      "iskDestroyed": 9600618665
+    },
+    "201305": {
+      "year": 2013,
+      "month": 5,
+      "shipsLost": 15,
+      "pointsLost": 90,
+      "iskLost": 4288253022,
+      "shipsDestroyed": 262,
+      "pointsDestroyed": 1882,
+      "iskDestroyed": 11958861891
+    },
+    "201306": {
+      "year": 2013,
+      "month": 6,
+      "shipsLost": 12,
+      "pointsLost": 69,
+      "iskLost": 1042244722,
+      "shipsDestroyed": 463,
+      "pointsDestroyed": 2436,
+      "iskDestroyed": 18715525807
+    },
+    "201307": {
+      "year": 2013,
+      "month": 7,
+      "shipsLost": 7,
+      "pointsLost": 93,
+      "iskLost": 550763000,
+      "shipsDestroyed": 384,
+      "pointsDestroyed": 2240,
+      "iskDestroyed": 13634323960
+    },
+    "201308": {
+      "year": 2013,
+      "month": 8,
+      "shipsLost": 8,
+      "pointsLost": 56,
+      "iskLost": 1076770928,
+      "shipsDestroyed": 339,
+      "pointsDestroyed": 2294,
+      "iskDestroyed": 17176515121
+    },
+    "201309": {
+      "year": 2013,
+      "month": 9,
+      "shipsLost": 11,
+      "pointsLost": 131,
+      "iskLost": 1819521009,
+      "shipsDestroyed": 377,
+      "pointsDestroyed": 2567,
+      "iskDestroyed": 14108960939
+    },
+    "201310": {
+      "year": 2013,
+      "month": 10,
+      "shipsLost": 9,
+      "pointsLost": 42,
+      "iskLost": 4827335348,
+      "shipsDestroyed": 126,
+      "pointsDestroyed": 784,
+      "iskDestroyed": 5767577595
+    },
+    "201311": {
+      "year": 2013,
+      "month": 11,
+      "shipsLost": 2,
+      "pointsLost": 15,
+      "iskLost": 623201221,
+      "shipsDestroyed": 23,
+      "pointsDestroyed": 149,
+      "iskDestroyed": 449680718
+    },
+    "201401": {
+      "year": 2014,
+      "month": 1,
+      "shipsLost": 11,
+      "pointsLost": 90,
+      "iskLost": 818834610,
+      "shipsDestroyed": 273,
+      "pointsDestroyed": 1511,
+      "iskDestroyed": 26551168208
+    },
+    "201402": {
+      "year": 2014,
+      "month": 2,
+      "shipsLost": 2,
+      "pointsLost": 18,
+      "iskLost": 166582005,
+      "shipsDestroyed": 138,
+      "pointsDestroyed": 756,
+      "iskDestroyed": 15716981560
+    },
+    "201403": {
+      "year": 2014,
+      "month": 3,
+      "shipsLost": 5,
+      "pointsLost": 57,
+      "iskLost": 386725254,
+      "shipsDestroyed": 222,
+      "pointsDestroyed": 1440,
+      "iskDestroyed": 18616206968
+    },
+    "201404": {
+      "year": 2014,
+      "month": 4,
+      "shipsLost": 10,
+      "pointsLost": 42,
+      "iskLost": 1487521617,
+      "shipsDestroyed": 389,
+      "pointsDestroyed": 2201,
+      "iskDestroyed": 21388510052
+    },
+    "201405": {
+      "year": 2014,
+      "month": 5,
+      "shipsLost": 2,
+      "pointsLost": 20,
+      "iskLost": 159481693,
+      "shipsDestroyed": 477,
+      "pointsDestroyed": 2085,
+      "iskDestroyed": 20147899141
+    },
+    "201406": {
+      "year": 2014,
+      "month": 6,
+      "shipsLost": 6,
+      "pointsLost": 42,
+      "iskLost": 1184057848,
+      "shipsDestroyed": 259,
+      "pointsDestroyed": 1567,
+      "iskDestroyed": 12072839349
+    },
+    "201408": {
+      "year": 2014,
+      "month": 8,
+      "shipsLost": 7,
+      "pointsLost": 108,
+      "iskLost": 3695616244,
+      "shipsDestroyed": 440,
+      "pointsDestroyed": 3950,
+      "iskDestroyed": 25785952336
+    },
+    "201409": {
+      "year": 2014,
+      "month": 9,
+      "shipsLost": 8,
+      "pointsLost": 97,
+      "iskLost": 3800523059,
+      "shipsDestroyed": 322,
+      "pointsDestroyed": 2960,
+      "iskDestroyed": 18612720008
+    },
+    "201410": {
+      "year": 2014,
+      "month": 10,
+      "shipsLost": 3,
+      "pointsLost": 57,
+      "iskLost": 3521277068,
+      "shipsDestroyed": 233,
+      "pointsDestroyed": 1819,
+      "iskDestroyed": 11952261014
+    },
+    "201411": {
+      "year": 2014,
+      "month": 11,
+      "shipsLost": 4,
+      "pointsLost": 40,
+      "iskLost": 2177078146,
+      "shipsDestroyed": 86,
+      "pointsDestroyed": 740,
+      "iskDestroyed": 4807332090
+    },
+    "201412": {
+      "year": 2014,
+      "month": 12,
+      "shipsLost": 2,
+      "pointsLost": 6,
+      "iskLost": 1461065997,
+      "shipsDestroyed": 109,
+      "pointsDestroyed": 806,
+      "iskDestroyed": 11766496405
+    },
+    "201501": {
+      "year": 2015,
+      "month": 1,
+      "shipsLost": 3,
+      "pointsLost": 21,
+      "iskLost": 2181901250,
+      "shipsDestroyed": 143,
+      "pointsDestroyed": 1259,
+      "iskDestroyed": 12375353039
+    },
+    "201504": {
+      "year": 2015,
+      "month": 4,
+      "shipsLost": 3,
+      "pointsLost": 50,
+      "iskLost": 1962612629,
+      "shipsDestroyed": 127,
+      "pointsDestroyed": 1030,
+      "iskDestroyed": 5193632892
+    },
+    "201505": {
+      "year": 2015,
+      "month": 5,
+      "shipsLost": 7,
+      "pointsLost": 124,
+      "iskLost": 3854159180,
+      "shipsDestroyed": 424,
+      "pointsDestroyed": 3132,
+      "iskDestroyed": 25245574726
+    },
+    "201506": {
+      "year": 2015,
+      "month": 6,
+      "shipsLost": 5,
+      "pointsLost": 140,
+      "iskLost": 3009724277,
+      "shipsDestroyed": 152,
+      "pointsDestroyed": 1427,
+      "iskDestroyed": 9070179797
+    },
+    "201507": {
+      "year": 2015,
+      "month": 7,
+      "shipsLost": 1,
+      "pointsLost": 1,
+      "iskLost": 191300651,
+      "shipsDestroyed": 172,
+      "pointsDestroyed": 1107,
+      "iskDestroyed": 6376495166
+    },
+    "201508": {
+      "year": 2015,
+      "month": 8,
+      "shipsLost": 7,
+      "pointsLost": 92,
+      "iskLost": 2419473156,
+      "shipsDestroyed": 285,
+      "pointsDestroyed": 2646,
+      "iskDestroyed": 11411788727
+    },
+    "201509": {
+      "year": 2015,
+      "month": 9,
+      "shipsLost": 5,
+      "pointsLost": 58,
+      "iskLost": 2937707882,
+      "shipsDestroyed": 280,
+      "pointsDestroyed": 2069,
+      "iskDestroyed": 14362178747
+    },
+    "201510": {
+      "year": 2015,
+      "month": 10,
+      "shipsLost": 15,
+      "pointsLost": 153,
+      "iskLost": 4999436489,
+      "shipsDestroyed": 504,
+      "pointsDestroyed": 3458,
+      "iskDestroyed": 22531843474
+    },
+    "201511": {
+      "year": 2015,
+      "month": 11,
+      "shipsLost": 5,
+      "pointsLost": 25,
+      "iskLost": 639239656,
+      "shipsDestroyed": 122,
+      "pointsDestroyed": 981,
+      "iskDestroyed": 4441282598
+    },
+    "201512": {
+      "year": 2015,
+      "month": 12,
+      "shipsLost": 1,
+      "pointsLost": 3,
+      "iskLost": 11364940,
+      "shipsDestroyed": 38,
+      "pointsDestroyed": 190,
+      "iskDestroyed": 1862847180
+    },
+    "201601": {
+      "year": 2016,
+      "month": 1,
+      "shipsLost": 7,
+      "pointsLost": 104,
+      "iskLost": 5063877413,
+      "shipsDestroyed": 370,
+      "pointsDestroyed": 2889,
+      "iskDestroyed": 12332766693
+    },
+    "201602": {
+      "year": 2016,
+      "month": 2,
+      "shipsLost": 2,
+      "pointsLost": 5,
+      "iskLost": 770134787,
+      "shipsDestroyed": 224,
+      "pointsDestroyed": 1630,
+      "iskDestroyed": 10368856829
+    },
+    "201603": {
+      "year": 2016,
+      "month": 3,
+      "shipsLost": 7,
+      "pointsLost": 48,
+      "iskLost": 839033835,
+      "shipsDestroyed": 174,
+      "pointsDestroyed": 1333,
+      "iskDestroyed": 11101389961
+    },
+    "201604": {
+      "year": 2016,
+      "month": 4,
+      "shipsLost": 8,
+      "pointsLost": 32,
+      "iskLost": 1359324329,
+      "shipsDestroyed": 235,
+      "pointsDestroyed": 1574,
+      "iskDestroyed": 12813729148
+    },
+    "201605": {
+      "year": 2016,
+      "month": 5,
+      "shipsLost": 5,
+      "pointsLost": 49,
+      "iskLost": 768726100,
+      "shipsDestroyed": 260,
+      "pointsDestroyed": 1257,
+      "iskDestroyed": 11122082852
+    },
+    "201606": {
+      "year": 2016,
+      "month": 6,
+      "shipsLost": 5,
+      "pointsLost": 41,
+      "iskLost": 959298599,
+      "shipsDestroyed": 106,
+      "pointsDestroyed": 786,
+      "iskDestroyed": 6191040172
+    },
+    "201609": {
+      "year": 2016,
+      "month": 9,
+      "shipsLost": 2,
+      "pointsLost": 6,
+      "iskLost": 669691430,
+      "shipsDestroyed": 208,
+      "pointsDestroyed": 1723,
+      "iskDestroyed": 10182741973
+    },
+    "201610": {
+      "year": 2016,
+      "month": 10,
+      "shipsLost": 7,
+      "pointsLost": 69,
+      "iskLost": 2343090125,
+      "shipsDestroyed": 190,
+      "pointsDestroyed": 1459,
+      "iskDestroyed": 21171107007
+    },
+    "201611": {
+      "year": 2016,
+      "month": 11,
+      "shipsLost": 2,
+      "pointsLost": 19,
+      "iskLost": 55329201,
+      "shipsDestroyed": 110,
+      "pointsDestroyed": 1041,
+      "iskDestroyed": 6430413946
+    },
+    "201612": {
+      "year": 2016,
+      "month": 12,
+      "shipsLost": 1,
+      "pointsLost": 6,
+      "iskLost": 504360741,
+      "shipsDestroyed": 97,
+      "pointsDestroyed": 969,
+      "iskDestroyed": 5479326179
+    },
+    "201701": {
+      "year": 2017,
+      "month": 1,
+      "shipsLost": 5,
+      "pointsLost": 37,
+      "iskLost": 1723913523,
+      "shipsDestroyed": 97,
+      "pointsDestroyed": 1072,
+      "iskDestroyed": 9491824447
+    },
+    "201702": {
+      "year": 2017,
+      "month": 2,
+      "shipsLost": 1,
+      "pointsLost": 4,
+      "iskLost": 206769930,
+      "shipsDestroyed": 12,
+      "pointsDestroyed": 87,
+      "iskDestroyed": 226214147
+    },
+    "201703": {
+      "year": 2017,
+      "month": 3,
+      "shipsLost": 2,
+      "pointsLost": 8,
+      "iskLost": 1113527909,
+      "shipsDestroyed": 76,
+      "pointsDestroyed": 647,
+      "iskDestroyed": 5373977397
+    },
+    "201704": {
+      "year": 2017,
+      "month": 4,
+      "shipsLost": 4,
+      "pointsLost": 53,
+      "iskLost": 1266966855,
+      "shipsDestroyed": 81,
+      "pointsDestroyed": 792,
+      "iskDestroyed": 2262326323
+    },
+    "201705": {
+      "year": 2017,
+      "month": 5,
+      "shipsLost": 1,
+      "pointsLost": 1,
+      "iskLost": 1024878863,
+      "shipsDestroyed": 84,
+      "pointsDestroyed": 725,
+      "iskDestroyed": 4368036312
+    },
+    "201706": {
+      "year": 2017,
+      "month": 6,
+      "shipsLost": 1,
+      "pointsLost": 7,
+      "iskLost": 510908734,
+      "shipsDestroyed": 5,
+      "pointsDestroyed": 133,
+      "iskDestroyed": 308822156
+    },
+    "201710": {
+      "year": 2017,
+      "month": 10,
+      "shipsLost": 2,
+      "pointsLost": 38,
+      "iskLost": 2302167922,
+      "shipsDestroyed": 16,
+      "pointsDestroyed": 148,
+      "iskDestroyed": 1441404284
+    },
+    "201801": {
+      "year": 2018,
+      "month": 1,
+      "shipsLost": 1,
+      "pointsLost": 34,
+      "iskLost": 1215066909,
+      "shipsDestroyed": 29,
+      "pointsDestroyed": 167,
+      "iskDestroyed": 274546117
+    },
+    "201803": {
+      "year": 2018,
+      "month": 3,
+      "shipsLost": 2,
+      "pointsLost": 33,
+      "iskLost": 840851662,
+      "shipsDestroyed": 29,
+      "pointsDestroyed": 173,
+      "iskDestroyed": 3204175463
+    },
+    "200909": {
+      "year": 2009,
+      "month": 9,
+      "shipsDestroyed": 1,
+      "pointsDestroyed": 5,
+      "iskDestroyed": 5927572
+    },
+    "200912": {
+      "year": 2009,
+      "month": 12,
+      "shipsDestroyed": 1,
+      "pointsDestroyed": 7,
+      "iskDestroyed": 10750260
+    },
+    "201002": {
+      "year": 2010,
+      "month": 2,
+      "shipsDestroyed": 2,
+      "pointsDestroyed": 10,
+      "iskDestroyed": 1996251
+    },
+    "201008": {
+      "year": 2010,
+      "month": 8,
+      "shipsDestroyed": 6,
+      "pointsDestroyed": 52,
+      "iskDestroyed": 124988070
+    },
+    "201312": {
+      "year": 2013,
+      "month": 12,
+      "shipsDestroyed": 22,
+      "pointsDestroyed": 252,
+      "iskDestroyed": 815240463
+    },
+    "201407": {
+      "year": 2014,
+      "month": 7,
+      "shipsDestroyed": 107,
+      "pointsDestroyed": 774,
+      "iskDestroyed": 5744671081
+    },
+    "201502": {
+      "year": 2015,
+      "month": 2,
+      "shipsDestroyed": 141,
+      "pointsDestroyed": 1342,
+      "iskDestroyed": 5090583528
+    },
+    "201503": {
+      "year": 2015,
+      "month": 3,
+      "shipsDestroyed": 116,
+      "pointsDestroyed": 782,
+      "iskDestroyed": 5295690221
+    },
+    "201607": {
+      "year": 2016,
+      "month": 7,
+      "shipsDestroyed": 37,
+      "pointsDestroyed": 542,
+      "iskDestroyed": 3865719662
+    },
+    "201608": {
+      "year": 2016,
+      "month": 8,
+      "shipsDestroyed": 51,
+      "pointsDestroyed": 394,
+      "iskDestroyed": 2037954630
+    },
+    "201707": {
+      "year": 2017,
+      "month": 7,
+      "shipsDestroyed": 18,
+      "pointsDestroyed": 269,
+      "iskDestroyed": 1318879424
+    },
+    "201708": {
+      "year": 2017,
+      "month": 8,
+      "shipsDestroyed": 10,
+      "pointsDestroyed": 70,
+      "iskDestroyed": 1447019789
+    },
+    "201709": {
+      "year": 2017,
+      "month": 9,
+      "shipsDestroyed": 8,
+      "pointsDestroyed": 141,
+      "iskDestroyed": 911514595
+    },
+    "201711": {
+      "year": 2017,
+      "month": 11,
+      "shipsDestroyed": 4,
+      "pointsDestroyed": 4,
+      "iskDestroyed": 310311132
+    },
+    "201712": {
+      "year": 2017,
+      "month": 12,
+      "shipsDestroyed": 14,
+      "pointsDestroyed": 204,
+      "iskDestroyed": 544311529
+    },
+    "201802": {
+      "year": 2018,
+      "month": 2,
+      "shipsDestroyed": 20,
+      "pointsDestroyed": 65,
+      "iskDestroyed": 320004631
+    },
+    "201804": {
+      "year": 2018,
+      "month": 4,
+      "shipsDestroyed": 19,
+      "pointsDestroyed": 108,
+      "iskDestroyed": 734587720
+    },
+    "201805": {
+      "year": 2018,
+      "month": 5,
+      "shipsDestroyed": 7,
+      "pointsDestroyed": 37,
+      "iskDestroyed": 84844071
+    },
+    "201806": {
+      "year": 2018,
+      "month": 6,
+      "shipsDestroyed": 16,
+      "pointsDestroyed": 237,
+      "iskDestroyed": 395378616
+    },
+    "201807": {
+      "year": 2018,
+      "month": 7,
+      "shipsDestroyed": 31,
+      "pointsDestroyed": 230,
+      "iskDestroyed": 904640137
+    },
+    "201808": {
+      "year": 2018,
+      "month": 8,
+      "shipsDestroyed": 24,
+      "pointsDestroyed": 220,
+      "iskDestroyed": 2270947085
+    },
+    "201809": {
+      "year": 2018,
+      "month": 9,
+      "shipsDestroyed": 6,
+      "pointsDestroyed": 46,
+      "iskDestroyed": 76299954
+    },
+    "201810": {
+      "year": 2018,
+      "month": 10,
+      "shipsDestroyed": 13,
+      "pointsDestroyed": 67,
+      "iskDestroyed": 25837142
+    },
+    "201811": {
+      "year": 2018,
+      "month": 11,
+      "shipsDestroyed": 12,
+      "pointsDestroyed": 20,
+      "iskDestroyed": 33268338
+    }
+  },
+  "nextTopRecalc": 16180,
+  "pointsDestroyed": 112016,
+  "pointsLost": 4653,
+  "sequence": 51001450,
+  "shipsDestroyed": 16044,
+  "shipsLost": 517,
+  "soloKills": 5666,
+  "soloLosses": 134,
+  "topAllTime": [
+    {
+      "type": "character",
+      "data": [{ "kills": 16019, "characterID": 1872100808 }]
+    },
+    {
+      "type": "corporation",
+      "data": [
+        { "kills": 16018, "corporationID": 1327176877 },
+        { "kills": 1, "corporationID": 1000180 }
+      ]
+    },
+    {
+      "type": "alliance",
+      "data": [
+        { "kills": 3104, "allianceID": 99003028 },
+        { "kills": 390, "allianceID": 99005678 },
+        { "kills": 84, "allianceID": 99006577 }
+      ]
+    },
+    {
+      "type": "faction",
+      "data": [
+        { "kills": 15967, "factionID": 500003 },
+        { "kills": 1, "factionID": 500001 }
+      ]
+    },
+    {
+      "type": "ship",
+      "data": [
+        { "kills": 3493, "shipTypeID": 17619 },
+        { "kills": 1644, "shipTypeID": 33468 },
+        { "kills": 1642, "shipTypeID": 33816 },
+        { "kills": 1314, "shipTypeID": 603 },
+        { "kills": 1216, "shipTypeID": 17720 },
+        { "kills": 735, "shipTypeID": 29986 },
+        { "kills": 623, "shipTypeID": 29984 },
+        { "kills": 541, "shipTypeID": 33818 },
+        { "kills": 538, "shipTypeID": 16242 },
+        { "kills": 474, "shipTypeID": 17713 },
+        { "kills": 370, "shipTypeID": 20125 },
+        { "kills": 302, "shipTypeID": 32788 },
+        { "kills": 272, "shipTypeID": 17932 },
+        { "kills": 248, "shipTypeID": 34562 },
+        { "kills": 173, "shipTypeID": 37456 },
+        { "kills": 159, "shipTypeID": 17924 },
+        { "kills": 159, "shipTypeID": 591 },
+        { "kills": 158, "shipTypeID": 24702 },
+        { "kills": 152, "shipTypeID": 17703 },
+        { "kills": 142, "shipTypeID": 4302 },
+        { "kills": 126, "shipTypeID": 37483 },
+        { "kills": 121, "shipTypeID": 17722 },
+        { "kills": 115, "shipTypeID": 597 },
+        { "kills": 101, "shipTypeID": 29990 },
+        { "kills": 84, "shipTypeID": 17715 },
+        { "kills": 83, "shipTypeID": 11971 },
+        { "kills": 73, "shipTypeID": 12023 },
+        { "kills": 72, "shipTypeID": 670 },
+        { "kills": 70, "shipTypeID": 17928 },
+        { "kills": 68, "shipTypeID": 17718 },
+        { "kills": 61, "shipTypeID": 24696 },
+        { "kills": 53, "shipTypeID": 17738 },
+        { "kills": 46, "shipTypeID": 24692 },
+        { "kills": 41, "shipTypeID": 17740 },
+        { "kills": 39, "shipTypeID": 16240 },
+        { "kills": 39, "shipTypeID": 32872 },
+        { "kills": 39, "shipTypeID": 24698 },
+        { "kills": 37, "shipTypeID": 11190 },
+        { "kills": 35, "shipTypeID": 12021 },
+        { "kills": 32, "shipTypeID": 32876 },
+        { "kills": 28, "shipTypeID": 17709 },
+        { "kills": 26, "shipTypeID": 16236 },
+        { "kills": 16, "shipTypeID": 629 },
+        { "kills": 16, "shipTypeID": 11993 },
+        { "kills": 15, "shipTypeID": 4308 },
+        { "kills": 14, "shipTypeID": 32311 },
+        { "kills": 13, "shipTypeID": 32305 },
+        { "kills": 12, "shipTypeID": 11202 },
+        { "kills": 11, "shipTypeID": 19720 },
+        { "kills": 11, "shipTypeID": 12034 },
+        { "kills": 10, "shipTypeID": 17843 },
+        { "kills": 9, "shipTypeID": 624 },
+        { "kills": 7, "shipTypeID": 33157 },
+        { "kills": 7, "shipTypeID": 11400 },
+        { "kills": 7, "shipTypeID": 626 },
+        { "kills": 6, "shipTypeID": 12038 },
+        { "kills": 6, "shipTypeID": 17920 },
+        { "kills": 3, "shipTypeID": 4310 },
+        { "kills": 2, "shipTypeID": 2006 },
+        { "kills": 2, "shipTypeID": 645 },
+        { "kills": 1, "shipTypeID": 34828 },
+        { "kills": 1, "shipTypeID": 11963 },
+        { "kills": 1, "shipTypeID": 12019 },
+        { "kills": 1, "shipTypeID": 596 },
+        { "kills": 1, "shipTypeID": 11393 },
+        { "kills": 1, "shipTypeID": 23757 }
+      ]
+    },
+    {
+      "type": "system",
+      "data": [
+        { "kills": 3559, "solarSystemID": 30002538 },
+        { "kills": 2944, "solarSystemID": 30002539 },
+        { "kills": 2516, "solarSystemID": 30002541 },
+        { "kills": 1607, "solarSystemID": 30002962 },
+        { "kills": 400, "solarSystemID": 30002540 },
+        { "kills": 379, "solarSystemID": 30002542 },
+        { "kills": 368, "solarSystemID": 30002095 },
+        { "kills": 321, "solarSystemID": 30003069 },
+        { "kills": 294, "solarSystemID": 30002537 },
+        { "kills": 274, "solarSystemID": 30002977 },
+        { "kills": 272, "solarSystemID": 30002693 },
+        { "kills": 264, "solarSystemID": 30002980 },
+        { "kills": 221, "solarSystemID": 30003068 },
+        { "kills": 220, "solarSystemID": 30002960 },
+        { "kills": 168, "solarSystemID": 30003063 },
+        { "kills": 164, "solarSystemID": 30002978 },
+        { "kills": 143, "solarSystemID": 30002979 },
+        { "kills": 134, "solarSystemID": 30002975 },
+        { "kills": 115, "solarSystemID": 30002066 },
+        { "kills": 92, "solarSystemID": 30002976 },
+        { "kills": 89, "solarSystemID": 30002959 },
+        { "kills": 75, "solarSystemID": 30002063 },
+        { "kills": 74, "solarSystemID": 30002981 },
+        { "kills": 74, "solarSystemID": 30003086 },
+        { "kills": 74, "solarSystemID": 30002957 },
+        { "kills": 65, "solarSystemID": 30003088 },
+        { "kills": 61, "solarSystemID": 30003067 },
+        { "kills": 57, "solarSystemID": 30002060 },
+        { "kills": 55, "solarSystemID": 30002065 },
+        { "kills": 51, "solarSystemID": 30002516 },
+        { "kills": 47, "solarSystemID": 30002096 },
+        { "kills": 47, "solarSystemID": 30002961 },
+        { "kills": 46, "solarSystemID": 30002061 },
+        { "kills": 45, "solarSystemID": 30003070 },
+        { "kills": 43, "solarSystemID": 30002064 },
+        { "kills": 43, "solarSystemID": 30002517 },
+        { "kills": 38, "solarSystemID": 30003090 },
+        { "kills": 35, "solarSystemID": 30002062 },
+        { "kills": 32, "solarSystemID": 30003091 },
+        { "kills": 32, "solarSystemID": 30002059 },
+        { "kills": 30, "solarSystemID": 30003072 },
+        { "kills": 28, "solarSystemID": 30002058 },
+        { "kills": 26, "solarSystemID": 30003071 },
+        { "kills": 25, "solarSystemID": 30002958 },
+        { "kills": 25, "solarSystemID": 30002698 },
+        { "kills": 21, "solarSystemID": 30003089 },
+        { "kills": 21, "solarSystemID": 30002099 },
+        { "kills": 19, "solarSystemID": 30003077 },
+        { "kills": 18, "solarSystemID": 30003030 },
+        { "kills": 18, "solarSystemID": 30002692 },
+        { "kills": 17, "solarSystemID": 30003087 },
+        { "kills": 17, "solarSystemID": 30002093 },
+        { "kills": 16, "solarSystemID": 30003079 },
+        { "kills": 14, "solarSystemID": 30002100 },
+        { "kills": 13, "solarSystemID": 30002090 },
+        { "kills": 12, "solarSystemID": 30002056 },
+        { "kills": 11, "solarSystemID": 30002696 },
+        { "kills": 10, "solarSystemID": 30002057 },
+        { "kills": 9, "solarSystemID": 30002092 },
+        { "kills": 9, "solarSystemID": 30002098 },
+        { "kills": 8, "solarSystemID": 30002086 },
+        { "kills": 7, "solarSystemID": 30002082 },
+        { "kills": 7, "solarSystemID": 30002094 },
+        { "kills": 7, "solarSystemID": 30002102 },
+        { "kills": 6, "solarSystemID": 30002084 },
+        { "kills": 6, "solarSystemID": 30002067 },
+        { "kills": 6, "solarSystemID": 30002514 },
+        { "kills": 6, "solarSystemID": 30002695 },
+        { "kills": 5, "solarSystemID": 30002716 },
+        { "kills": 5, "solarSystemID": 30002097 },
+        { "kills": 4, "solarSystemID": 30002087 },
+        { "kills": 4, "solarSystemID": 30002083 },
+        { "kills": 4, "solarSystemID": 31002361 },
+        { "kills": 4, "solarSystemID": 30002714 },
+        { "kills": 3, "solarSystemID": 30003504 },
+        { "kills": 3, "solarSystemID": 30002085 },
+        { "kills": 3, "solarSystemID": 30002187 },
+        { "kills": 3, "solarSystemID": 30045339 },
+        { "kills": 2, "solarSystemID": 31000642 },
+        { "kills": 2, "solarSystemID": 31000961 },
+        { "kills": 2, "solarSystemID": 30002089 },
+        { "kills": 2, "solarSystemID": 31000014 },
+        { "kills": 2, "solarSystemID": 30003075 },
+        { "kills": 1, "solarSystemID": 30003465 },
+        { "kills": 1, "solarSystemID": 31001236 },
+        { "kills": 1, "solarSystemID": 30002756 },
+        { "kills": 1, "solarSystemID": 31000663 },
+        { "kills": 1, "solarSystemID": 30002653 },
+        { "kills": 1, "solarSystemID": 30002411 },
+        { "kills": 1, "solarSystemID": 30002560 },
+        { "kills": 1, "solarSystemID": 30000004 },
+        { "kills": 1, "solarSystemID": 30002508 },
+        { "kills": 1, "solarSystemID": 30003001 },
+        { "kills": 1, "solarSystemID": 30001356 },
+        { "kills": 1, "solarSystemID": 30002091 },
+        { "kills": 1, "solarSystemID": 30003057 },
+        { "kills": 1, "solarSystemID": 31001212 },
+        { "kills": 1, "solarSystemID": 30003521 },
+        { "kills": 1, "solarSystemID": 31001030 },
+        { "kills": 1, "solarSystemID": 30002101 }
+      ]
+    }
+  ],
+  "topIskKills": [20070390, 35814908, 56658442, 46490431, 26900037, 43411766],
+  "trophies": { "levels": 186, "max": 525 },
+  "type": "characterID",
+  "activepvp": {},
+  "info": {
+    "allianceID": 0,
+    "corporationID": 1327176877,
+    "factionID": 0,
+    "id": 1872100808,
+    "lastApiUpdate": { "sec": 1547990959, "usec": 0 },
+    "name": "RudeX X",
+    "secStatus": -8.3717674488612,
+    "type": "characterID"
+  },
+  "topLists": [
+    { "type": "character", "title": "Top Characters", "values": [] },
+    { "type": "corporation", "title": "Top Corporations", "values": [] },
+    { "type": "alliance", "title": "Top Alliances", "values": [] },
+    { "type": "shipType", "title": "Top Ships", "values": [] },
+    { "type": "solarSystem", "title": "Top Systems", "values": [] },
+    { "type": "location", "title": "Top Locations", "values": [] }
+  ],
+  "topIskKillIDs": []
+}

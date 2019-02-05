@@ -1,17 +1,15 @@
-<h1 align="center">localthreat</h1>
-<p align="center">Paste the transcript or members from your chat channels and get characters affiliations and PvP stats.</p>
+<h1 align="center">LOCALTHREAT</h1>
+<p align="center">Paste the transcript or members from chat channels to get characters affiliations and PvP stats.</p>
 
 ---
 
 ## About
 
-**[localthreat](https://localthreat.xyz/)** is an online tool for EVE players to help with threat assessment.
+**[Localthreat](https://localthreat.xyz/)** is an online tool to help EVE players with threat assessment.
 
 ## Feedback
 
-Visit the [announcement post](https://www.reddit.com/r/Eve/comments/7kl31a/localthreatxyz/) on reddit to discuss, critic and make requests.
-
-You can also [create a new issue](issues/new) or comment on [existing ones](issues).
+Opinions, suggestions, issues, or whatever the case, get in touch by [creating a new issue](https://github.com/haggen/localthreat/issues/new).
 
 ## Contribution
 
@@ -19,33 +17,47 @@ I do my best to keep the service running at the lowest cost possible, but it sti
 
 <p align="center">
   <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B9KBZJP99YAE8&source=url">
-    Donate&nbsp;via&nbsp;&nbsp;<img src="paypal.svg" alt="PayPal" valign="middle">
+    Donate&nbsp;via&nbsp;&nbsp;&nbsp;<img src="paypal.svg" alt="PayPal" valign="middle" width="100px">
   </a>
 </p>
 
 ## Development
 
-First install all the dependencies:
+### API
+
+You'll need `go1.11.1` or newer installed. Hop into the `api/` sub-directory and run:
 
 ```shell
-$ npm install
+$ go get
 ```
 
-Now if you want to watch for changes and serve locally:
+To download all the dependencies.
 
 ```shell
-$ npm run dev
+$ make test
+$ make
 ```
 
-Finally build and run as in production:
+To test and build the binary, respectively.
+
+### Client
+
+You'll need `node-v8.10` or newer and `yarn` installed. Hop into the `client/` sub-directory and run:
 
 ```shell
-$ npm run build
-$ npm run serve
+$ yarn install
 ```
+
+To download all the dependencies.
+
+```shell
+$ yarn start
+```
+
+To start a development server that watches for changes.
 
 ## Legal
 
-[The MIT License](LICENSE.txt) © 2017 Arthur Corenzan
+[The MIT License](LICENSE) © 2017 Arthur Corenzan
 
 EVE Online and the EVE logo are the registered trademarks of CCP hf. All rights are reserved worldwide. All other trademarks are the property of their respective owners. EVE Online, the EVE logo, EVE and all associated logos and designs are the intellectual property of CCP hf. All artwork, screenshots, characters, vehicles, storylines, world facts or other recognizable features of the intellectual property relating to these trademarks are likewise the intellectual property of CCP hf.
