@@ -36,23 +36,27 @@ func (a *Affiliations) Fetch(ids []int) error {
 	return nil
 }
 
+const (
+	CategoryCharacter = "character"
+)
+
 // Entity ...
 type Entity struct {
 	ID       int    `json:"id"`
 	Name     string `json:"name"`
-	Category string `json:"category,omitempty"`
+	Category string `json:"category"`
 }
 
-// Names ...
-type Names []*Entity
+// Entities ...
+type Entities []*Entity
 
-// Fetch resolves a set of IDs to names and categories.
+// FetchByID resolves a set of IDs to characters, corporations, allaiances, and more.
 // https://esi.evetech.net/ui/#/Universe/post_universe_names
-func (n *Names) Fetch(ids []int) error {
+func (e *Entities) FetchByID(ids []int) error {
 	resp, err := resty.
 		R().
 		SetBody(ids).
-		SetResult(n).
+		SetResult(e).
 		Post(endpoint + "/universe/names/")
 	if err != nil {
 		return err
@@ -63,24 +67,29 @@ func (n *Names) Fetch(ids []int) error {
 	return nil
 }
 
-// IDs ...
-type IDs struct {
-	Characters []*Entity `json:"characters"`
-}
-
-// Fetch resolves a set of names to IDs.
+// FetchByName resolves a set of names to characters, corporations, allaiances, and more.
 // https://esi.evetech.net/ui/#/Universe/post_universe_ids
-func (i *IDs) Fetch(names []string) error {
+func (e *Entities) FetchByName(names []string) error {
+	data := map[string][]*Entity{}
 	resp, err := resty.
 		R().
 		SetBody(names).
-		SetResult(i).
+		SetResult(&data).
 		Post(endpoint + "/universe/ids/")
 	if err != nil {
 		return err
 	}
 	if resp.StatusCode() != http.StatusOK {
 		return errors.New("esi: " + resp.Status())
+	}
+	for category, entities := range data {
+		for _, entity := range entities {
+			switch category {
+			case "characters":
+				entity.Category = CategoryCharacter
+			}
+			*e = append(*e, entity)
+		}
 	}
 	return nil
 }

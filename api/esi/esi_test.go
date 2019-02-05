@@ -6,8 +6,9 @@ import (
 )
 
 var sampleEntity = &Entity{
-	ID:   95036967,
-	Name: "Jason Chorant",
+	Category: "character",
+	ID:       95036967,
+	Name:     "Jason Chorant",
 }
 
 var sampleAffiliation = &Affiliation{
@@ -15,32 +16,37 @@ var sampleAffiliation = &Affiliation{
 	AllianceID:    99004116,
 }
 
-func TestIDs(t *testing.T) {
-	ids := &IDs{}
-	err := ids.Fetch([]string{sampleEntity.Name})
+func TestFetchByID(t *testing.T) {
+	e := Entities{}
+	err := e.FetchByID([]int{sampleEntity.ID})
 	if err != nil {
 		t.FailNow()
 	}
-	if len(ids.Characters) < 1 {
+	if len(e) < 1 {
 		t.FailNow()
 	}
-	if ids.Characters[0].ID != sampleEntity.ID {
+	if e[0].Category != sampleEntity.Category {
+		t.FailNow()
+	}
+	if e[0].Name != sampleEntity.Name {
 		t.FailNow()
 	}
 }
 
-func TestNames(t *testing.T) {
-	names := Names{}
-	err := names.Fetch([]int{sampleEntity.ID})
+func TestFetchByName(t *testing.T) {
+	e := Entities{}
+	err := e.FetchByName([]string{sampleEntity.Name})
 	if err != nil {
-		t.FailNow()
+		t.Fatal(err)
 	}
-	fmt.Print(names)
-	if len(names) < 1 {
-		t.FailNow()
+	if len(e) < 1 {
+		t.Fatalf("length is %d, expected 1", len(e))
 	}
-	if names[0].Name != sampleEntity.Name {
-		t.FailNow()
+	if e[0].Category != sampleEntity.Category {
+		t.Fatalf("category is %s, expected %s", e[0].Category, sampleEntity.Category)
+	}
+	if e[0].ID != sampleEntity.ID {
+		t.Fatalf("id is %d, expected %d", e[0].ID, sampleEntity.ID)
 	}
 }
 
