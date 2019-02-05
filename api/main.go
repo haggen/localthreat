@@ -9,9 +9,10 @@ import (
 	"os"
 	"os/signal"
 	"regexp"
+	"strings"
 	"time"
 
-	_ "github.com/haggen/localthreat.next/api/esi"
+	"github.com/haggen/localthreat.next/api/esi"
 	_ "github.com/haggen/localthreat.next/api/zkb"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
@@ -31,7 +32,7 @@ type Entry struct {
 	Corporation *Entity   `json:"corporation"`
 	Alliance    *Entity   `json:"alliance"`
 	Ships       []*Entity `json:"ships"`
-	Threat      int       `json:"threat"`
+	Danger      int       `json:"danger"`
 	GangRatio   int       `json:"gangRatio"`
 	Kills       int       `json:"kills"`
 	Losses      int       `json:"losses"`
@@ -54,17 +55,28 @@ func NewReport() *Report {
 }
 
 // AddEntries ...
-func (r *Report) AddEntries(characters []string) {
-loop:
-	for _, name := range characters {
-		for _, entry := range r.Entries {
+func (r *Report) AddEntries(names []string) {
+	uniqueNames := names[0:]
+	for _, entry := range r.Entries {
+		for i, name := range names {
 			if entry.Character.Name == name {
-				continue loop
+				uniqueNames = append(uniqueNames[:i], uniqueNames[i+1:]...)
 			}
+		}
+	}
+	if len(uniqueNames) == 0 {
+		return
+	}
+	entities := esi.Entities{}
+	entities.FetchByName(uniqueNames)
+	for _, entity := range entities {
+		if entity.Category != esi.CategoryCharacter {
+			continue
 		}
 		r.Entries = append(r.Entries, &Entry{
 			Character: &Entity{
-				Name: name,
+				ID:   entity.ID,
+				Name: entity.Name,
 			},
 		})
 	}
@@ -90,10 +102,11 @@ func parseBody(body io.ReadCloser) ([]string, error) {
 	if err != nil {
 		return nil, err
 	}
+	trimmed := strings.TrimSpace(string(raw))
 	var data []string
-	data, err = tryParseChat(string(raw))
+	data, err = tryParseChat(trimmed)
 	if err != nil {
-		data = lineSep.Split(string(raw), -1)
+		data = lineSep.Split(trimmed, -1)
 	}
 	return data, nil
 }
@@ -171,12 +184,13 @@ func main() {
 
 	go func() {
 		if err := e.Start(":8080"); err != nil {
-			e.Logger.Info("Gracefully shutting down...")
+			e.Logger.Fatal(err)
 		}
 	}()
 	quit := make(chan os.Signal)
 	signal.Notify(quit, os.Interrupt)
 	<-quit
+	e.Logger.Info("Gracefully shutting down...")
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	if err := e.Shutdown(ctx); err != nil {
