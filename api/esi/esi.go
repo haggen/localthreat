@@ -12,6 +12,7 @@ var endpoint = "https://esi.evetech.net/latest"
 
 // Affiliation ...
 type Affiliation struct {
+	CharacterID   int `json:"character_id"`
 	CorporationID int `json:"corporation_id"`
 	AllianceID    int `json:"alliance_id"`
 }
@@ -21,7 +22,7 @@ type Affiliations []*Affiliation
 
 // Fetch resolves a set of character IDs to corporation, alliance and faction affiliations.
 // https://esi.evetech.net/ui/#/Character/post_characters_affiliation
-func (a *Affiliations) Fetch(ids []int) error {
+func (a *Affiliations) FetchByID(ids []int) error {
 	resp, err := resty.
 		R().
 		SetBody(ids).
