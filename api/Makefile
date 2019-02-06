@@ -1,11 +1,13 @@
-localthreat: fmt vet
+CGO_ENABLED=0
+GOOS=linux
+default: fmt vet
 	@go build -o localthreat .
-run: fmt vet
-	@go run main.go
+static: fmt vet
+	@go build -a -ldflags '-extldflags "-static"' -o localthreat .
 test: fmt vet
 	@go test ./...
-fmt:
+fmt: main.go
 	@go fmt ./...
-vet:
+vet: main.go
 	@go vet ./...
 .PHONY: vet fmt test run
