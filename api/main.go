@@ -55,30 +55,31 @@ func NewReport() *Report {
 }
 
 // AddEntries ...
-func (r *Report) AddEntries(names []string) {
-	uniqueNames := names[0:]
+func (r *Report) AddEntries(n []string) {
+	uniq := n[0:]
 	for _, entry := range r.Entries {
-		for i, name := range names {
+		for i, name := range n {
 			if entry.Character.Name == name {
-				uniqueNames = append(uniqueNames[:i], uniqueNames[i+1:]...)
+				uniq = append(uniq[:i], uniq[i+1:]...)
 			}
 		}
 	}
-	if len(uniqueNames) == 0 {
+	if len(uniq) == 0 {
 		return
 	}
-	entities := esi.Entities{}
-	entities.FetchByName(uniqueNames)
-	for _, entity := range entities {
-		if entity.Category != esi.CategoryCharacter {
+	characters := esi.Entities{}
+	characters.FetchByName(uniq)
+	for _, char := range characters {
+		if char.Category != esi.CategoryCharacter {
 			continue
 		}
-		r.Entries = append(r.Entries, &Entry{
+		entry := &Entry{
 			Character: &Entity{
-				ID:   entity.ID,
-				Name: entity.Name,
+				ID:   char.ID,
+				Name: char.Name,
 			},
-		})
+		}
+		r.Entries = append(r.Entries, entry)
 	}
 }
 
