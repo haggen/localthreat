@@ -73,27 +73,41 @@ func parseBody(body io.ReadCloser) ([]string, error) {
 var db *sql.DB
 var hd *hashids.HashID
 
+func createReport(r *Report) error {
+	var id int
+	err := db.QueryRow(`insert into reports (timestamp, data) values ($1, $2) returning id;`, r.Timestamp, pq.Array(r.Data)).Scan(&id)
+	if err != nil {
+		return err
+	}
+	r.ID, err = hd.Encode([]int{id})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func updateReport(r *Report) error {
+	id, err := hd.DecodeWithError(r.ID)
+	if err != nil {
+		return err
+	}
+	r.Timestamp = time.Now()
+	_, err = db.Exec(`update reports set timestamp = $2, data = $3 where id = $1;`, id[0], r.Timestamp, pq.Array(r.Data))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func saveReport(r *Report) error {
+	var err error
 	if r.ID == "" {
-		var id int
-		err := db.QueryRow(`insert into reports (timestamp, data) values ($1, $2) returning id;`, r.Timestamp, pq.Array(r.Data)).Scan(&id)
-		if err != nil {
-			return err
-		}
-		r.ID, err = hd.Encode([]int{id})
-		if err != nil {
-			return err
-		}
+		err = createReport(r)
 	} else {
-		id, err := hd.DecodeWithError(r.ID)
-		if err != nil {
-			return err
-		}
-		r.Timestamp = time.Now()
-		_, err = db.Exec(`update reports set timestamp = $2, data = $3 where id = $1;`, id[0], r.Timestamp, pq.Array(r.Data))
-		if err != nil {
-			return err
-		}
+		err = updateReport(r)
+	}
+	if err != nil {
+		return err
 	}
 	return nil
 }
@@ -165,10 +179,10 @@ func handleGetReport(c echo.Context) error {
 }
 
 func main() {
-	var err error
 	data := hashids.NewData()
 	data.Salt = "localthreat.next"
 	data.MinLength = 5
+	var err error
 	hd, err = hashids.NewWithData(data)
 	if err != nil {
 		log.Fatal(err)

@@ -1,0 +1,27 @@
+version: "3"
+services:
+  api:
+    build: ./api
+    depends_on:
+      - db
+    ports:
+      - 8080
+    volumes:
+      - ./api:/usr/local/src
+    environment:
+      - VIRTUAL_HOST=api.localthreat.localhost
+      - DATABASE_URL=postgres://postgres:123@db/postgres?sslmode=disable
+  client:
+    build: ./client
+    ports:
+      - 3000
+    volumes:
+      - ./client:/usr/local/src
+    environment:
+      - VIRTUAL_HOST=localthreat.localhost
+  db:
+    image: postgres:11.1-alpine
+    ports:
+      - 5432
+    environment:
+      - POSTGRES_PASSWORD=123

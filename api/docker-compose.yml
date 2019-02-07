@@ -1,8 +1,0 @@
-version: "3"
-services:
-  db:
-    image: postgres:11.1-alpine
-    ports:
-      - 5432
-    environment:
-      - POSTGRES_PASSWORD=123
