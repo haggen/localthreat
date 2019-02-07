@@ -1,0 +1,19 @@
+html {
+  font-size: 16px;
+}
+
+body {
+  background-color: #122;
+  color: aquamarine;
+  font-family: Miriam Libre, sans-serif;
+  overflow-x: hidden;
+}
+
+::selection {
+  color: inherit;
+  background-color: hsla(0, 0%, 0%, 0.5);
+}
+
+*:focus {
+  outline: 0;
+}
