@@ -23,9 +23,19 @@ I do my best to keep the service running at the lowest cost possible, but it sti
 
 ## Development
 
+### Docker
+
+If you've got `docker-compose-1.13.0` or newer simply run:
+
+```shell
+$ docker-compose up
+```
+
+You can customize the runtime by editting the `docker-compose.yml` file.
+
 ### API
 
-You'll need `go1.11.1` or newer installed. Hop into the `api/` sub-directory and run:
+You'll need `go-1.11.1` or newer installed. Hop into the `api/` sub-directory and run:
 
 ```shell
 $ go get
@@ -40,9 +50,17 @@ $ make
 
 To test and build the binary, respectively.
 
+For the database you'll need `postgreql-9.1` or newer running. Load the `migrate.sql` file and then execute:
+
+```shell
+$ DATABASE_URL=postgres://... ./localthreat
+```
+
+To boot up the API server.
+
 ### Client
 
-You'll need `node-v8.10` or newer and `yarn` installed. Hop into the `client/` sub-directory and run:
+You'll need `node-8.10` or newer and `yarn` installed. Hop into the `client/` sub-directory and run:
 
 ```shell
 $ yarn install
