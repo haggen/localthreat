@@ -3,6 +3,8 @@ import { BrowserRouter, Route } from "react-router-dom";
 import styled from "styled-components";
 import TopBar from "../topBar";
 import HistoryPanel from "../historyPanel";
+import "resetize";
+import "./global.css";
 
 const Placeholder = ({ match }) => String(match.params.reportId);
 

@@ -4,8 +4,7 @@ import styled from "styled-components";
 import Flex from "../flex";
 
 const Panel = styled.aside`
-  background-color: hsl(180, 33%, 15%);
-  // box-shadow: 0 0 3rem hsla(0, 0%, 0%, 0.25);
+  background-color: hsl(138, 3%, 20%);
   bottom: 0;
   left: 100%;
   overflow: auto;
