@@ -1,26 +1,56 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { ReactComponent as Brand } from "./localthreat.svg";
 
-import Brand from "../brand";
-import Flex from "../flex";
+const Bar = styled.header`
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
 
-const StyledLink = styled(Link)`
-  font-size: 1.125em;
-  font-weight: bolder;
-  padding: 0.375rem 0.75rem;
+  h1 {
+    font-size: 1.75em;
+    font-weight: bolder;
+    text-transform: lowercase;
+  }
+
+  h1 a {
+    display: block;
+  }
+
+  h1 svg {
+    margin-right: 0.75rem;
+  }
+
+  nav {
+    display: flex;
+  }
+
+  nav a,
+  nav button {
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 1.125em;
+    font-weight: bolder;
+    padding: 0.375rem 0.75rem;
+  }
 `;
 
 const TopBar = ({ toggleHistoryPanel }) => (
-  <Flex align="center">
-    <Brand />
-    <Flex.Spacer />
-    <StyledLink to="#">Share</StyledLink>
-    <StyledLink to="/">New Report</StyledLink>
-    <StyledLink to="" onClick={e => toggleHistoryPanel()}>
-      History
-    </StyledLink>
-  </Flex>
+  <Bar>
+    <h1>
+      <Link to="/">
+        <Brand />
+        localthreat
+      </Link>
+    </h1>
+
+    <nav>
+      <button>Share</button>
+      <Link to="/">New Report</Link>
+      <button onClick={e => toggleHistoryPanel()}>History</button>
+    </nav>
+  </Bar>
 );
 
 export default TopBar;

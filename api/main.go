@@ -199,6 +199,7 @@ func main() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 	e.Use(middleware.RequestID())
+	e.Use(middleware.CORS())
 
 	e.POST("/reports", handleNewReport)
 	e.PUT("/reports/:id", handlePatchReport)

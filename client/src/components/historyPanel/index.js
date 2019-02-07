@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import Flex from "../flex";
@@ -74,6 +75,15 @@ class HistoryPanel extends Component {
             &times;
           </CloseButton>
         </Flex>
+        <ul>
+          {this.props.history.map(report => (
+            <li>
+              <Link to={`/${report.id}`}>
+                {report.data.join(", ").substr(0, 16)}
+              </Link>
+            </li>
+          ))}
+        </ul>
       </Panel>
     );
   }
