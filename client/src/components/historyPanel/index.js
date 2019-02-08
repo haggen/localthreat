@@ -18,19 +18,42 @@ const Panel = styled.aside`
   z-index: 100;
 `;
 
-const CloseButton = styled.button`
-  background-color: transparent;
-  display: block;
-  font-size: 2.5em;
-  height: 1em;
-  line-height: 1;
-  text-align: center;
-  width: 1em;
+const Header = styled.header`
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+
+  h1 {
+    font-size: 1.25em;
+    font-weight: bolder;
+  }
+
+  button {
+    background-color: transparent;
+    display: block;
+    font-size: 2.5em;
+    height: 1em;
+    line-height: 1;
+    text-align: center;
+    width: 1em;
+  }
 `;
 
-const Heading = styled.h1`
-  font-size: 1.25em;
-  font-weight: bolder;
+const List = styled.ul`
+  margin-top: 1.5rem;
+
+  li {
+    display: block;
+  }
+
+  li + li {
+    margin-top: 0.75rem;
+  }
+
+  small,
+  strong {
+    display: block;
+  }
 `;
 
 class HistoryPanel extends Component {
@@ -68,22 +91,24 @@ class HistoryPanel extends Component {
 
     return (
       <Panel ref="panel" isOpen={isOpen}>
-        <Flex align="center">
-          <Heading>History</Heading>
-          <Flex.Spacer />
-          <CloseButton onClick={e => this.props.onRequestClose()}>
-            &times;
-          </CloseButton>
-        </Flex>
-        <ul>
+        <Header>
+          <h1>History</h1>
+          <button onClick={e => this.props.onRequestClose()}>&times;</button>
+        </Header>
+        <List>
           {this.props.history.map(report => (
             <li>
               <Link to={`/${report.id}`}>
-                {report.data.join(", ").substr(0, 16)}
+                <strong>{report.data.join(", ").substr(0, 16)}</strong>
+                <small>
+                  <date datetime={report.timestamp}>
+                    +{report.data.length} on {report.timestamp}
+                  </date>
+                </small>
               </Link>
             </li>
           ))}
-        </ul>
+        </List>
       </Panel>
     );
   }
