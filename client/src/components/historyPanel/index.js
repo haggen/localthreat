@@ -28,6 +28,7 @@ const Header = styled.header`
 
   button {
     background-color: transparent;
+    cursor: pointer;
     display: block;
     font-size: 2.5em;
     height: 1em;
