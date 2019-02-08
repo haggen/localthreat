@@ -8,6 +8,8 @@ import ReportTable from "../reportTable";
 import "resetize";
 import "./global.css";
 
+const storageKey = "app:data";
+
 const Main = styled.main`
   padding: 1.5rem;
 `;
@@ -35,12 +37,22 @@ class App extends Component {
   setReport(report) {
     const history = [];
     for (let i = 0, l = this.state.history.length; i < l; i++) {
-      if (this.state.history[i].id != report.id) {
+      if (this.state.history[i].id !== report.id) {
         history.push(this.state.history[i]);
       }
     }
     history.push(report);
+    localStorage.setItem(storageKey, JSON.stringify(history));
     this.setState({ history, report });
+  }
+
+  componentDidMount() {
+    const savedHistory = localStorage.getItem(storageKey);
+    if (savedHistory) {
+      this.setState({
+        history: JSON.parse(savedHistory)
+      });
+    }
   }
 
   render() {

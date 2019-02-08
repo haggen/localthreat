@@ -1,6 +1,15 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
+const Table = styled.table`
+  margin-top: 1.5rem;
+  width: 100%;
+
+  td {
+    padding: 0.375rem 0.75rem;
+  }
+`;
+
 class ReportTable extends Component {
   handlePaste = e => {
     console.log(e);
@@ -24,27 +33,37 @@ class ReportTable extends Component {
         }
         throw response;
       })
-      .then(report => {
-        this.props.onReportLoaded(report);
-      });
+      .then(report => this.onReportLoaded(report));
   };
 
+  shouldLoadReport(reportId) {
+    return !this.props.report || this.props.report.id !== reportId;
+  }
+
+  loadReport(reportId) {
+    if (!this.shouldLoadReport(reportId)) return;
+
+    fetch("http://api.localthreat.localhost/reports/" + reportId)
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw response;
+      })
+      .then(report => this.onReportLoaded(report));
+  }
+
+  onReportLoaded(report) {
+    this.props.onReportLoaded(report);
+    window.addEventListener("paste", this.handlePaste);
+  }
+
   componentDidMount() {
-    if (this.props.report) {
-      window.addEventListener("paste", this.handlePaste);
-    } else {
-      fetch(
-        "http://api.localthreat.localhost/reports/" +
-          this.props.match.params.reportId
-      )
-        .then(response => {
-          if (response.ok) {
-            return response.json();
-          }
-          throw response;
-        })
-        .then(report => this.props.onReportLoaded(report));
-    }
+    this.loadReport(this.props.match.params.reportId);
+  }
+
+  componentDidUpdate() {
+    this.loadReport(this.props.match.params.reportId);
   }
 
   componentWillUnmount() {
@@ -58,7 +77,7 @@ class ReportTable extends Component {
 
     const data = this.props.report.data || [];
     return (
-      <table>
+      <Table>
         <tbody>
           {data.map((entry, index) => (
             <tr key={index}>
@@ -66,7 +85,7 @@ class ReportTable extends Component {
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
     );
   }
 }
