@@ -2,10 +2,8 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import Flex from "../flex";
-
 const Panel = styled.aside`
-  background-color: hsl(138, 3%, 20%);
+  background-color: rgb(20, 25, 25);
   bottom: 0;
   left: 100%;
   overflow: auto;
@@ -56,6 +54,27 @@ const List = styled.ul`
   }
 `;
 
+const Entry = ({ report }) => {
+  const dataJoined = report.data.join(", ");
+  const dataExcerpt = dataJoined.substr(0, 32);
+  const length = report.data.length;
+  const formattedTimestamp = new Date(report.timestamp).toLocaleString();
+
+  return (
+    <Link to={`/${report.id}`}>
+      <strong>
+        {dataExcerpt}
+        {dataExcerpt.length < dataJoined.length ? "…" : null}
+      </strong>
+      <small>
+        {length} {length !== 1 ? "entries" : "entry"}
+        {" — "}
+        <time dateTime={report.timestamp}>{formattedTimestamp}</time>
+      </small>
+    </Link>
+  );
+};
+
 class HistoryPanel extends Component {
   handleClick = e => {
     if (this.props.isOpen) {
@@ -87,25 +106,22 @@ class HistoryPanel extends Component {
   }
 
   render() {
-    const { isOpen } = this.props;
+    const { isOpen, history } = this.props;
+
+    history.sort((a, b) => {
+      return new Date(b.timestamp) - new Date(a.timestamp);
+    });
 
     return (
       <Panel ref="panel" isOpen={isOpen}>
         <Header>
           <h1>History</h1>
-          <button onClick={e => this.props.onRequestClose()}>&times;</button>
+          <button onClick={e => this.props.onRequestClose()}>×</button>
         </Header>
         <List>
-          {this.props.history.map(report => (
-            <li>
-              <Link to={`/${report.id}`}>
-                <strong>{report.data.join(", ").substr(0, 16)}</strong>
-                <small>
-                  <date datetime={report.timestamp}>
-                    +{report.data.length} on {report.timestamp}
-                  </date>
-                </small>
-              </Link>
+          {history.map((report, index) => (
+            <li key={index}>
+              <Entry report={report} />
             </li>
           ))}
         </List>
