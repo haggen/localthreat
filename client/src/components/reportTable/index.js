@@ -5,6 +5,25 @@ import reportsApi from "../../api/reports";
 import esiApi from "../../api/esi";
 import zkbApi from "../../api/zkb";
 
+const compareCharactersName = direction => (a, b) =>
+  a.character.name.localeCompare(b.character.name) * direction;
+
+const compareCorporationName = direction => (a, b) =>
+  a.corporation.name.localeCompare(b.corporation.name) * direction;
+
+const compareAllianceName = direction => (a, b) =>
+  a.alliance.name.localeCompare(b.alliance.name) * direction;
+
+const compareDangerRatio = direction => (a, b) =>
+  (a.dangerRatio - b.dangerRatio) * direction;
+
+const compareGangRatio = direction => (a, b) =>
+  (a.gangRatio - b.gangRatio) * direction;
+
+const compareKills = direction => (a, b) => (a.kills - b.kills) * direction;
+
+const compareLosses = direction => (a, b) => (a.losses - b.losses) * direction;
+
 const Table = styled.table`
   border-collapse: separate;
   border-spacing: 0;
@@ -63,7 +82,7 @@ const Table = styled.table`
   }
 
   tbody tr:hover {
-    box-shadow: 0 0 0 0.125rem rgba(158, 174, 149, 0.25);
+    /* box-shadow: 0 0 0 0.125rem rgba(158, 174, 149, 0.25); */
   }
 
   tbody tr:hover td {
@@ -84,8 +103,42 @@ class ReportTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: []
+      data: [],
+      sortingFunc: compareCharactersName,
+      sortingDir: -1
     };
+  }
+
+  changeSorting(key) {
+    let sortingFunc;
+    switch (key) {
+      case "dangerRatio":
+        sortingFunc = compareDangerRatio;
+        break;
+      case "gangRatio":
+        sortingFunc = compareGangRatio;
+        break;
+      case "kills":
+        sortingFunc = compareKills;
+        break;
+      case "losses":
+        sortingFunc = compareLosses;
+        break;
+      case "alliance":
+        sortingFunc = compareAllianceName;
+        break;
+      case "corporation":
+        sortingFunc = compareCorporationName;
+        break;
+      default:
+        sortingFunc = compareCharactersName;
+        break;
+    }
+    this.setState({
+      sortingFunc,
+      sortingDir:
+        this.state.sortingFunc === sortingFunc ? this.state.sortingDir * -1 : -1
+    });
   }
 
   onReportLoaded(report) {
@@ -143,8 +196,8 @@ class ReportTable extends Component {
 
         esiApi.fetchByIds(Object.keys(affiliationsIds)).then(names => {
           data.forEach(entry => {
-            entry.corporation.name = names[entry.corporation.id];
-            entry.alliance.name = names[entry.alliance.id];
+            entry.corporation.name = names[entry.corporation.id] || "";
+            entry.alliance.name = names[entry.alliance.id] || "";
           });
 
           this.setState(state => ({ data }));
@@ -178,28 +231,29 @@ class ReportTable extends Component {
   }
 
   render() {
-    const sortedData = this.state.data.sort((a, b) => {
-      return a.character.name.localeCompare(b.character.name);
-    });
+    const { data, sortingFunc, sortingDir } = this.state;
+    const sortedData = data.sort(sortingFunc(sortingDir));
 
     return (
       <Table>
         <thead>
           <tr>
-            <th>Character</th>
-            <th>Corporation</th>
-            <th>Alliance</th>
+            <th onClick={e => this.changeSorting("character")}>Character</th>
+            <th onClick={e => this.changeSorting("corporation")}>
+              Corporation
+            </th>
+            <th onClick={e => this.changeSorting("alliance")}>Alliance</th>
             <th>Ships</th>
-            <th>
+            <th onClick={e => this.changeSorting("dangerRatio")}>
               <abbr title="Danger">D</abbr>
             </th>
-            <th>
+            <th onClick={e => this.changeSorting("gangRatio")}>
               <abbr title="Gang ratio">G</abbr>
             </th>
-            <th>
+            <th onClick={e => this.changeSorting("kills")}>
               <abbr title="Kills">K</abbr>
             </th>
-            <th>
+            <th onClick={e => this.changeSorting("losses")}>
               <abbr title="Losses">L</abbr>
             </th>
           </tr>
