@@ -1,7 +1,9 @@
-<header align="center">
+<p align="center">
   <a href="https://localthreat.xyz/"><img src="localthreat.svg" alt="localthreat"></a>
-  <p>Paste the transcript or members from chat channels to get a report of affiliations and PvP stats.</p>
-</header>
+</p>
+<p align="center">Paste the transcript or members from chat channels to get a report of affiliations and PvP stats.</p>
+
+---
 
 ## About
 
