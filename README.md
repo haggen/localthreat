@@ -1,11 +1,11 @@
-<h1 align="center">LOCALTHREAT</h1>
-<p align="center">Paste the transcript or members from chat channels to get characters affiliations and PvP stats.</p>
-
----
+<header align="center">
+  <a href="https://localthreat.xyz/"><img src="localthreat.svg" alt="localthreat"></a>
+  <p>Paste the transcript or members from chat channels to get a report of affiliations and PvP stats.</p>
+</header>
 
 ## About
 
-**[Localthreat](https://localthreat.xyz/)** is an online tool to help EVE players with threat assessment.
+**[localthreat](https://localthreat.xyz/)** is an online tool to help EVE players with threat assessment.
 
 ## Feedback
 
