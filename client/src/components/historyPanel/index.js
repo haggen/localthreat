@@ -12,7 +12,7 @@ const Panel = styled.aside`
   top: 0;
   transform: translateX(${props => (props.isOpen ? -100 : 0)}%);
   transition: transform 0.375s ease;
-  width: 24rem;
+  width: 20rem;
   z-index: 100;
 `;
 

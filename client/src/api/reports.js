@@ -2,11 +2,16 @@ const baseUrl =
   process.env.REACT_APP_API_URL || "http://api.localthreat.localhost";
 
 async function request(path, options) {
-  const response = await fetch(baseUrl + path, options);
-  if (response.ok) {
-    return response.json();
+  try {
+    const response = await fetch(baseUrl + path, options);
+    if (response.ok) {
+      return response.json();
+    }
+    throw response;
+  } catch (error) {
+    console.error(error);
+    return error;
   }
-  throw response;
 }
 
 export default {
@@ -17,7 +22,7 @@ export default {
         "Content-Type": "text/plain"
       },
       body
-    }).catch(console.error);
+    });
   },
 
   update(id, body) {
@@ -27,10 +32,10 @@ export default {
         "Content-Type": "text/plain"
       },
       body
-    }).catch(console.error);
+    });
   },
 
   fetch(id) {
-    return request("/reports/" + id).catch(console.error);
+    return request("/reports/" + id);
   }
 };
