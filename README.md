@@ -1,9 +1,7 @@
 <p align="center">
   <a href="https://localthreat.xyz/"><img src="localthreat.svg" alt="localthreat"></a>
 </p>
-<p align="center">Paste the transcript or members from chat channels to get a report of affiliations and PvP stats.</p>
-
----
+<blockquote align="center">Paste the transcript or members from chat to get a report of affiliations and PvP stats.</blockquote>
 
 ## About
 
@@ -15,19 +13,13 @@ Opinions, suggestions, issues, or whatever the case, get in touch by [creating a
 
 ## Contribution
 
-I do my best to keep the service running at the lowest cost possible, but it still has some. Namely the annual renewal for the domain. Help me help you by contributing to the upkeep of localthreat.xyz. 100% of the proceedings (minus the transfer fees) is destined to the project.
-
-<p align="center">
-  <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B9KBZJP99YAE8&source=url">
-    Donate&nbsp;via&nbsp;&nbsp;&nbsp;<img src="paypal.svg" alt="PayPal" valign="middle" width="100px">
-  </a>
-</p>
+I do my best to keep the service running at the lowest cost possible, but it still has some. Help me help you by contributing to the upkeep of localthreat. [Donate via PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B9KBZJP99YAE8&source=url).
 
 ## Development
 
 ### Docker
 
-If you've got `docker-compose-1.13.0` or newer simply run:
+If you've got `docker-compose-1.13.0` or newer installed, simply run:
 
 ```shell
 $ docker-compose up
