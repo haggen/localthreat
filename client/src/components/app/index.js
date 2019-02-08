@@ -72,6 +72,7 @@ class App extends Component {
               render={props => (
                 <ReportTable
                   {...props}
+                  reportId={props.match.params.reportId}
                   report={this.state.report}
                   onReportLoaded={report => this.setReport(report)}
                 />

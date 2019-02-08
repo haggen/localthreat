@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import reportsApi from "../../api";
 
 const Table = styled.table`
   margin-top: 1.5rem;
@@ -12,58 +13,28 @@ const Table = styled.table`
 
 class ReportTable extends Component {
   handlePaste = e => {
-    console.log(e);
     const clipboard = e.clipboardData || window.clipboardData;
-    const body = clipboard.getData("Text");
-    if (!body) return;
-    fetch(
-      "http://api.localthreat.localhost/reports/" +
-        this.props.match.params.reportId,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "text/plain"
-        },
-        body
-      }
-    )
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw response;
-      })
-      .then(report => this.onReportLoaded(report));
+    const text = clipboard.getData("Text");
+    if (!text) return;
+    reportsApi
+      .update(this.props.reportId, text)
+      .then(report => this.props.onReportLoaded(report));
   };
 
-  shouldLoadReport(reportId) {
-    return !this.props.report || this.props.report.id !== reportId;
-  }
-
-  loadReport(reportId) {
-    if (!this.shouldLoadReport(reportId)) return;
-
-    fetch("http://api.localthreat.localhost/reports/" + reportId)
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw response;
-      })
-      .then(report => this.onReportLoaded(report));
-  }
-
-  onReportLoaded(report) {
-    this.props.onReportLoaded(report);
-    window.addEventListener("paste", this.handlePaste);
-  }
-
   componentDidMount() {
-    this.loadReport(this.props.match.params.reportId);
+    reportsApi
+      .fetch(this.props.reportId)
+      .then(report => this.props.onReportLoaded(report));
   }
 
-  componentDidUpdate() {
-    this.loadReport(this.props.match.params.reportId);
+  componentDidUpdate(prevProps) {
+    window.addEventListener("paste", this.handlePaste);
+
+    if (prevProps.reportId !== this.props.reportId) {
+      reportsApi
+        .fetch(this.props.reportId)
+        .then(report => this.props.onReportLoaded(report));
+    }
   }
 
   componentWillUnmount() {
@@ -76,6 +47,7 @@ class ReportTable extends Component {
     }
 
     const data = this.props.report.data || [];
+
     return (
       <Table>
         <tbody>
