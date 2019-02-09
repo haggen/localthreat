@@ -32,6 +32,7 @@ const Bar = styled.header`
     cursor: pointer;
     font-size: 1.125em;
     font-weight: bolder;
+    margin-left: 0.75rem;
     padding: 0.375rem 0.75rem;
   }
 `;
