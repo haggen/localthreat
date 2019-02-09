@@ -49,6 +49,12 @@ const List = styled.ul`
     margin-top: 0.75rem;
   }
 
+  strong {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   small,
   strong {
     display: block;
@@ -56,21 +62,18 @@ const List = styled.ul`
 `;
 
 const Entry = ({ report }) => {
-  const dataJoined = report.data.join(", ");
-  const dataExcerpt = dataJoined.substr(0, 32);
-  const length = report.data.length;
-  const formattedTimestamp = new Date(report.timestamp).toLocaleString();
+  const excerpt = report.data.join(", ").substr(0, 128);
+  const n = report.data.length;
 
   return (
     <Link to={`/${report.id}`}>
-      <strong>
-        {dataExcerpt}
-        {dataExcerpt.length < dataJoined.length ? "…" : null}
-      </strong>
+      <strong>{excerpt}</strong>
       <small>
-        {length} {length !== 1 ? "entries" : "entry"}
+        {n} {n !== 1 ? "entries" : "entry"}
         {" — "}
-        <time dateTime={report.timestamp}>{formattedTimestamp}</time>
+        <time dateTime={report.timestamp}>
+          {new Date(report.timestamp).toLocaleString()}
+        </time>
       </small>
     </Link>
   );
