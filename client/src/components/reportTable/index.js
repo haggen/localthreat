@@ -5,24 +5,29 @@ import reportsApi from "../../api/reports";
 import esiApi from "../../api/esi";
 import zkbApi from "../../api/zkb";
 
-const compareCharactersName = direction => (a, b) =>
-  a.character.name.localeCompare(b.character.name) * direction;
-
-const compareCorporationName = direction => (a, b) =>
-  a.corporation.name.localeCompare(b.corporation.name) * direction;
-
-const compareAllianceName = direction => (a, b) =>
-  a.alliance.name.localeCompare(b.alliance.name) * direction;
-
-const compareDangerRatio = direction => (a, b) =>
-  (a.dangerRatio - b.dangerRatio) * direction;
-
-const compareGangRatio = direction => (a, b) =>
-  (a.gangRatio - b.gangRatio) * direction;
-
-const compareKills = direction => (a, b) => (a.kills - b.kills) * direction;
-
-const compareLosses = direction => (a, b) => (a.losses - b.losses) * direction;
+const comparators = {
+  characterName(a, b) {
+    return a.character.name.localeCompare(b.character.name);
+  },
+  corporationName(a, b) {
+    return a.corporation.name.localeCompare(b.corporation.name);
+  },
+  allianceName(a, b) {
+    return a.alliance.name.localeCompare(b.alliance.name);
+  },
+  dangerRatio(a, b) {
+    return a.dangerRatio - b.dangerRatio;
+  },
+  gangRatio(a, b) {
+    return a.gangRatio - b.gangRatio;
+  },
+  shipsDestroyed(a, b) {
+    return a.shipsDestroyed - b.shipsDestroyed;
+  },
+  shipsLost(a, b) {
+    return a.shipsLost - b.shipsLost;
+  }
+};
 
 const Table = styled.table`
   border-collapse: separate;
@@ -36,9 +41,16 @@ const Table = styled.table`
   }
 
   th {
-    cursor: pointer;
     font-weight: bolder;
     opacity: 0.5;
+  }
+
+  th.sortable {
+    cursor: pointer;
+  }
+
+  th.sortable:hover {
+    opacity: 1;
   }
 
   th,
@@ -81,14 +93,30 @@ const Table = styled.table`
     text-align: right;
   }
 
-  tbody tr:hover {
-    /* box-shadow: 0 0 0 0.125rem rgba(158, 174, 149, 0.25); */
+  tbody tr:nth-child(2n + 1) {
+    background-color: rgba(0, 0, 0, 0.25);
   }
 
-  tbody tr:hover td {
+  tbody tr:hover {
     background-color: rgba(158, 174, 149, 0.25);
   }
 `;
+
+const SortableTableHeader = ({
+  sortingKey,
+  currentSorting,
+  onClick,
+  children
+}) => (
+  <th className="sortable" onClick={e => onClick(sortingKey)}>
+    {children}
+    {currentSorting.key === sortingKey
+      ? currentSorting.direction > 0
+        ? "↑"
+        : "↓"
+      : null}
+  </th>
+);
 
 class ReportTable extends Component {
   handlePaste = e => {
@@ -104,40 +132,22 @@ class ReportTable extends Component {
     super(props);
     this.state = {
       data: [],
-      sortingFunc: compareCharactersName,
-      sortingDir: -1
+      sorting: {
+        key: "dangerRatio",
+        direction: -1
+      }
     };
   }
 
   changeSorting(key) {
-    let sortingFunc;
-    switch (key) {
-      case "dangerRatio":
-        sortingFunc = compareDangerRatio;
-        break;
-      case "gangRatio":
-        sortingFunc = compareGangRatio;
-        break;
-      case "kills":
-        sortingFunc = compareKills;
-        break;
-      case "losses":
-        sortingFunc = compareLosses;
-        break;
-      case "alliance":
-        sortingFunc = compareAllianceName;
-        break;
-      case "corporation":
-        sortingFunc = compareCorporationName;
-        break;
-      default:
-        sortingFunc = compareCharactersName;
-        break;
-    }
     this.setState({
-      sortingFunc,
-      sortingDir:
-        this.state.sortingFunc === sortingFunc ? this.state.sortingDir * -1 : -1
+      sorting: {
+        key,
+        direction:
+          this.state.sorting.key === key
+            ? this.state.sorting.direction * -1
+            : -1
+      }
     });
   }
 
@@ -160,8 +170,8 @@ class ReportTable extends Component {
       ships: [],
       dangerRatio: 0,
       gangRatio: 0,
-      kills: 0,
-      losses: 0
+      shipsDestroyed: 0,
+      shipsLost: 0
     }));
     this.setState({ data });
 
@@ -172,8 +182,8 @@ class ReportTable extends Component {
         zkbApi.fetchStats(entry.character.id).then(stats => {
           entry.dangerRatio = stats.dangerRatio || 0;
           entry.gangRatio = stats.gangRatio || 0;
-          entry.kills = stats.shipsDestroyed || 0;
-          entry.losses = stats.shipsLost || 0;
+          entry.shipsDestroyed = stats.shipsDestroyed || 0;
+          entry.shipsLost = stats.shipsLost || 0;
 
           this.setState(state => ({ data }));
         });
@@ -231,31 +241,69 @@ class ReportTable extends Component {
   }
 
   render() {
-    const { data, sortingFunc, sortingDir } = this.state;
-    const sortedData = data.sort(sortingFunc(sortingDir));
+    const { data, sorting } = this.state;
+
+    const sortedData = data.sort(
+      (a, b) => comparators[sorting.key](a, b) * sorting.direction
+    );
 
     return (
       <Table>
         <thead>
           <tr>
-            <th onClick={e => this.changeSorting("character")}>Character</th>
-            <th onClick={e => this.changeSorting("corporation")}>
+            <SortableTableHeader
+              sortingKey="characterName"
+              currentSorting={sorting}
+              onClick={key => this.changeSorting(key)}
+            >
+              Character
+            </SortableTableHeader>
+            <SortableTableHeader
+              sortingKey="corporationName"
+              currentSorting={sorting}
+              onClick={key => this.changeSorting(key)}
+            >
               Corporation
-            </th>
-            <th onClick={e => this.changeSorting("alliance")}>Alliance</th>
+            </SortableTableHeader>
+            <SortableTableHeader
+              sortingKey="allianceName"
+              currentSorting={sorting}
+              onClick={key => this.changeSorting(key)}
+            >
+              Alliance
+            </SortableTableHeader>
             <th>Ships</th>
-            <th onClick={e => this.changeSorting("dangerRatio")}>
+            <SortableTableHeader
+              sortingKey="dangerRatio"
+              currentSorting={sorting}
+              onClick={key => this.changeSorting(key)}
+            >
               <abbr title="Danger">D</abbr>
-            </th>
-            <th onClick={e => this.changeSorting("gangRatio")}>
+            </SortableTableHeader>
+
+            <SortableTableHeader
+              sortingKey="gangRatio"
+              currentSorting={sorting}
+              onClick={key => this.changeSorting(key)}
+            >
               <abbr title="Gang ratio">G</abbr>
-            </th>
-            <th onClick={e => this.changeSorting("kills")}>
+            </SortableTableHeader>
+
+            <SortableTableHeader
+              sortingKey="shipsDestroyed"
+              currentSorting={sorting}
+              onClick={key => this.changeSorting(key)}
+            >
               <abbr title="Kills">K</abbr>
-            </th>
-            <th onClick={e => this.changeSorting("losses")}>
+            </SortableTableHeader>
+
+            <SortableTableHeader
+              sortingKey="shipsLost"
+              currentSorting={sorting}
+              onClick={key => this.changeSorting(key)}
+            >
               <abbr title="Losses">L</abbr>
-            </th>
+            </SortableTableHeader>
           </tr>
         </thead>
         <tbody>
@@ -273,8 +321,8 @@ class ReportTable extends Component {
               <td>{entry.ships}</td>
               <td>{entry.dangerRatio}</td>
               <td>{entry.gangRatio}</td>
-              <td>{entry.kills}</td>
-              <td>{entry.losses}</td>
+              <td>{entry.shipsDestroyed}</td>
+              <td>{entry.shipsLost}</td>
             </tr>
           ))}
         </tbody>
