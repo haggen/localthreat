@@ -42,6 +42,7 @@ class Welcome extends Component {
 
   componentDidMount() {
     window.addEventListener("paste", this.handlePaste);
+    this.props.resetReport();
   }
 
   componentWillUnmount() {

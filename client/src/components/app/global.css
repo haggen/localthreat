@@ -3,8 +3,8 @@ html {
 }
 
 body {
-  background-color: rgb(10, 15, 15);
-  color: rgb(158, 174, 149);
+  background-color: hsl(180, 20%, 5%);
+  color: hsl(98, 13%, 63%);
   font-family: Miriam Libre, sans-serif;
   overflow-y: scroll;
 }

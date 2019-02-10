@@ -117,6 +117,8 @@ const SortableTableHeader = ({
   </th>
 );
 
+const reportPollerInterval = 2500;
+
 class ReportTable extends Component {
   handlePaste = e => {
     const clipboard = e.clipboardData || window.clipboardData;
@@ -130,6 +132,7 @@ class ReportTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      reportPoller: null,
       data: [],
       sorting: {
         key: "dangerRatio",
@@ -150,31 +153,51 @@ class ReportTable extends Component {
     });
   }
 
+  pollReportChanges() {
+    reportsApi.fetch(this.props.reportId).then(report => {
+      if (report.timestamps !== this.props.report.timestamps) {
+        this.onReportLoaded(report);
+      }
+    });
+  }
+
   onReportLoaded(report) {
     this.props.onReportLoaded(report);
     this.buildReportData(report);
+
+    if (!this.state.reportsPoller) {
+      this.setState({
+        reportPoller: setInterval(
+          () => this.pollReportChanges(),
+          reportPollerInterval
+        )
+      });
+    }
   }
 
   buildReportData(report) {
-    const data = report.data.map(name => ({
-      character: {
-        id: null,
-        name
-      },
-      corporation: {
-        id: null,
-        name: null
-      },
-      alliance: {
-        id: null,
-        name: null
-      },
-      ships: [],
-      dangerRatio: 0,
-      gangRatio: 0,
-      shipsDestroyed: 0,
-      shipsLost: 0
-    }));
+    const data = [];
+    report.data.forEach(name => {
+      data.push({
+        character: {
+          id: null,
+          name
+        },
+        corporation: {
+          id: null,
+          name: null
+        },
+        alliance: {
+          id: null,
+          name: null
+        },
+        ships: [],
+        dangerRatio: 0,
+        gangRatio: 0,
+        shipsDestroyed: 0,
+        shipsLost: 0
+      });
+    });
     this.setState({ data });
 
     esiApi.fetchByNames(report.data).then(ids => {
@@ -240,6 +263,7 @@ class ReportTable extends Component {
 
   componentWillUnmount() {
     window.removeEventListener("paste", this.handlePaste);
+    if (this.state.reportPoller) clearInterval(this.state.reportPoller);
   }
 
   render() {

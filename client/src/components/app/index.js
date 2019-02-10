@@ -37,6 +37,9 @@ class App extends Component {
   }
 
   setReport(report) {
+    this.setState(state => ({ report }));
+    if (!report) return;
+
     const history = [];
     for (let i = 0, l = this.state.history.length; i < l; i++) {
       if (this.state.history[i].id !== report.id) {
@@ -44,11 +47,14 @@ class App extends Component {
       }
     }
     history.push(report);
-    localStorage.setItem(storageKey, JSON.stringify(history));
-    this.setState({ history, report });
+    this.setState(state => ({ history }));
   }
 
-  componentDidMount() {
+  saveHistory(history) {
+    localStorage.setItem(storageKey, JSON.stringify(history));
+  }
+
+  loadHistory() {
     const savedHistory = localStorage.getItem(storageKey);
     if (savedHistory) {
       this.setState({
@@ -57,18 +63,37 @@ class App extends Component {
     }
   }
 
+  componentDidMount() {
+    this.loadHistory();
+  }
+
+  componentDidUpdate() {
+    if (this.state.history) {
+      this.saveHistory(this.state.history);
+    }
+  }
+
   render() {
     return (
       <BrowserRouter>
         <Main>
-          <TopBar toggleHistoryPanel={e => this.toggleHistoryPanel()} />
+          <TopBar
+            hasReport={!!this.state.report}
+            toggleHistoryPanel={e => this.toggleHistoryPanel()}
+          />
           <Content>
             <HistoryPanel
               history={this.state.history}
               isOpen={this.state.isHistoryPanelOpen}
               onRequestClose={() => this.toggleHistoryPanel(false)}
             />
-            <Route exact path="/" component={Welcome} />
+            <Route
+              exact
+              path="/"
+              render={props => (
+                <Welcome {...props} resetReport={() => this.setReport(null)} />
+              )}
+            />
             <Route
               path="/:reportId"
               render={props => (
