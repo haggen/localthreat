@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"errors"
+	"flag"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -205,6 +206,8 @@ func main() {
 	e.PUT("/reports/:id", handlePatchReport)
 	e.GET("/reports/:id", handleGetReport)
 
-	e.Server.Addr = ":8080"
+	flag.StringVar(&e.Server.Addr, "addr", ":8080", "address to listen to")
+	flag.Parse()
+
 	e.Logger.Fatal(gracehttp.Serve(e.Server))
 }
