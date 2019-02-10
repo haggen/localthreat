@@ -5,8 +5,13 @@ import { ReactComponent as Brand } from "./localthreat.svg";
 
 const Bar = styled.header`
   align-items: center;
+  background-color: rgb(10, 15, 15);
   display: flex;
   justify-content: space-between;
+  padding: 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 90;
 
   h1 {
     font-size: 1.75em;
@@ -32,7 +37,6 @@ const Bar = styled.header`
     cursor: pointer;
     font-size: 1.125em;
     font-weight: bolder;
-    margin-left: 0.75rem;
     padding: 0.375rem 0.75rem;
   }
 `;

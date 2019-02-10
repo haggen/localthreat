@@ -6,7 +6,7 @@ body {
   background-color: rgb(10, 15, 15);
   color: rgb(158, 174, 149);
   font-family: Miriam Libre, sans-serif;
-  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 ::selection {

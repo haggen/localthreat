@@ -8,7 +8,7 @@ const Panel = styled.aside`
   left: 100%;
   overflow: auto;
   padding: 1.5rem;
-  position: absolute;
+  position: fixed;
   top: 0;
   transform: translateX(${props => (props.isOpen ? -100 : 0)}%);
   transition: transform 0.375s ease;

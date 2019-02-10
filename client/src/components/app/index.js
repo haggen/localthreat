@@ -10,8 +10,10 @@ import "./global.css";
 
 const storageKey = "app:data";
 
-const Main = styled.main`
-  padding: 1.5rem;
+const Main = styled.main``;
+
+const Content = styled.div`
+  margin: 0 1.5rem 1.5rem;
 `;
 
 class App extends Component {
@@ -60,7 +62,7 @@ class App extends Component {
       <BrowserRouter>
         <Main>
           <TopBar toggleHistoryPanel={e => this.toggleHistoryPanel()} />
-          <div>
+          <Content>
             <HistoryPanel
               history={this.state.history}
               isOpen={this.state.isHistoryPanelOpen}
@@ -78,7 +80,7 @@ class App extends Component {
                 />
               )}
             />
-          </div>
+          </Content>
         </Main>
       </BrowserRouter>
     );

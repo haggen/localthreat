@@ -32,7 +32,6 @@ const comparators = {
 const Table = styled.table`
   border-collapse: separate;
   border-spacing: 0;
-  margin-top: 1.5rem;
   table-layout: fixed;
   width: 100%;
 
@@ -153,7 +152,10 @@ class ReportTable extends Component {
 
   onReportLoaded(report) {
     this.props.onReportLoaded(report);
+    this.buildReportData(report);
+  }
 
+  buildReportData(report) {
     const data = report.data.map(name => ({
       character: {
         id: null,
