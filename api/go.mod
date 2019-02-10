@@ -1,3 +1,5 @@
+// +heroku goVersion go1.11
+
 module github.com/haggen/localthreat.next/api
 
 require (
