@@ -49,6 +49,11 @@ const List = styled.ul`
     margin-top: 0.75rem;
   }
 
+  li.alert {
+    text-align: center;
+    opacity: 0.5;
+  }
+
   strong {
     max-width: 100%;
     overflow: hidden;
@@ -123,6 +128,9 @@ class HistoryPanel extends Component {
           <button onClick={e => this.props.onRequestClose()}>×</button>
         </Header>
         <List>
+          {history.length === 0 ? (
+            <li class="alert">There's no past. Only the future.</li>
+          ) : null}
           {history.map((report, index) => (
             <li key={index}>
               <Entry report={report} />
