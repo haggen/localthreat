@@ -1,1 +1,1 @@
-web: api -addr $PORT
+web: api -addr ":$PORT"
