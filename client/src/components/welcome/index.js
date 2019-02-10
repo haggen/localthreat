@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import reportsApi from "../../api/reports";
 
 const Notice = styled.div`
   font-size: 1.25em;
@@ -20,24 +21,11 @@ class Welcome extends Component {
   handlePaste = e => {
     console.log(e);
     const clipboard = e.clipboardData || window.clipboardData;
-    const body = clipboard.getData("Text");
-    if (!body) return;
-    fetch("http://api.localthreat.localhost/reports", {
-      method: "POST",
-      headers: {
-        "Content-Type": "text/plain"
-      },
-      body
-    })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw response;
-      })
-      .then(report => {
-        this.props.history.push("/" + report.id);
-      });
+    const text = clipboard.getData("Text");
+    if (!text) return;
+    reportsApi
+      .create(text)
+      .then(report => this.props.history.push("/" + report.id));
   };
 
   componentDidMount() {
