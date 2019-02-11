@@ -1,7 +1,4 @@
-<p align="center">
-  <a href="https://next.localthreat.xyz/"><img src="localthreat.svg" alt="localthreat"></a>
-</p>
-<blockquote align="center">Paste the transcript or members from chat to get a report of affiliations and PvP stats.</blockquote>
+[![next.localthreat.xyz](localthreat.png)](https://next.localthreat.xyz)
 
 ## About
 
