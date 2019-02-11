@@ -6,13 +6,13 @@
 
 ## Contribution
 
-I do my best to keep the service running at the lowest cost possible, but it still has some. Namely the domain renewal and a \$10 virtual machine on [Digital Ocean](https://m.do.co/c/938217c061ee). Help me help you by contributing to the upkeep of localthreat. [Donate via PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B9KBZJP99YAE8&source=url).
+I do my best to keep the service running at the lowest cost possible, but it still has some. Namely the domain renewal and a \$10 virtual machine on [Digital Ocean](https://www.digitalocean.com/). Help me help you by contributing to the upkeep of localthreat. [Donate via PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B9KBZJP99YAE8&source=url).
 
 ## Development
 
 ### Overview
 
-All the code is hosted on [GitHub](https://github.com/haggen/localthreat). The design lives on [Figma](https://www.figma.com/file/BPH2xeVvbBDAnWpjMI58GpnW/localthreat.next). Bug tracking, feature request, or any other feedback must be made on the [repository's issues page][https://github.com/haggen/localthreat/issues/new].
+All the code is hosted on [GitHub](https://github.com/haggen/localthreat). The design lives on [Figma](https://www.figma.com/file/BPH2xeVvbBDAnWpjMI58GpnW/localthreat.next). Bug tracking, feature request, or any other feedback must be made on the [repository's issues page](https://github.com/haggen/localthreat/issues/new).
 
 ### Easily
 
