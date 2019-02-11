@@ -7,35 +7,35 @@
 
 **[localthreat](https://localthreat.xyz/)** is an online tool to help EVE players with threat assessment.
 
-## Feedback
-
-Opinions, suggestions, issues, or whatever the case, get in touch by [creating a new issue](https://github.com/haggen/localthreat/issues/new).
-
 ## Contribution
 
-I do my best to keep the service running at the lowest cost possible, but it still has some. Help me help you by contributing to the upkeep of localthreat. [Donate via PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B9KBZJP99YAE8&source=url).
+I do my best to keep the service running at the lowest cost possible, but it still has some. Namely the domain renewal and a \$10 virtual machine on [Digital Ocean](https://m.do.co/c/938217c061ee). Help me help you by contributing to the upkeep of localthreat. [Donate via PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B9KBZJP99YAE8&source=url).
 
 ## Development
 
-### Docker
+### Overview
 
-If you've got `docker-compose-1.13.0` or newer installed, simply run:
+All the code is hosted on [GitHub](https://github.com/haggen/localthreat). The design lives on [Figma](https://www.figma.com/file/BPH2xeVvbBDAnWpjMI58GpnW/localthreat.next). Bug tracking, feature request, or any other feedback must be made on the [repository's issues page][https://github.com/haggen/localthreat/issues/new].
+
+### Easily
+
+If you've got docker-compose 1.13.0+ installed, simply run:
 
 ```shell
 $ docker-compose up
 ```
 
-You can customize the runtime by editting the `docker-compose.yml` file.
+This will boot everything you need in one go. You can customize the runtime by editting the `docker-compose.yml` file.
 
-### API
+### Manually
 
-You'll need `go-1.11.1` or newer installed. Hop into the `api/` sub-directory and run:
+You'll need Go 1.11.1+ installed. Hop into the `api/` sub-directory and run:
 
 ```shell
 $ go get
 ```
 
-To download all the dependencies.
+To download all the dependencies and then:
 
 ```shell
 $ make test
@@ -44,29 +44,29 @@ $ make
 
 To test and build the binary, respectively.
 
-For the database you'll need `postgreql-9.1` or newer running. Load the `migrate.sql` file and then execute:
+For persistence you'll need PostgreSQL 9.1+ running. Load the `migrate.sql` file into your database and run:
 
 ```shell
-$ DATABASE_URL=postgres://... ./localthreat
+$ DATABASE_URL=postgres://postgres@localhost/postgres ./localthreat
 ```
 
-To boot up the API server.
+To start the API server.
 
 ### Client
 
-You'll need `node-8.10` or newer and `yarn` installed. Hop into the `client/` sub-directory and run:
+You'll need Node 8.10+ and yarn installed. Hop into the `client/` sub-directory and run:
 
 ```shell
 $ yarn install
 ```
 
-To download all the dependencies.
+To download all the dependencies. Then run:
 
 ```shell
 $ yarn start
 ```
 
-To start a development server that watches for changes.
+To start a development server.
 
 ## Legal
 
