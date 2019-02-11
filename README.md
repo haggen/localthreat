@@ -1,11 +1,11 @@
 <p align="center">
-  <a href="https://localthreat.xyz/"><img src="localthreat.svg" alt="localthreat"></a>
+  <a href="https://next.localthreat.xyz/"><img src="localthreat.svg" alt="localthreat"></a>
 </p>
 <blockquote align="center">Paste the transcript or members from chat to get a report of affiliations and PvP stats.</blockquote>
 
 ## About
 
-**[localthreat](https://localthreat.xyz/)** is an online tool to help EVE players with threat assessment.
+**[localthreat](https://next.localthreat.xyz/)** is an online tool to help EVE players with threat assessment.
 
 ## Contribution
 
