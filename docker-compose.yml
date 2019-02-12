@@ -19,6 +19,7 @@ services:
       - ./client:/usr/local/src
     environment:
       - VIRTUAL_HOST=localthreat.localhost
+      - REACT_APP_API_URL=http://api.localthreat.localhost
   db:
     image: postgres:11.1-alpine
     ports:
