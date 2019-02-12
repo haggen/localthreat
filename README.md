@@ -4,19 +4,11 @@
 
 **[localthreat](https://next.localthreat.xyz/)** is an online tool to help EVE players with threat assessment.
 
-## Contribution
-
-I do my best to keep the service running at the lowest cost possible, but it still has some. Namely the domain renewal and a \$10 virtual machine on [Digital Ocean](https://www.digitalocean.com/). Help me help you by contributing to the upkeep of localthreat. [Donate via PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B9KBZJP99YAE8&source=url).
-
 ## Development
-
-### Overview
 
 The code and documentation are hosted on [GitHub](https://github.com/haggen/localthreat). The design lives on [Figma](https://www.figma.com/file/BPH2xeVvbBDAnWpjMI58GpnW/localthreat.next). Bug tracking, feature request, and any other feedback must be made on the [repository's issues page](https://github.com/haggen/localthreat/issues/new).
 
 ### Setup
-
-#### Automagical
 
 If you've got docker-compose 1.13.0+ installed, simply run:
 
@@ -24,11 +16,19 @@ If you've got docker-compose 1.13.0+ installed, simply run:
 $ docker-compose up
 ```
 
-This will boot everything you need in one go. You can customize the runtime by editting the `docker-compose.yml` file.
+This will boot everything you need in one go. You can resume your work later with the same command. If you just created the container though, you'll need to also setup the database; with the containers running run:
 
-#### Manual
+```shell
+$ docker-compose exec -T db psql -h localhost -u postgres postgres < api/migrate.sql
+```
 
-##### API
+Also note that you'll need to setup a local proxy so the client can talk to the API server. Images like [jwilder/nginx-proxy](https://github.com/jwilder/nginx-proxy) can help you with that. The default hostnames are `localthreat.localhost` for the client, and `api.localthreat.localhost` for the API.
+
+### Manual setup
+
+If you don't have Docker or with you don't want to deal with proxies and hostnames you can build and run everything locally.
+
+#### API
 
 You'll need Go 1.11.1+ installed. Hop into the `api/` sub-directory and run:
 
@@ -45,15 +45,15 @@ $ make
 
 To test and build the binary, respectively.
 
-For persistence you'll need PostgreSQL 9.1+ running. Load the `migrate.sql` file into your database and run:
+For persistence you'll need PostgreSQL 9.1+. Load the `migrate.sql` file into your database and run:
 
 ```shell
 $ DATABASE_URL=postgres://postgres@localhost/postgres ./localthreat
 ```
 
-To start the API server.
+To start the API server. Adjust the `DATABASE_URL` env var accordingly.
 
-##### Client
+#### Client
 
 You'll need Node 8.10+ and yarn installed. Hop into the `client/` sub-directory and run:
 
@@ -64,10 +64,14 @@ $ yarn install
 To download all the dependencies. Then run:
 
 ```shell
-$ yarn start
+$ REACT_APP_API_URL=http://localhost:8080 yarn start
 ```
 
-To start a development server.
+To start a development server. Adjust the `REACT_APP_API_URL` env var accordingly.
+
+## Contribution
+
+I do my best to keep the service running at the lowest cost possible, but it still has some. Namely the domain renewal and a \$10 virtual machine on [Digital Ocean](https://www.digitalocean.com/). Help me help you by contributing to the upkeep of localthreat. [Donate via PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B9KBZJP99YAE8&source=url).
 
 ## Legal
 
