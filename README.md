@@ -12,9 +12,11 @@ I do my best to keep the service running at the lowest cost possible, but it sti
 
 ### Overview
 
-All the code is hosted on [GitHub](https://github.com/haggen/localthreat). The design lives on [Figma](https://www.figma.com/file/BPH2xeVvbBDAnWpjMI58GpnW/localthreat.next). Bug tracking, feature request, or any other feedback must be made on the [repository's issues page](https://github.com/haggen/localthreat/issues/new).
+The code and documentation are hosted on [GitHub](https://github.com/haggen/localthreat). The design lives on [Figma](https://www.figma.com/file/BPH2xeVvbBDAnWpjMI58GpnW/localthreat.next). Bug tracking, feature request, and any other feedback must be made on the [repository's issues page](https://github.com/haggen/localthreat/issues/new).
 
-### Easily
+### Setup
+
+#### Automagical
 
 If you've got docker-compose 1.13.0+ installed, simply run:
 
@@ -24,7 +26,9 @@ $ docker-compose up
 
 This will boot everything you need in one go. You can customize the runtime by editting the `docker-compose.yml` file.
 
-### Manually
+#### Manual
+
+##### API
 
 You'll need Go 1.11.1+ installed. Hop into the `api/` sub-directory and run:
 
@@ -49,7 +53,7 @@ $ DATABASE_URL=postgres://postgres@localhost/postgres ./localthreat
 
 To start the API server.
 
-### Client
+##### Client
 
 You'll need Node 8.10+ and yarn installed. Hop into the `client/` sub-directory and run:
 
