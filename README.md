@@ -1,4 +1,6 @@
-[![next.localthreat.xyz](localthreat.png)](https://next.localthreat.xyz)
+[![next.localthreat.xyz](localthreat.svg)](https://next.localthreat.xyz)
+
+> Paste the transcript or members from chat to get a report of affiliations and PvP stats.
 
 ## About
 
@@ -16,7 +18,7 @@ If you've got docker-compose 1.13.0+ installed, simply run:
 $ docker-compose up
 ```
 
-This will boot everything you need in one go. You can resume your work later with the same command. If you just created the container though, you'll need to also setup the database; with the containers running run:
+This will boot everything you need in one go. You can resume your work later with the same command. If it's your first run though, you'll need to also setup the database; with the everything running run:
 
 ```shell
 $ docker-compose exec -T db psql -h localhost -u postgres postgres < api/migrate.sql
