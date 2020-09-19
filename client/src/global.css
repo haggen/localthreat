@@ -7,7 +7,8 @@ html {
 }
 
 #root {
+  min-width: 1024px;
   height: 100vh;
-  flex-direction: column;
   display: flex;
+  flex-direction: column;
 }

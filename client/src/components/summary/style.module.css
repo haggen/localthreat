@@ -2,6 +2,7 @@
 }
 
 .summary h1 {
+  padding: 0.375rem;
 }
 
 .summary h1 span {
@@ -10,8 +11,9 @@
 }
 
 .summary ul {
+  background-color: hsla(var(--foreground-hsl), 0.05);
+  padding: 0.1875rem;
   display: flex;
-  margin: -0.1875rem;
   flex-wrap: wrap;
 }
 

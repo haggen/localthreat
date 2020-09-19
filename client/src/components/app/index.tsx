@@ -10,7 +10,9 @@ export const App = () => {
     <>
       <nav className={style.menu}>
         <h1>
-          <Brand />
+          <Link href="/" aria-label="localthreat">
+            <Brand />
+          </Link>
         </h1>
         <ul>
           <li>

@@ -1,7 +1,18 @@
 import { useState } from "react";
 import { PlayerData } from "types";
 
-type Config = [string, -1 | 1];
+type Config = [
+  (
+    | "name"
+    | "corpName"
+    | "allyName"
+    | "dangerRatio"
+    | "gangRatio"
+    | "shipsDestroyed"
+    | "shipsLost"
+  ),
+  -1 | 1
+];
 
 const getComparison = ([key, direction]: Config): ((
   a: PlayerData,
@@ -28,10 +39,10 @@ const getComparison = ([key, direction]: Config): ((
   }
 };
 
-const defaultKey = "dangerRatio";
-const defaultDirection = 1;
-
-export const useSorting = () => {
+export const useSorting = (
+  defaultKey: Config[0],
+  defaultDirection: Config[1] = 1
+) => {
   const [config, setConfig] = useState<Config>([defaultKey, defaultDirection]);
 
   const toggle = (key: string) => {

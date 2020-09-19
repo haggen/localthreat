@@ -1,0 +1,18 @@
+.instructions {
+  justify-content: center;
+  flex-direction: column;
+  display: flex;
+  height: 100%;
+  text-align: center;
+  align-items: center;
+}
+
+.instructions h1 {
+  font-size: 2em;
+  margin-bottom: 0.75rem;
+  color: hsla(var(--foreground-hsl), 0.5);
+}
+
+.instructions p {
+  max-width: 72ch;
+}

@@ -8,6 +8,7 @@
 }
 
 .entity img {
+  border-radius: 0.25rem;
   display: block;
   height: 2em;
   width: 2em;

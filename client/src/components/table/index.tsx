@@ -10,7 +10,7 @@ type Props = {
 };
 
 export const Table = ({ data, update }: Props) => {
-  const [compare, toggleSorting] = useSorting();
+  const [compare, toggleSorting] = useSorting("shipsDestroyed");
 
   return (
     <table className={style.table}>
@@ -29,16 +29,36 @@ export const Table = ({ data, update }: Props) => {
           </th>
           <th>Ships</th>
           <th>
-            <button onClick={() => toggleSorting("dangerRatio")}>D</button>
+            <button
+              onClick={() => toggleSorting("dangerRatio")}
+              title="Danger level (0–100)"
+            >
+              D
+            </button>
           </th>
           <th>
-            <button onClick={() => toggleSorting("gangRatio")}>G</button>
+            <button
+              onClick={() => toggleSorting("gangRatio")}
+              title="Gang ratio (0–100)"
+            >
+              G
+            </button>
           </th>
           <th>
-            <button onClick={() => toggleSorting("shipsDestroyed")}>K</button>
+            <button
+              onClick={() => toggleSorting("shipsDestroyed")}
+              title="Ships destroyed"
+            >
+              K
+            </button>
           </th>
           <th>
-            <button onClick={() => toggleSorting("shipsLost")}>L</button>
+            <button
+              onClick={() => toggleSorting("shipsLost")}
+              title="Ships lost"
+            >
+              L
+            </button>
           </th>
         </tr>
       </thead>

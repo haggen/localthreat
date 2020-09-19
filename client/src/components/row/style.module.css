@@ -12,8 +12,8 @@
 }
 
 .ships {
-  -ms-overflow-style: 0;
-  scrollbar-width: 0;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 .ships::-webkit-scrollbar {
   display: none;
