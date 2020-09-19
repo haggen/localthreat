@@ -1,0 +1,16 @@
+.link {
+  align-items: center;
+  display: inline-flex;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.link img {
+  background-color: #111;
+}
+
+.link img + span {
+  margin-left: 0.5rem;
+}
