@@ -81,9 +81,7 @@ To start the development server.
 
 # Contribution
 
-I do my best to keep the service running at the lowest cost possible, but it still has some. Namely the domain renewal and a \$5 virtual machine on [Digital Ocean](https://www.digitalocean.com/). Help me help you by contributing to the upkeep of localthreat.
-
-- [**Donate via PayPal**](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B9KBZJP99YAE8&source=url).
+I accept **ISK donations** as contributions to the project. If you feel like localthreat has helped you please consider contributing. Send a donation in-game to **Jason Chorant`** of any value. This helps to keep me motivated and also with the costs of running and maintaining this service.
 
 # Legal
 
