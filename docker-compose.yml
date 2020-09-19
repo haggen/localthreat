@@ -28,7 +28,7 @@ services:
       - ./client:/usr/local/src
     environment:
       REACT_APP_API_URL: http://api-localthreat.localhost
-      CI: true
+      CI: "true"
   db:
     image: postgres:12.4-alpine
     environment:
