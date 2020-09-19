@@ -2,37 +2,43 @@
 
 > Paste the transcript or members from chat to get a report of affiliations and PvP stats.
 
-## About
+# About
 
 **[localthreat](https://next.localthreat.xyz/)** is an online tool to help EVE players with threat assessment.
 
-## Development
+# Development
 
 The code and documentation are hosted on [GitHub](https://github.com/haggen/localthreat). The design lives on [Figma](https://www.figma.com/file/BPH2xeVvbBDAnWpjMI58GpnW/localthreat.next). Bug tracking, feature request, and any other feedback must be made on the [repository's issues page](https://github.com/haggen/localthreat/issues/new).
 
-### Setup
+## Docker setup (recommended)
 
-If you've got docker-compose 1.13.0+ installed, simply run:
+You'll need to be resolving any subdomain of localhost to localhost. Chrome does that automatically.
+
+With Docker running and docker-compose installed, run:
 
 ```shell
 $ docker-compose up
 ```
 
-This will boot everything you need in one go. You can resume your work later with the same command. If it's your first run though, you'll need to also setup the database; with the everything running run:
+This will boot everything you need in one go. You can resume your work later with the same command.
+
+If it's your first run though, you'll need to seed the database; with the containers running:
 
 ```shell
-$ docker-compose exec -T db psql -h localhost -u postgres postgres < api/migrate.sql
+$ docker-compose exec -T db psql -h localhost -u postgres postgres < api/schema.sql
 ```
 
-Also note that you'll need to setup a local proxy so the client can talk to the API server. Images like [jwilder/nginx-proxy](https://github.com/jwilder/nginx-proxy) can help you with that. The default hostnames are `localthreat.localhost` for the client, and `api.localthreat.localhost` for the API.
+You can access the app at http://client-localthreat.localhost and the API at http://api-localthreat.localhost.
 
-### Manual setup
+## Manual setup
 
-If you don't have Docker or with you don't want to deal with proxies and hostnames you can build and run everything locally.
+If you don't have Docker or don't want to deal with proxies you can build and run everything locally.
 
-#### API
+### API
 
-You'll need Go 1.11.1+ installed. Hop into the `api/` sub-directory and run:
+It's a simple web server written in Go that talks JSON.
+
+You'll need Go 1.15+ installed. Hop into the `api/` sub-directory and run:
 
 ```shell
 $ go get
@@ -45,37 +51,41 @@ $ make test
 $ make
 ```
 
-To test and build the binary, respectively.
+To test and build the binary.
 
-For persistence you'll need PostgreSQL 9.1+. Load the `migrate.sql` file into your database and run:
-
-```shell
-$ DATABASE_URL=postgres://postgres@localhost/postgres ./localthreat
-```
-
-To start the API server. Adjust the `DATABASE_URL` env var accordingly.
-
-#### Client
-
-You'll need Node 8.10+ and yarn installed. Hop into the `client/` sub-directory and run:
+You'll also need PostgreSQL 12+ running. Load `api/schema.sql` file into your database and run:
 
 ```shell
-$ yarn install
+$ DATABASE_URL=postgres://postgres@localhost/postgres ./localthreat -addr ":5000"
 ```
 
-To download all the dependencies. Then run:
+This will start the API server. You might want to adjust the `DATABASE_URL` value accordingly.
+
+### Client
+
+It's a [Create React App](https://create-react-app.dev/) written in TypeScript.
+
+You'll need Node 14+ and npm installed. Hop into the `client` sub-directory and run:
 
 ```shell
-$ REACT_APP_API_URL=http://localhost:8080 yarn start
+$ npm install
 ```
 
-To start a development server. Adjust the `REACT_APP_API_URL` env var accordingly.
+To download all the dependencies and then:
 
-## Contribution
+```shell
+$ REACT_APP_API_URL=http://localhost:5000 npm run-script start
+```
 
-I do my best to keep the service running at the lowest cost possible, but it still has some. Namely the domain renewal and a \$10 virtual machine on [Digital Ocean](https://www.digitalocean.com/). Help me help you by contributing to the upkeep of localthreat. [Donate via PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B9KBZJP99YAE8&source=url).
+To start the development server.
 
-## Legal
+# Contribution
+
+I do my best to keep the service running at the lowest cost possible, but it still has some. Namely the domain renewal and a \$5 virtual machine on [Digital Ocean](https://www.digitalocean.com/). Help me help you by contributing to the upkeep of localthreat.
+
+- [**Donate via PayPal**](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B9KBZJP99YAE8&source=url).
+
+# Legal
 
 [The MIT License](LICENSE) © 2017 Arthur Corenzan
 
