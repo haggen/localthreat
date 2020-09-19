@@ -12,7 +12,7 @@ The code and documentation are hosted on [GitHub](https://github.com/haggen/loca
 
 ## Docker setup (recommended)
 
-You'll need to be resolving any subdomain of localhost to localhost. Chrome does that automatically.
+You'll need to be resolving any subdomain of localhost to localhost. If you're using Chrome it does that automatically. Otherwise you'll need to edit your `hosts` file or something like [dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc.html).
 
 With Docker running and docker-compose installed, run:
 
@@ -25,7 +25,7 @@ This will boot everything you need in one go. You can resume your work later wit
 If it's your first run though, you'll need to seed the database; with the containers running:
 
 ```shell
-$ docker-compose exec -T db psql -h localhost -u postgres postgres < api/schema.sql
+$ docker-compose exec -T db psql -h localhost -U postgres postgres < api/schema.sql
 ```
 
 You can access the app at http://client-localthreat.localhost and the API at http://api-localthreat.localhost.
