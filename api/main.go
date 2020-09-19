@@ -1,213 +1,119 @@
 package main
 
 import (
-	"database/sql"
-	"errors"
-	"flag"
-	"io"
+	"context"
+	"encoding/json"
+	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"os"
-	"regexp"
+	"path"
 	"strings"
-	"time"
 
-	"github.com/facebookgo/grace/gracehttp"
-	"github.com/labstack/echo"
-	"github.com/labstack/echo/middleware"
-	"github.com/labstack/gommon/log"
-	"github.com/lib/pq"
-	hashids "github.com/speps/go-hashids"
+	"github.com/haggen/localthreat/api/web"
+
+	"github.com/jackc/pgx/v4"
 )
 
-// Report ...
-type Report struct {
-	Timestamp time.Time `json:"timestamp"`
-	ID        string    `json:"id"`
-	Data      []string  `json:"data"`
-}
+func v1APIHandler(db *pgx.Conn) web.Middleware {
+	return func(next http.Handler) http.Handler {
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			if !strings.HasPrefix(r.URL.Path, "/v1") {
+				next.ServeHTTP(w, r)
+				return
+			}
 
-// AppendData ...
-func (r *Report) AppendData(data []string) {
-	existing := map[string]bool{}
-	for _, entry := range r.Data {
-		existing[entry] = true
-	}
-	for _, entry := range data {
-		if entry == "" {
-			continue
-		}
-		if ok := existing[entry]; !ok {
-			r.Data = append(r.Data, entry)
-		}
-	}
-}
+			w.Header().Set("Content-Type", "application/json; charset=utf-8")
 
-var lineSep = regexp.MustCompile(`[\n\r]+`)
-var linkPat = regexp.MustCompile(`<url=showinfo:13..\/\/.+?>(.+?)<\/url>`)
+			if err := r.ParseForm(); err != nil {
+				log.Print("ParseForm():", err)
+				w.WriteHeader(http.StatusBadRequest)
+				return
+			}
 
-func tryParseTranscript(chat string) ([]string, error) {
-	match := linkPat.FindAllStringSubmatch(chat, -1)
-	if match == nil {
-		return nil, errors.New("Not a transcript")
-	}
-	data := []string{}
-	for _, m := range match {
-		data = append(data, m[1])
-	}
-	return data, nil
-}
+			dir, file := path.Split(r.URL.Path)
 
-func parseBody(body io.ReadCloser) ([]string, error) {
-	raw, err := ioutil.ReadAll(body)
-	if err != nil {
-		return nil, err
+			switch fmt.Sprintf("%s %s", r.Method, dir) {
+			case "GET /v1/reports/":
+				report := &Report{}
+				err := db.QueryRow(context.Background(), `SELECT id, data FROM reports WHERE id = $1;`, file).Scan(&report.ID, &report.Data)
+				if err == pgx.ErrNoRows {
+					w.WriteHeader(http.StatusNotFound)
+					return
+				} else if err != nil {
+					panic(err)
+				}
+				data, err := json.Marshal(report)
+				if err != nil {
+					panic(err)
+				}
+				w.Write(data)
+				w.WriteHeader(http.StatusOK)
+			case "POST /v1/reports/":
+				src, err := ioutil.ReadAll(r.Body)
+				if err != nil {
+					panic(err)
+				}
+				report := &Report{
+					ID: file,
+				}
+				report.Parse(string(src))
+				data, err := json.Marshal(report)
+				if err != nil {
+					panic(err)
+				}
+				_, err = db.Exec(context.Background(), `INSERT INTO reports VALUES ($1, $2);`, report.ID, report.Data)
+				if err != nil {
+					panic(err)
+				}
+				w.Write(data)
+				w.WriteHeader(http.StatusCreated)
+			case "PATCH /v1/reports/":
+				report := &Report{}
+				err := db.QueryRow(context.Background(), `SELECT id, data FROM reports WHERE id = $1;`, file).Scan(&report.ID, &report.Data)
+				if err == pgx.ErrNoRows {
+					w.WriteHeader(http.StatusNotFound)
+					return
+				} else if err != nil {
+					panic(err)
+				}
+				src, err := ioutil.ReadAll(r.Body)
+				if err != nil {
+					panic(err)
+				}
+				report.Parse(string(src))
+				_, err = db.Exec(context.Background(), `UPDATE reports SET data = $2 WHERE id = $1;`, report.ID, report.Data)
+				if err != nil {
+					panic(err)
+				}
+				data, err := json.Marshal(report)
+				if err != nil {
+					panic(err)
+				}
+				w.Write(data)
+				w.WriteHeader(http.StatusOK)
+			default:
+				w.WriteHeader(http.StatusNotFound)
+			}
+		})
 	}
-	trimmed := strings.TrimSpace(string(raw))
-	data, err := tryParseTranscript(trimmed)
-	if err != nil {
-		data = lineSep.Split(trimmed, -1)
-	}
-	return data, nil
-}
-
-var db *sql.DB
-var hd *hashids.HashID
-
-func createReport(r *Report) error {
-	var id int
-	err := db.QueryRow(`insert into reports (timestamp, data) values ($1, $2) returning id;`, r.Timestamp, pq.Array(r.Data)).Scan(&id)
-	if err != nil {
-		return err
-	}
-	r.ID, err = hd.Encode([]int{id})
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-func updateReport(r *Report) error {
-	id, err := hd.DecodeWithError(r.ID)
-	if err != nil {
-		return err
-	}
-	r.Timestamp = time.Now()
-	_, err = db.Exec(`update reports set timestamp = $2, data = $3 where id = $1;`, id[0], r.Timestamp, pq.Array(r.Data))
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-func saveReport(r *Report) error {
-	var err error
-	if r.ID == "" {
-		err = createReport(r)
-	} else {
-		err = updateReport(r)
-	}
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-func findReport(hid string) (*Report, error) {
-	r := &Report{
-		ID: hid,
-	}
-	id := hd.Decode(hid)
-	err := db.QueryRow(`select timestamp, data from reports where id = $1 limit 1;`, id[0]).Scan(&r.Timestamp, pq.Array(&r.Data))
-	switch {
-	case err == sql.ErrNoRows:
-		return nil, nil
-	case err != nil:
-		return nil, err
-	}
-	return r, nil
-}
-
-func handleNewReport(c echo.Context) error {
-	data, err := parseBody(c.Request().Body)
-	if err != nil {
-		panic(err)
-	}
-	report := &Report{
-		Timestamp: time.Now(),
-		ID:        "",
-	}
-	report.AppendData(data)
-	err = saveReport(report)
-	if err != nil {
-		panic(err)
-	}
-	c.JSON(http.StatusCreated, report)
-	return nil
-}
-
-func handlePatchReport(c echo.Context) error {
-	report, err := findReport(c.Param("id"))
-	if err != nil {
-		panic(err)
-	}
-	if report == nil {
-		return echo.ErrNotFound
-	}
-	data, err := parseBody(c.Request().Body)
-	if err != nil {
-		panic(err)
-	}
-	report.AppendData(data)
-	err = saveReport(report)
-	if err != nil {
-		panic(err)
-	}
-	c.JSON(http.StatusOK, report)
-	return nil
-}
-
-func handleGetReport(c echo.Context) error {
-	report, err := findReport(c.Param("id"))
-	if err != nil {
-		panic(err)
-	}
-	if report == nil {
-		return echo.ErrNotFound
-	}
-	c.JSON(http.StatusOK, report)
-	return nil
 }
 
 func main() {
-	data := hashids.NewData()
-	data.Salt = "localthreat.next"
-	data.MinLength = 5
-	var err error
-	hd, err = hashids.NewWithData(data)
+	database, err := pgx.Connect(context.Background(), os.Getenv("DATABASE_URL"))
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer database.Close(context.Background())
 
-	db, err = sql.Open("postgres", os.Getenv("DATABASE_URL"))
-	if err != nil {
-		log.Fatal(err)
-	}
+	w := web.New()
 
-	e := echo.New()
-	e.Logger.SetLevel(log.INFO)
+	w.Use(web.RecoverHandler())
+	w.Use(web.LoggingHandler())
+	w.Use(web.RemoteAddrHandler())
+	w.Use(web.CORSHandler())
+	w.Use(v1APIHandler(database))
 
-	e.Use(middleware.Logger())
-	e.Use(middleware.Recover())
-	e.Use(middleware.RequestID())
-	e.Use(middleware.CORS())
-
-	e.POST("/reports", handleNewReport)
-	e.PUT("/reports/:id", handlePatchReport)
-	e.GET("/reports/:id", handleGetReport)
-
-	flag.StringVar(&e.Server.Addr, "addr", ":8080", "address to listen to")
-	flag.Parse()
-
-	e.Logger.Fatal(gracehttp.Serve(e.Server))
+	w.Listen(":" + os.Getenv("PORT"))
 }

@@ -1,0 +1,5 @@
+DROP TABLE IF EXISTS reports;
+CREATE TABLE reports (
+    id TEXT NOT NULL PRIMARY KEY,
+    data TEXT[]
+);

@@ -1,14 +1,12 @@
-NAME=localthreat
+NAME=api
 CGO_ENABLED=0
 GOOS=linux
-build: fmt vet
-	@go build -o $(NAME) .
-static: fmt vet
+static: lint test
 	@go build -a -ldflags '-extldflags "-static"' -o $(NAME) .
-test: fmt vet
+test: lint
 	@go test ./...
-fmt: main.go
+lint: main.go
 	@go fmt ./...
-vet: main.go
 	@go vet ./...
-.PHONY: vet fmt test watch
+	@go fix ./...
+.PHONY: lint
