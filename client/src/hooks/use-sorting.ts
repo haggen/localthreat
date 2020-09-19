@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { CharacterData } from "types";
+import { PlayerData } from "types";
 
 type Config = [string, -1 | 1];
 
 const getComparison = ([key, direction]: Config): ((
-  a: CharacterData,
-  b: CharacterData
+  a: PlayerData,
+  b: PlayerData
 ) => number) => {
   switch (key) {
     case "name":

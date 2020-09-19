@@ -1,0 +1,20 @@
+.summary {
+}
+
+.summary h1 {
+}
+
+.summary h1 span {
+  font-size: 1.5em;
+  margin-right: 0.375rem;
+}
+
+.summary ul {
+  display: flex;
+  margin: -0.1875rem;
+  flex-wrap: wrap;
+}
+
+.summary li {
+  margin: 0.1875rem;
+}

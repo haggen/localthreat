@@ -3,10 +3,11 @@ import { schedule as fetchId } from "lib/fetch-ids";
 import { schedule as fetchAffiliation } from "lib/fetch-affiliation";
 import { schedule as fetchName } from "lib/fetch-names";
 import { schedule as fetchStats } from "lib/fetch-stats";
-import { CharacterData } from "types";
+import { PlayerData } from "types";
 import { Entity } from "components/entity";
+import style from "./style.module.css";
 
-type Props = CharacterData & { update: (data: CharacterData) => void };
+type Props = PlayerData & { update: (data: PlayerData) => void };
 
 export const Row = memo((props: Props) => {
   const {
@@ -75,6 +76,10 @@ export const Row = memo((props: Props) => {
     });
   }, [name, id, dangerRatio, update]);
 
+  if (!id) {
+    return null;
+  }
+
   return (
     <tr>
       <td>
@@ -87,15 +92,17 @@ export const Row = memo((props: Props) => {
         <Entity type="ally" name={allyName} ids={[allyId]} />
       </td>
       <td>
-        {ships?.map((ship) => (
-          <Entity
-            key={ship.id}
-            type="ship"
-            ids={[ship.id, id]}
-            name={ship.name}
-            truncate
-          />
-        ))}
+        <div className={style.ships}>
+          {ships?.map((ship) => (
+            <Entity
+              key={ship.id}
+              type="ship"
+              ids={[ship.id, id]}
+              name={ship.name}
+              truncate
+            />
+          ))}
+        </div>
       </td>
       <td>{dangerRatio}</td>
       <td>{gangRatio}</td>

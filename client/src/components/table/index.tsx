@@ -1,18 +1,19 @@
 import React from "react";
 import { Row } from "components/row";
-import { CharacterData } from "types";
+import { PlayerData } from "types";
 import { useSorting } from "hooks/use-sorting";
+import style from "./style.module.css";
 
 type Props = {
-  data: CharacterData[];
-  update: (data: CharacterData) => void;
+  data: PlayerData[];
+  update: (data: PlayerData) => void;
 };
 
 export const Table = ({ data, update }: Props) => {
   const [compare, toggleSorting] = useSorting();
 
   return (
-    <table>
+    <table className={style.table}>
       <thead>
         <tr>
           <th>

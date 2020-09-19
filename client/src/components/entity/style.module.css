@@ -1,6 +1,6 @@
 .entity {
   align-items: center;
-  display: inline-flex;
+  display: flex;
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -8,9 +8,12 @@
 }
 
 .entity img {
-  background-color: #111;
+  display: block;
+  height: 2em;
+  width: 2em;
+  image-rendering: crisp-edges;
 }
 
 .entity img + span {
-  margin-left: 0.5rem;
+  margin-left: 0.375rem;
 }

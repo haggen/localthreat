@@ -1,9 +1,9 @@
 export type EntityData = {
   id: number;
-  name: string;
+  name?: string;
 };
 
-export type CharacterData = {
+export type PlayerData = {
   name: string;
   id?: number;
   corpId?: number;
@@ -20,7 +20,12 @@ export type CharacterData = {
   }[];
 };
 
-export type Action = {
-  type: "add" | "update";
-  data: CharacterData;
-};
+export type Action =
+  | {
+      type: "add";
+      data: string[];
+    }
+  | {
+      type: "update";
+      data: PlayerData;
+    };

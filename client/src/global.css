@@ -1,0 +1,13 @@
+html {
+  --foreground-hsl: 219, 8%, 57%;
+  --background-hsl: 210, 12%, 7%;
+
+  background-color: hsl(var(--background-hsl));
+  color: hsl(var(--foreground-hsl));
+}
+
+#root {
+  height: 100vh;
+  flex-direction: column;
+  display: flex;
+}

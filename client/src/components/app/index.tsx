@@ -1,90 +1,94 @@
-import React, { useEffect, useCallback, useReducer, Reducer } from "react";
-import { useRoute, useLocation } from "wouter";
-import { nanoid } from "nanoid";
-import { usePaste } from "hooks/use-paste";
-import { CharacterData, Action, EntityData } from "types";
-import { Table } from "components/table";
-import { Summary } from "components/summary";
-
-type State = {
-  chars: Record<string, CharacterData>;
-  corps: Record<number, EntityData>;
-  allys: Record<number, EntityData>;
-};
-
-const reducer = (state: State, action: Action) => {
-  const { chars, corps, allys } = state;
-  switch (action.type) {
-    case "add":
-      if (action.data.name in chars) {
-        return state;
-      }
-      return {
-        chars: { ...chars, [action.data.name]: action.data },
-        corps,
-        allys,
-      };
-    case "update":
-      const char = { ...chars[action.data.name], ...action.data };
-      const corp =
-        char.corpId && char.corpName
-          ? { id: char.corpId, name: char.corpName }
-          : null;
-      const ally =
-        char.allyId && char.allyName
-          ? { id: char.allyId, name: char.allyName }
-          : null;
-      return {
-        chars: { ...chars, [char.name]: char },
-        corps:
-          corp && !(corp.id in corps) ? { ...corps, [corp.id]: corp } : corps,
-        allys:
-          ally && !(ally.id in allys) ? { ...allys, [ally.id]: ally } : allys,
-      };
-    default:
-      return state;
-  }
-};
+import React from "react";
+import { Link, Route, Switch } from "wouter";
+import { Welcome } from "components/welcome";
+import { Report } from "components/report";
+import { ReactComponent as Brand } from "./localthreat.svg";
+import style from "./style.module.css";
 
 export const App = () => {
-  const [match] = useRoute("/:id");
-  const [, setLocation] = useLocation();
-  const paste = usePaste();
-
-  const [data, dispatch] = useReducer<Reducer<State, Action>>(reducer, {
-    chars: {},
-    corps: {},
-    allys: {},
-  });
-
-  useEffect(() => {
-    if (!match) {
-      setLocation(`/${nanoid(8)}`);
-    }
-  }, [match, setLocation]);
-
-  useEffect(() => {
-    if (paste) {
-      paste
-        .split(/[\n\r]+/)
-        .filter(Boolean)
-        .map((name) => ({ name }))
-        .forEach((data) => dispatch({ type: "add", data }));
-    }
-  }, [paste, dispatch]);
-
-  const update = useCallback(
-    (data: CharacterData) => {
-      dispatch({ type: "update", data });
-    },
-    [dispatch]
-  );
-
   return (
     <>
-      <Summary type="corp" data={Object.values(data.corps)} />
-      <Summary type="ally" data={Object.values(data.allys)} />
-      <Table data={Object.values(data.chars)} update={update} />
+      <nav className={style.menu}>
+        <h1>
+          <Brand />
+        </h1>
+        <ul>
+          <li>
+            <button className={style.link}>Share</button>
+          </li>
+          <li>
+            <Link className={style.link} href="/">
+              New Report
+            </Link>
+          </li>
+          <li>
+            <button className={style.link}>History</button>
+          </li>
+        </ul>
+      </nav>
+      <main className={style.main}>
+        <Switch>
+          <Route path="/" component={Welcome} />
+          <Route path="/:id" component={Report} />
+        </Switch>
+      </main>
+      <footer className={style.footer}>
+        <ul>
+          <li>© 2017–2020 Arthur Corenzan</li>
+          <li>
+            Source on{" "}
+            <a
+              className={style.link}
+              href="https://github.com/haggen/localthreat"
+              target="blank"
+              rel="noopener noreferrer"
+            >
+              GitHub
+            </a>
+          </li>
+          <li>
+            Data provided by{" "}
+            <a
+              className={style.link}
+              href="https://esi.evetech.net/latest/"
+              target="blank"
+              rel="noopener noreferrer"
+            >
+              ESI
+            </a>{" "}
+            and{" "}
+            <a
+              className={style.link}
+              href="https://zkillboard.com/"
+              target="blank"
+              rel="noopener noreferrer"
+            >
+              zKillboard
+            </a>
+          </li>
+          <li>
+            Tips go to{" "}
+            <a
+              className={style.link}
+              href="https://zkillboard.com/character/95036967/"
+              target="blank"
+              rel="noopener noreferrer"
+            >
+              Jason Chorant
+            </a>
+          </li>
+        </ul>
+        <p>
+          EVE Online and the EVE logo are the registered trademarks of CCP hf.
+          All rights are reserved worldwide. All other trademarks are the
+          property of their respective owners. EVE Online, the EVE logo, EVE and
+          all associated logos and designs are the intellectual property of CCP
+          hf. All artwork, screenshots, characters, vehicles, storylines, world
+          facts or other recognizable features of the intellectual property
+          relating to these trademarks are likewise the intellectual property of
+          CCP hf.
+        </p>
+      </footer>
     </>
   );
 };
