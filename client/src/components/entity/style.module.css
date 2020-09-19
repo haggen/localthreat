@@ -1,4 +1,4 @@
-.link {
+.entity {
   align-items: center;
   display: inline-flex;
   max-width: 100%;
@@ -7,10 +7,10 @@
   white-space: nowrap;
 }
 
-.link img {
+.entity img {
   background-color: #111;
 }
 
-.link img + span {
+.entity img + span {
   margin-left: 0.5rem;
 }

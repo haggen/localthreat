@@ -3,10 +3,10 @@ import { schedule as fetchId } from "lib/fetch-ids";
 import { schedule as fetchAffiliation } from "lib/fetch-affiliation";
 import { schedule as fetchName } from "lib/fetch-names";
 import { schedule as fetchStats } from "lib/fetch-stats";
-import { Character } from "types";
-import { Link } from "components/link";
+import { CharacterData } from "types";
+import { Entity } from "components/entity";
 
-type Props = Character & { update: (data: Character) => void };
+type Props = CharacterData & { update: (data: CharacterData) => void };
 
 export const Row = memo((props: Props) => {
   const {
@@ -78,17 +78,17 @@ export const Row = memo((props: Props) => {
   return (
     <tr>
       <td>
-        <Link type="char" name={name} ids={[id]} />
+        <Entity type="char" name={name} ids={[id]} />
       </td>
       <td>
-        <Link type="corp" name={corpName} ids={[corpId]} />
+        <Entity type="corp" name={corpName} ids={[corpId]} />
       </td>
       <td>
-        <Link type="ally" name={allyName} ids={[allyId]} />
+        <Entity type="ally" name={allyName} ids={[allyId]} />
       </td>
       <td>
         {ships?.map((ship) => (
-          <Link
+          <Entity
             key={ship.id}
             type="ship"
             ids={[ship.id, id]}

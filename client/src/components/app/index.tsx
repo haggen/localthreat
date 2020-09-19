@@ -2,14 +2,14 @@ import React, { useEffect, useCallback, useReducer, Reducer } from "react";
 import { useRoute, useLocation } from "wouter";
 import { nanoid } from "nanoid";
 import { usePaste } from "hooks/use-paste";
-import { Character, Action, Entity } from "types";
+import { CharacterData, Action, EntityData } from "types";
 import { Table } from "components/table";
 import { Summary } from "components/summary";
 
 type State = {
-  chars: Record<string, Character>;
-  corps: Record<number, Entity>;
-  allys: Record<number, Entity>;
+  chars: Record<string, CharacterData>;
+  corps: Record<number, EntityData>;
+  allys: Record<number, EntityData>;
 };
 
 const reducer = (state: State, action: Action) => {
@@ -74,7 +74,7 @@ export const App = () => {
   }, [paste, dispatch]);
 
   const update = useCallback(
-    (data: Character) => {
+    (data: CharacterData) => {
       dispatch({ type: "update", data });
     },
     [dispatch]

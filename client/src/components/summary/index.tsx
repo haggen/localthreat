@@ -1,10 +1,10 @@
-import { Link } from "components/link";
+import { Entity } from "components/entity";
 import React from "react";
-import { Entity } from "types";
+import { EntityData } from "types";
 
 type Props = {
   type: "corp" | "ally";
-  data: Entity[];
+  data: EntityData[];
 };
 
 const getTitle = (type: Props["type"], length: number) => {
@@ -29,7 +29,7 @@ export const Summary = ({ type, data }: Props) => {
       <ul>
         {data.map(({ id, name }) => (
           <li key={id}>
-            <Link type={type} ids={[id]} name={name} />
+            <Entity type={type} ids={[id]} name={name} />
           </li>
         ))}
       </ul>

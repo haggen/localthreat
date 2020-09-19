@@ -1,9 +1,9 @@
-export type Entity = {
+export type EntityData = {
   id: number;
   name: string;
 };
 
-export type Character = {
+export type CharacterData = {
   name: string;
   id?: number;
   corpId?: number;
@@ -22,5 +22,5 @@ export type Character = {
 
 export type Action = {
   type: "add" | "update";
-  data: Character;
+  data: CharacterData;
 };

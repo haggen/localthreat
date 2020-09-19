@@ -1,5 +1,6 @@
 import React from "react";
-import style from "./index.module.css";
+
+import style from "./style.module.css";
 
 type Type = "char" | "corp" | "ally" | "ship";
 
@@ -46,13 +47,13 @@ const getImageSrc = (type: Type, ids: Props["ids"]) => {
   }
 };
 
-export const Link = ({ type, name, ids, truncate }: Props) => {
+export const Entity = ({ type, name, ids, truncate }: Props) => {
   if (!ids.every(Boolean)) {
     return null;
   }
   return (
     <a
-      className={style.link}
+      className={style.entity}
       href={getEntityUrl(type, ids)}
       target="blank"
       rel="noopener noreferrer"

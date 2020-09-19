@@ -1,11 +1,11 @@
 import React from "react";
 import { Row } from "components/row";
-import { Character } from "types";
-import { useSorting } from "./sorting";
+import { CharacterData } from "types";
+import { useSorting } from "hooks/use-sorting";
 
 type Props = {
-  data: Character[];
-  update: (data: Character) => void;
+  data: CharacterData[];
+  update: (data: CharacterData) => void;
 };
 
 export const Table = ({ data, update }: Props) => {
