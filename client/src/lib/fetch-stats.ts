@@ -34,7 +34,7 @@ setInterval(async () => {
       }
     );
   } catch (err) {
-    console.warn("Fetch failed, back to the end of the queue", err);
+    console.warn("Fetch failed, back to the end of the queue");
     queue.push(req);
     return;
   }
