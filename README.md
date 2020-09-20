@@ -6,6 +6,10 @@
 
 **[localthreat](https://next.localthreat.xyz/)** is an online tool to help EVE players with threat assessment.
 
+# Contribution
+
+I accept **ISK donations** as contributions to the project. If you feel like localthreat has helped you please consider contributing. Send a donation in-game to **Jason Chorant`** of any value. This helps to keep me motivated and also with the costs of running and maintaining this service.
+
 # Development
 
 The code and documentation are hosted on [GitHub](https://github.com/haggen/localthreat). The design lives on [Figma](https://www.figma.com/file/BPH2xeVvbBDAnWpjMI58GpnW/localthreat.next). Bug tracking, feature request, and any other feedback must be made on the [repository's issues page](https://github.com/haggen/localthreat/issues/new).
@@ -78,10 +82,6 @@ $ REACT_APP_API_URL=http://localhost:5000 npm run-script start
 ```
 
 To start the development server.
-
-# Contribution
-
-I accept **ISK donations** as contributions to the project. If you feel like localthreat has helped you please consider contributing. Send a donation in-game to **Jason Chorant`** of any value. This helps to keep me motivated and also with the costs of running and maintaining this service.
 
 # Legal
 
