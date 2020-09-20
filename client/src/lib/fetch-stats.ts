@@ -18,20 +18,14 @@ type Stats = {
 
 const queue: Request[] = [];
 
-let intervalRef = 0;
-
-const fetchStats = () => {
-  if (intervalRef > 0) {
+setInterval(async () => {
+  const req = queue.shift();
+  if (!req) {
     return;
   }
-  intervalRef = setInterval(async () => {
-    const req = queue.shift();
-    if (!req) {
-      clearInterval(intervalRef);
-      intervalRef = 0;
-      return;
-    }
-    const resp = await fetch(
+  let resp;
+  try {
+    resp = await fetch(
       `https://zkillboard.com/api/stats/characterID/${req.id}/`,
       {
         headers: {
@@ -39,25 +33,29 @@ const fetchStats = () => {
         },
       }
     );
-    if (!resp.ok) {
-      throw Error(`Bad status ${resp.status}`);
-    }
-    const {
-      dangerRatio,
-      gangRatio,
-      shipsDestroyed,
-      shipsLost,
-      topLists,
-    } = await resp.json();
-    const ships = topLists
-      .find(({ type }: { type: string }) => type === "shipType")
-      ?.values.map(({ id, name }: { id: number; name: string }) => ({
-        id,
-        name,
-      }));
-    req.resolve({ dangerRatio, gangRatio, shipsDestroyed, shipsLost, ships });
-  }, 1000);
-};
+  } catch (err) {
+    console.warn("Fetch failed, back to the end of the queue", err);
+    queue.push(req);
+    return;
+  }
+  if (!resp.ok) {
+    throw Error(`Bad status ${resp.status}`);
+  }
+  const {
+    dangerRatio,
+    gangRatio,
+    shipsDestroyed,
+    shipsLost,
+    topLists,
+  } = await resp.json();
+  const ships = topLists
+    .find(({ type }: { type: string }) => type === "shipType")
+    ?.values.map(({ id, name }: { id: number; name: string }) => ({
+      id,
+      name,
+    }));
+  req.resolve({ dangerRatio, gangRatio, shipsDestroyed, shipsLost, ships });
+}, 1000);
 
 export const schedule = (id: number) => {
   return new Promise<Stats>((resolve) => {
@@ -65,7 +63,5 @@ export const schedule = (id: number) => {
       id,
       resolve,
     });
-
-    fetchStats();
   });
 };
