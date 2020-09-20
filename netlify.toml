@@ -1,4 +1,8 @@
 [build]
-    base = "client/"
-    publish = "client/build/"
-    command = "yarn build"
+  base = "client/"
+  command = "npm run-script build"
+  publish = "client/build/"
+[[redirects]]
+  from = "/"
+  to = "/index.html"
+  status = 200
