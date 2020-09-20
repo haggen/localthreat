@@ -8,7 +8,7 @@
 
 # Contribution
 
-I accept **ISK donations** as contributions to the project. If you feel like localthreat has helped you please consider contributing. Send a donation in-game to **Jason Chorant`** of any value. This helps to keep me motivated and also with the costs of running and maintaining this service.
+I accept **ISK donations** as contributions to the project. If you feel like localthreat has helped you please consider contributing. Send a donation in-game of any value to **Jason Chorant**. This helps to keep me motivated and also with the costs of running and maintaining this service.
 
 # Development
 
