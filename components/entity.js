@@ -1,13 +1,13 @@
 const getEntityURL = (type, id) => {
   switch (type) {
     case "char":
-      return `https://zkillboard.com/character/${id}`;
+      return `https://zkillboard.com/character/${id}/`;
     case "ally":
-      return `https://zkillboard.com/alliance/${id}`;
+      return `https://zkillboard.com/alliance/${id}/`;
     case "corp":
-      return `https://zkillboard.com/corporation/${id}`;
+      return `https://zkillboard.com/corporation/${id}/`;
     case "ship":
-      return `https://zkillboard.com/character/${id[1]}/shipTypeID/${id[0]}`;
+      return `https://zkillboard.com/character/${id[1]}/shipTypeID/${id[0]}/`;
   }
 };
 
