@@ -16,11 +16,7 @@ const ShareButton = () => {
 
   return (
     <Tooltip text={"URL copied!"} trigger="click">
-      <button
-        className={style.link}
-        onClick={onClick}
-        disabled={location === "/"}
-      >
+      <button onClick={onClick} disabled={location === "/"}>
         Share
       </button>
     </Tooltip>
@@ -43,9 +39,7 @@ export const App = () => {
             <ShareButton />
           </li>
           <li>
-            <Link className={style.link} href="/">
-              New Report
-            </Link>
+            <Link href="/">New Report</Link>
           </li>
         </ul>
       </nav>
@@ -61,7 +55,6 @@ export const App = () => {
           <li>
             Source on{" "}
             <a
-              className={style.link}
               href="https://github.com/haggen/localthreat/tree/next"
               target="blank"
               rel="noopener noreferrer"
@@ -72,7 +65,6 @@ export const App = () => {
           <li>
             Data provided by{" "}
             <a
-              className={style.link}
               href="https://esi.evetech.net/latest/"
               target="blank"
               rel="noopener noreferrer"
@@ -81,7 +73,6 @@ export const App = () => {
             </a>{" "}
             and{" "}
             <a
-              className={style.link}
               href="https://zkillboard.com/"
               target="blank"
               rel="noopener noreferrer"
@@ -92,7 +83,6 @@ export const App = () => {
           <li>
             Tips go to{" "}
             <a
-              className={style.link}
               href="https://zkillboard.com/character/95036967/"
               target="blank"
               rel="noopener noreferrer"

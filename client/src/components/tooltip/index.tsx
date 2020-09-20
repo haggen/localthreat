@@ -11,6 +11,7 @@ import { createPortal } from "react-dom";
 import c from "classnames";
 import { usePopper } from "react-popper";
 import style from "./style.module.css";
+import { Placement } from "@popperjs/core";
 
 const { setTimeout } = window;
 
@@ -18,7 +19,7 @@ type Props = {
   trigger: "hover" | "click";
   children: ReactElement;
   text: ReactNode;
-  placement?: "top" | "bottom";
+  placement?: Placement;
 };
 
 export const Tooltip = ({
@@ -41,21 +42,10 @@ export const Tooltip = ({
     };
   }, []);
 
-  const child = Children.only(children);
-  if (!child) {
-    throw new Error("<Tooltip /> requires a single child");
-  }
-
   const onClick = () => {
     if (trigger === "click") {
       setActive(true);
     }
-  };
-
-  const onMouseLeave = () => {
-    timeoutRef.current = setTimeout(() => {
-      setActive(false);
-    }, 1000);
   };
 
   const onMouseEnter = () => {
@@ -64,6 +54,14 @@ export const Tooltip = ({
     }
     clearTimeout(timeoutRef.current);
   };
+
+  const onMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setActive(false);
+    }, 1000);
+  };
+
+  const child = Children.only(children);
 
   return (
     <>
@@ -78,13 +76,12 @@ export const Tooltip = ({
         </div>,
         document.body
       )}
-      <span
-        onClick={onClick}
-        onMouseLeave={onMouseLeave}
-        onMouseEnter={onMouseEnter}
-      >
-        {cloneElement(child, { ref: triggerRef })}
-      </span>
+      {cloneElement(child, {
+        ref: triggerRef,
+        onClick,
+        onMouseEnter,
+        onMouseLeave,
+      })}
     </>
   );
 };

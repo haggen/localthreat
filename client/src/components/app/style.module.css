@@ -1,8 +1,3 @@
-.link {
-  cursor: pointer;
-  font-weight: bold;
-}
-
 .menu {
   align-items: center;
   display: flex;
@@ -20,6 +15,10 @@
   margin-left: 1.5rem;
 }
 
+.menu li {
+  font-weight: bold;
+}
+
 .main {
   flex-grow: 1;
   padding: 0 3rem;
@@ -28,6 +27,10 @@
 .footer {
   padding: 3rem;
   text-align: center;
+}
+
+.footer a {
+  font-weight: bold;
 }
 
 .footer ul {
