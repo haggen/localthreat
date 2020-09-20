@@ -34,7 +34,7 @@ export const App = () => {
         <h1>
           <Link href="/" aria-label="localthreat">
             <a href="/">
-              <Brand />
+              <Brand aria-label="localthreat" />
             </a>
           </Link>
         </h1>
