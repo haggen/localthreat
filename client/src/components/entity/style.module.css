@@ -8,11 +8,12 @@
 }
 
 .entity img {
-  border-radius: 0.25rem;
+  border-radius: 0.125rem;
+  background-color: hsla(0, 0%, 0%, 0.5);
   display: block;
   height: 2em;
-  width: 2em;
   image-rendering: crisp-edges;
+  width: 2em;
 }
 
 .entity img + span {
