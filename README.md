@@ -16,7 +16,7 @@ The code and documentation are hosted on [GitHub](https://github.com/haggen/loca
 
 ## Docker setup (recommended)
 
-You'll need to be resolving any subdomain of localhost to localhost. If you're using Chrome it does that automatically. Otherwise you'll need to edit your `hosts` file or something like [dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc.html).
+You'll need to be resolving any subdomain of localhost to localhost. If you're using Chrome it does that automatically. Otherwise you'll need to edit your `hosts` file or have something like [dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc.html).
 
 With Docker running and docker-compose installed, run:
 
@@ -60,16 +60,16 @@ To test and build the binary.
 You'll also need PostgreSQL 12+ running. Load `api/schema.sql` file into your database and run:
 
 ```shell
-$ DATABASE_URL=postgres://postgres@localhost/postgres ./localthreat -addr ":5000"
+$ DATABASE_URL=postgres://postgres@localhost/postgres PORT=5000 ./api
 ```
 
-This will start the API server. You might want to adjust the `DATABASE_URL` value accordingly.
+This will start the API server. You might want to adjust the `DATABASE_URL` and `PORT` values accordingly.
 
 ### Client
 
 It's a [Create React App](https://create-react-app.dev/) written in TypeScript.
 
-You'll need Node 14+ and npm installed. Hop into the `client` sub-directory and run:
+You'll need Node 14+ and npm installed. Hop into the `client/` sub-directory and run:
 
 ```shell
 $ npm install
@@ -81,7 +81,7 @@ To download all the dependencies and then:
 $ REACT_APP_API_URL=http://localhost:5000 npm run-script start
 ```
 
-To start the development server.
+To start the development server. You might want to adjust the `REACT_APP_API_URL` value accordingly.
 
 # Legal
 
