@@ -62,7 +62,7 @@ export const App = () => {
             Source on{" "}
             <a
               className={style.link}
-              href="https://github.com/haggen/localthreat"
+              href="https://github.com/haggen/localthreat/tree/next"
               target="blank"
               rel="noopener noreferrer"
             >
