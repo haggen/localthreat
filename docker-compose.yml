@@ -30,6 +30,7 @@ services:
     environment:
       REACT_APP_API_URL: http://api-localthreat.localhost
       CI: "true"
+      EXTEND_ESLINT: "true"
   db:
     image: postgres:12.4-alpine
     environment:
