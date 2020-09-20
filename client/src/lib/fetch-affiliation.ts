@@ -15,12 +15,12 @@ const queue: Request[] = [];
 
 let timeoutRef = 0;
 
-const fetchAffiliation = async (queue: Request[]) => {
+const fetchAffiliation = async (reqs: Request[]) => {
   const resp = await fetch(
     `https://esi.evetech.net/latest/characters/affiliation/`,
     {
       method: "post",
-      body: JSON.stringify(queue.map((req) => req.id)),
+      body: JSON.stringify(reqs.map((req) => req.id)),
     }
   );
   if (!resp.ok) {
@@ -28,7 +28,7 @@ const fetchAffiliation = async (queue: Request[]) => {
   }
   const data = (await resp.json()) as Response;
   data.forEach((affiliation) => {
-    const req = queue.find(({ id }) => id === affiliation.character_id);
+    const req = reqs.find(({ id }) => id === affiliation.character_id);
     if (!req) {
       console.warn(
         `fetchAffiliation: couldn't find response for character ID "${affiliation.character_id}"`

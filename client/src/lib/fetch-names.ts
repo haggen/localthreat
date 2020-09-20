@@ -13,16 +13,16 @@ const queue: Request[] = [];
 
 let timeoutRef = 0;
 
-const fetchNames = async (queue: Request[]) => {
+const fetchNames = async (reqs: Request[]) => {
   const resp = await fetch(`https://esi.evetech.net/latest/universe/names/`, {
     method: "post",
-    body: JSON.stringify(Array.from(new Set(queue.map((req) => req.id)))),
+    body: JSON.stringify(Array.from(new Set(reqs.map((req) => req.id)))),
   });
   if (!resp.ok) {
     throw Error(resp.statusText);
   }
   const data = (await resp.json()) as Response;
-  queue?.forEach((req) => {
+  reqs?.forEach((req) => {
     const thing = data.find(({ id }) => id === req.id);
     if (!thing) {
       console.warn(`fetchNames: couldn't find response for id "${req.id}"`);
