@@ -12,3 +12,7 @@ html {
   display: flex;
   flex-direction: column;
 }
+
+[disabled] {
+  opacity: 0.5;
+}

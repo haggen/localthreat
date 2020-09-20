@@ -1,9 +1,31 @@
 import React from "react";
-import { Link, Route, Switch } from "wouter";
+import { Link, Route, Switch, useLocation } from "wouter";
 import { Welcome } from "components/welcome";
 import { Report } from "components/report";
+import { Tooltip } from "components/tooltip";
+import copy from "copy-to-clipboard";
 import { ReactComponent as Brand } from "./localthreat.svg";
 import style from "./style.module.css";
+
+const ShareButton = () => {
+  const [location] = useLocation();
+
+  const onClick = () => {
+    copy(window.location.href);
+  };
+
+  return (
+    <Tooltip text={"URL copied!"} trigger="click">
+      <button
+        className={style.link}
+        onClick={onClick}
+        disabled={location === "/"}
+      >
+        Share
+      </button>
+    </Tooltip>
+  );
+};
 
 export const App = () => {
   return (
@@ -11,20 +33,19 @@ export const App = () => {
       <nav className={style.menu}>
         <h1>
           <Link href="/" aria-label="localthreat">
-            <Brand />
+            <a href="/">
+              <Brand />
+            </a>
           </Link>
         </h1>
         <ul>
           <li>
-            <button className={style.link}>Share</button>
+            <ShareButton />
           </li>
           <li>
             <Link className={style.link} href="/">
               New Report
             </Link>
-          </li>
-          <li>
-            <button className={style.link}>History</button>
           </li>
         </ul>
       </nav>
