@@ -1,4 +1,4 @@
-import React, { useEffect, memo } from "react";
+import React, { useEffect, memo, useCallback, useRef } from "react";
 import { schedule as fetchId } from "lib/fetch-ids";
 import { schedule as fetchAffiliation } from "lib/fetch-affiliation";
 import { schedule as fetchName } from "lib/fetch-names";
@@ -10,6 +10,8 @@ import style from "./style.module.css";
 type Props = PlayerData & { update: (data: PlayerData) => void };
 
 export const Row = memo((props: Props) => {
+  const mountedRef = useRef(true);
+
   const {
     name,
     id,
@@ -22,8 +24,24 @@ export const Row = memo((props: Props) => {
     gangRatio,
     shipsDestroyed,
     shipsLost,
-    update,
+    update: _update,
   } = props;
+
+  const update: Props["update"] = useCallback(
+    (data) => {
+      if (mountedRef.current) {
+        _update(data);
+      }
+    },
+    [_update]
+  );
+
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    };
+  });
 
   useEffect(() => {
     if (id) {
@@ -74,7 +92,7 @@ export const Row = memo((props: Props) => {
         ...stats,
       });
     });
-  }, [name, id, dangerRatio, update]);
+  }, [name, id, dangerRatio]);
 
   if (!id) {
     return null;
