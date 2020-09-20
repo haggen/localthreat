@@ -35,13 +35,13 @@ const getEntityUrl = (type: Type, ids: Props["ids"]) => {
 const getImageSrc = (type: Type, ids: Props["ids"]) => {
   switch (type) {
     case "char":
-      return `${baseImageSrc}/characters/${ids[0]}/portrait?size=32`;
+      return `${baseImageSrc}/characters/${ids[0]}/portrait?size=64`;
     case "corp":
-      return `${baseImageSrc}/corporations/${ids[0]}/logo?size=32`;
+      return `${baseImageSrc}/corporations/${ids[0]}/logo?size=64`;
     case "ally":
-      return `${baseImageSrc}/alliances/${ids[0]}/logo?size=32`;
+      return `${baseImageSrc}/alliances/${ids[0]}/logo?size=64`;
     case "ship":
-      return `${baseImageSrc}/types/${ids[0]}/render?size=32`;
+      return `${baseImageSrc}/types/${ids[0]}/render?size=64`;
     default:
       throw new Error("Unrecognized entity type");
   }
