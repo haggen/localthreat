@@ -32,9 +32,9 @@ export const App = () => {
     <>
       <nav className={style.menu}>
         <h1>
-          <Link href="/" aria-label="localthreat">
-            <a href="/">
-              <Brand aria-label="localthreat" />
+          <Link href="/">
+            <a aria-label="localthreat">
+              <Brand />
             </a>
           </Link>
         </h1>
