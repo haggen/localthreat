@@ -78,9 +78,18 @@ export const Tooltip = ({
       )}
       {cloneElement(child, {
         ref: triggerRef,
-        onClick,
-        onMouseEnter,
-        onMouseLeave,
+        onClick: (e: Event) => {
+          onClick();
+          child.props.onClick?.(e);
+        },
+        onMouseEnter: (e: Event) => {
+          onMouseEnter();
+          child.props.onMouseEnter?.(e);
+        },
+        onMouseLeave: (e: Event) => {
+          onMouseLeave();
+          child.props.onMouseLeave?.(e);
+        },
       })}
     </>
   );
