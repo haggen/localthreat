@@ -1,0 +1,23 @@
+.footer {
+  padding: 3rem;
+  text-align: center;
+}
+
+.footer a {
+  font-weight: bold;
+}
+
+.footer ul {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+}
+
+.footer li + li {
+  margin-left: 0.75rem;
+}
+
+.footer p {
+  font-size: 0.75em;
+}

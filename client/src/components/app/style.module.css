@@ -1,49 +1,4 @@
-.menu {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  padding: 1.5rem;
-}
-
-.menu ul {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-}
-
-.menu li + li {
-  margin-left: 1.5rem;
-}
-
-.menu li {
-  font-weight: bold;
-}
-
 .main {
   flex-grow: 1;
   padding: 0 3rem;
-}
-
-.footer {
-  padding: 3rem;
-  text-align: center;
-}
-
-.footer a {
-  font-weight: bold;
-}
-
-.footer ul {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 0.75rem;
-}
-
-.footer li + li {
-  margin-left: 0.75rem;
-}
-
-.footer p {
-  font-size: 0.75em;
 }
