@@ -27,7 +27,7 @@ export const Table = ({ data, update }: Props) => {
           <th>
             <button onClick={() => toggleSorting("allyName")}>Alliance</button>
           </th>
-          <th>Ships</th>
+          <th>Recent ships</th>
           <th>
             <button
               onClick={() => toggleSorting("dangerRatio")}
