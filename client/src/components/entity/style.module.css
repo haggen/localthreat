@@ -2,9 +2,6 @@
   align-items: center;
   display: flex;
   max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .entity img {
@@ -18,4 +15,10 @@
 
 .entity img + span {
   margin-left: 0.375rem;
+}
+
+.entity span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
