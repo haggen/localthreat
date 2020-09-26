@@ -1,0 +1,16 @@
+.article > * + * {
+  margin-top: 0.75rem;
+}
+
+.article h1 {
+  font-size: 1.5em;
+}
+
+.article ul {
+  padding-left: 1.5rem;
+  list-style: disc;
+}
+
+.article a {
+  text-decoration: underline;
+}
