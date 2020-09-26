@@ -8,9 +8,9 @@ import { ReactComponent as Brand } from "./localthreat.svg";
 
 export const Topbar = () => {
   const { open: openNewsPanel } = useDrawer("news");
-  const { open: openSettingsPanel } = useDrawer("settings");
+  // const { open: openSettingsPanel } = useDrawer("settings");
   const { open: openHelpPanel } = useDrawer("help");
-  const { open: openHistoryPanel } = useDrawer("history");
+  // const { open: openHistoryPanel } = useDrawer("history");
 
   return (
     <nav className={style.menu}>
