@@ -92,7 +92,7 @@ export const Row = memo((props: Props) => {
         ...stats,
       });
     });
-  }, [name, id, dangerRatio]);
+  }, [name, id, dangerRatio, update]);
 
   if (!id) {
     return null;
