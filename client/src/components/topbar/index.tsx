@@ -1,27 +1,17 @@
 import React from "react";
-import { Link, useLocation } from "wouter";
-import { Tooltip } from "components/tooltip";
-import copy from "copy-to-clipboard";
-import { ReactComponent as Brand } from "./localthreat.svg";
+import { Link } from "wouter";
+import { useDrawer } from "components/drawer";
+import { Share } from "components/share";
+
 import style from "./style.module.css";
-
-const Share = () => {
-  const [location] = useLocation();
-
-  const onClick = () => {
-    copy(window.location.href);
-  };
-
-  return (
-    <Tooltip text={"URL copied!"} trigger="click">
-      <button onClick={onClick} disabled={location === "/"}>
-        Share
-      </button>
-    </Tooltip>
-  );
-};
+import { ReactComponent as Brand } from "./localthreat.svg";
 
 export const Topbar = () => {
+  const { open: openNewsPanel } = useDrawer("news");
+  const { open: openSettingsPanel } = useDrawer("settings");
+  const { open: openHelpPanel } = useDrawer("help");
+  const { open: openHistoryPanel } = useDrawer("history");
+
   return (
     <nav className={style.menu}>
       <h1>
@@ -33,11 +23,33 @@ export const Topbar = () => {
       </h1>
       <ul>
         <li>
+          <button onClick={() => openNewsPanel()}>News</button>
+        </li>
+        {/* <li>
+          <button onClick={() => openSettingsPanel()}>Settings</button>
+        </li> */}
+        <li>
+          <button onClick={() => openHelpPanel()}>Help</button>
+        </li>
+        <li>
+          <a
+            href="https://github.com/haggen/localthreat/issues/new/choose"
+            target="blank"
+            rel="noopener noreferrer"
+          >
+            Feedback
+          </a>
+        </li>
+        <li style={{ flexGrow: 1 }} />
+        <li>
           <Share />
         </li>
         <li>
           <Link href="/">New Report</Link>
         </li>
+        {/* <li>
+          <button onClick={() => openHistoryPanel()}>History</button>
+        </li> */}
       </ul>
     </nav>
   );

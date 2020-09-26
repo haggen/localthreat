@@ -8,7 +8,9 @@
 .menu ul {
   align-items: center;
   display: flex;
+  flex-grow: 1;
   justify-content: space-between;
+  margin-left: 3rem;
 }
 
 .menu li + li {
