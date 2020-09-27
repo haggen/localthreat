@@ -5,9 +5,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: webfactory/ssh-agent@v0.4.0
-        with:
-          ssh-private-key: ${{ secrets.PRIVATE_KEY }}
       - env:
+          PRIVATE_KEY: ${{ secrets.PRIVATE_URL }}
           REMOTE_URL: ${{ secrets.REMOTE_URL }}
-        run: git subtree push --prefix api $REMOTE_URL master
+        run: |
+          echo "$PRIVATE_KEY" > ~/.ssh/id_rsa.pub
+          git subtree push --prefix api $REMOTE_URL master
