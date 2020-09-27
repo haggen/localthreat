@@ -1,6 +1,6 @@
 html {
-  --foreground-hsl: 206, 10%, 86%;
-  --background-hsl: 180, 2%, 10%;
+  --foreground-hsl: 200, 12%, 86%;
+  --background-hsl: 200, 6%, 10%;
 
   background-color: hsl(var(--background-hsl));
   color: hsl(var(--foreground-hsl));
