@@ -137,6 +137,7 @@ func main() {
 	w := web.New()
 
 	w.Use(web.RecoverHandler())
+	w.Use(web.RequestIDHandler())
 	w.Use(web.LoggingHandler())
 	w.Use(web.RemoteAddrHandler())
 	w.Use(web.CORSHandler())

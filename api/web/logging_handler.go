@@ -41,9 +41,10 @@ func LoggingHandler() Middleware {
 			t := time.Now()
 
 			next.ServeHTTP(b, r)
+
 			b.Flush()
 
-			log.Println(r.Method, r.URL.Path, r.Form.Encode(), b.status, len(b.buffer), r.RemoteAddr, time.Since(t))
+			log.Println(w.Header().Get(RequestIDHeader), r.RemoteAddr, r.Method, r.URL.Path, r.Form.Encode(), b.status, len(b.buffer), time.Since(t))
 		})
 	}
 }
