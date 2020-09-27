@@ -4,12 +4,14 @@ import (
 	"errors"
 	"regexp"
 	"strings"
+	"time"
 )
 
 // Report ...
 type Report struct {
-	ID   string   `json:"id" db:"id"`
-	Data []string `json:"data" db:"data"`
+	ID   string     `json:"id" db:"id"`
+	Time *time.Time `json:"time" db:"time"`
+	Data []string   `json:"data" db:"data"`
 }
 
 // Append ...

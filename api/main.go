@@ -83,7 +83,7 @@ func v1APIHandler(db *pgx.Conn) web.Middleware {
 				w.WriteHeader(http.StatusCreated)
 			case route.Match("GET", "/v1/reports/*"):
 				report := &Report{}
-				err := db.QueryRow(context.Background(), `SELECT id, data FROM reports WHERE id = $1;`, route.Target).Scan(&report.ID, &report.Data)
+				err := db.QueryRow(context.Background(), `SELECT id, time, data FROM reports WHERE id = $1;`, route.Target).Scan(&report.ID, &report.Time, &report.Data)
 				if err == pgx.ErrNoRows {
 					w.WriteHeader(http.StatusNotFound)
 					return
@@ -98,7 +98,7 @@ func v1APIHandler(db *pgx.Conn) web.Middleware {
 				w.WriteHeader(http.StatusOK)
 			case route.Match("PATCH", "/v1/reports/*"):
 				report := &Report{}
-				err := db.QueryRow(context.Background(), `SELECT id, data FROM reports WHERE id = $1;`, route.Target).Scan(&report.ID, &report.Data)
+				err := db.QueryRow(context.Background(), `SELECT id, time, data FROM reports WHERE id = $1;`, route.Target).Scan(&report.ID, &report.Time, &report.Data)
 				if err == pgx.ErrNoRows {
 					w.WriteHeader(http.StatusNotFound)
 					return
