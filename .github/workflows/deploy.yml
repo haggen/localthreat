@@ -9,5 +9,5 @@ jobs:
           PRIVATE_KEY: ${{ secrets.PRIVATE_URL }}
           REMOTE_URL: ${{ secrets.REMOTE_URL }}
         run: |
-          echo "$PRIVATE_KEY" > ~/.ssh/id_rsa.pub
+          ssh-add - <<< "$PRIVATE_KEY"
           git subtree push --prefix api $REMOTE_URL master
