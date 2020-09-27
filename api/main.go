@@ -19,12 +19,10 @@ import (
 func v1APIHandler(db *pgx.Conn) web.Middleware {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			if !strings.HasPrefix(r.URL.Path, "/v1") {
+			if !strings.HasPrefix(r.URL.Path, "/v1/") {
 				next.ServeHTTP(w, r)
 				return
 			}
-
-			w.Header().Set("Content-Type", "application/json; charset=utf-8")
 
 			if err := r.ParseForm(); err != nil {
 				log.Print("ParseForm():", err)
@@ -32,12 +30,14 @@ func v1APIHandler(db *pgx.Conn) web.Middleware {
 				return
 			}
 
-			dir, file := path.Split(r.URL.Path)
+			w.Header().Set("Content-Type", "application/json; charset=utf-8")
 
-			switch fmt.Sprintf("%s %s", r.Method, dir) {
+			prefix, id := path.Split(r.URL.Path)
+
+			switch fmt.Sprintf("%s %s", r.Method, prefix) {
 			case "GET /v1/reports/":
 				report := &Report{}
-				err := db.QueryRow(context.Background(), `SELECT id, data FROM reports WHERE id = $1;`, file).Scan(&report.ID, &report.Data)
+				err := db.QueryRow(context.Background(), `SELECT id, data FROM reports WHERE id = $1;`, id).Scan(&report.ID, &report.Data)
 				if err == pgx.ErrNoRows {
 					w.WriteHeader(http.StatusNotFound)
 					return
@@ -56,7 +56,7 @@ func v1APIHandler(db *pgx.Conn) web.Middleware {
 					panic(err)
 				}
 				report := &Report{
-					ID: file,
+					ID: id,
 				}
 				report.Parse(string(src))
 				data, err := json.Marshal(report)
@@ -71,7 +71,7 @@ func v1APIHandler(db *pgx.Conn) web.Middleware {
 				w.WriteHeader(http.StatusCreated)
 			case "PATCH /v1/reports/":
 				report := &Report{}
-				err := db.QueryRow(context.Background(), `SELECT id, data FROM reports WHERE id = $1;`, file).Scan(&report.ID, &report.Data)
+				err := db.QueryRow(context.Background(), `SELECT id, data FROM reports WHERE id = $1;`, id).Scan(&report.ID, &report.Data)
 				if err == pgx.ErrNoRows {
 					w.WriteHeader(http.StatusNotFound)
 					return

@@ -55,13 +55,13 @@ func (w *Web) Listen(addr string) {
 	}()
 
 	<-quit
-	log.Println("Shutting down…")
+	log.Println("Quitting…")
 
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
 	srv.SetKeepAlivesEnabled(false)
 	if err := srv.Shutdown(ctx); err != nil {
-		log.Fatalf("Shutdown failed: %v\n", err)
+		log.Fatalf("Quit failed: %v\n", err)
 	}
 }
