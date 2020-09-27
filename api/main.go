@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -15,6 +14,28 @@ import (
 
 	"github.com/jackc/pgx/v4"
 )
+
+// Route ...
+type Route struct {
+	Prefix string
+	Target string
+	Method string
+}
+
+// Parse ...
+func (r *Route) Parse(req *http.Request) {
+	r.Method = req.Method
+	r.Prefix, r.Target = path.Split(req.URL.Path)
+}
+
+// Match ...
+func (r *Route) Match(method string, pattern string) bool {
+	if method != r.Method {
+		return false
+	}
+	matched, _ := path.Match(pattern, r.Prefix+r.Target)
+	return matched
+}
 
 func v1APIHandler(db *pgx.Conn) web.Middleware {
 	return func(next http.Handler) http.Handler {
@@ -32,31 +53,17 @@ func v1APIHandler(db *pgx.Conn) web.Middleware {
 
 			w.Header().Set("Content-Type", "application/json; charset=utf-8")
 
-			prefix, id := path.Split(r.URL.Path)
+			route := &Route{}
+			route.Parse(r)
 
-			switch fmt.Sprintf("%s %s", r.Method, prefix) {
-			case "GET /v1/reports/":
-				report := &Report{}
-				err := db.QueryRow(context.Background(), `SELECT id, data FROM reports WHERE id = $1;`, id).Scan(&report.ID, &report.Data)
-				if err == pgx.ErrNoRows {
-					w.WriteHeader(http.StatusNotFound)
-					return
-				} else if err != nil {
-					panic(err)
-				}
-				data, err := json.Marshal(report)
-				if err != nil {
-					panic(err)
-				}
-				w.Write(data)
-				w.WriteHeader(http.StatusOK)
-			case "POST /v1/reports/":
+			switch {
+			case route.Match("POST", "/v1/reports/*"):
 				src, err := ioutil.ReadAll(r.Body)
 				if err != nil {
 					panic(err)
 				}
 				report := &Report{
-					ID: id,
+					ID: route.Target,
 				}
 				report.Parse(string(src))
 				data, err := json.Marshal(report)
@@ -69,9 +76,24 @@ func v1APIHandler(db *pgx.Conn) web.Middleware {
 				}
 				w.Write(data)
 				w.WriteHeader(http.StatusCreated)
-			case "PATCH /v1/reports/":
+			case route.Match("GET", "/v1/reports/*"):
 				report := &Report{}
-				err := db.QueryRow(context.Background(), `SELECT id, data FROM reports WHERE id = $1;`, id).Scan(&report.ID, &report.Data)
+				err := db.QueryRow(context.Background(), `SELECT id, data FROM reports WHERE id = $1;`, route.Target).Scan(&report.ID, &report.Data)
+				if err == pgx.ErrNoRows {
+					w.WriteHeader(http.StatusNotFound)
+					return
+				} else if err != nil {
+					panic(err)
+				}
+				data, err := json.Marshal(report)
+				if err != nil {
+					panic(err)
+				}
+				w.Write(data)
+				w.WriteHeader(http.StatusOK)
+			case route.Match("PATCH", "/v1/reports/*"):
+				report := &Report{}
+				err := db.QueryRow(context.Background(), `SELECT id, data FROM reports WHERE id = $1;`, route.Target).Scan(&report.ID, &report.Data)
 				if err == pgx.ErrNoRows {
 					w.WriteHeader(http.StatusNotFound)
 					return
