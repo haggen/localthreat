@@ -9,5 +9,8 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.PRIVATE_KEY }}
       - env:
+          SSH_SERVER: ${{ secrets.SSH_SERVER }}
+        run: ssh $SSH_SERVER help
+      - env:
           REMOTE_URL: ${{ secrets.REMOTE_URL }}
         run: git subtree push --prefix api $REMOTE_URL master
