@@ -7,7 +7,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"path"
 	"strings"
 
 	"github.com/haggen/localthreat/api/web"
@@ -15,28 +14,6 @@ import (
 
 	"github.com/jackc/pgx/v4"
 )
-
-// Route ...
-type Route struct {
-	Prefix string
-	Target string
-	Method string
-}
-
-// Parse ...
-func (r *Route) Parse(req *http.Request) {
-	r.Method = req.Method
-	r.Prefix, r.Target = path.Split(req.URL.Path)
-}
-
-// Match ...
-func (r *Route) Match(method string, pattern string) bool {
-	if method != r.Method {
-		return false
-	}
-	matched, _ := path.Match(pattern, r.Prefix+r.Target)
-	return matched
-}
 
 func v1APIHandler(db *pgx.Conn) web.Middleware {
 	return func(next http.Handler) http.Handler {
@@ -54,7 +31,7 @@ func v1APIHandler(db *pgx.Conn) web.Middleware {
 
 			w.Header().Set("Content-Type", "application/json; charset=utf-8")
 
-			route := &Route{}
+			route := &web.Route{}
 			route.Parse(r)
 
 			switch {
