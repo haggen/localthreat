@@ -5,6 +5,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
       - uses: webfactory/ssh-agent@v0.4.0
         with:
           ssh-private-key: ${{ secrets.PRIVATE_KEY }}
