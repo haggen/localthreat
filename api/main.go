@@ -11,6 +11,7 @@ import (
 	"strings"
 
 	"github.com/haggen/localthreat/api/web"
+	gonanoid "github.com/matoous/go-nanoid"
 
 	"github.com/jackc/pgx/v4"
 )
@@ -57,13 +58,17 @@ func v1APIHandler(db *pgx.Conn) web.Middleware {
 			route.Parse(r)
 
 			switch {
-			case route.Match("POST", "/v1/reports/*"):
+			case route.Match("POST", "/v1/reports"):
 				src, err := ioutil.ReadAll(r.Body)
 				if err != nil {
 					panic(err)
 				}
+				id, err := gonanoid.Nanoid(10)
+				if err != nil {
+					panic(err)
+				}
 				report := &Report{
-					ID: route.Target,
+					ID: id,
 				}
 				report.Parse(string(src))
 				data, err := json.Marshal(report)

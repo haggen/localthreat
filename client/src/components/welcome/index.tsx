@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import { nanoid } from "nanoid";
-import style from "./style.module.css";
 import { usePaste } from "hooks/use-paste";
 import { useLocation } from "wouter";
+
+import style from "./style.module.css";
 
 export const Welcome = () => {
   const paste = usePaste();
@@ -10,7 +10,7 @@ export const Welcome = () => {
 
   useEffect(() => {
     if (paste) {
-      fetch(`${process.env.REACT_APP_API_URL}/v1/reports/${nanoid()}`, {
+      fetch(`${process.env.REACT_APP_API_URL}/v1/reports`, {
         method: "POST",
         body: paste,
       })
