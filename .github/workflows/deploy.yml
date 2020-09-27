@@ -6,7 +6,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: ${{ github.ref }}
+          fetch-depth: 0
       - uses: webfactory/ssh-agent@v0.4.0
         with:
           ssh-private-key: ${{ secrets.PRIVATE_KEY }}
