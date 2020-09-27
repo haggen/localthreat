@@ -1,0 +1,11 @@
+name: deploy
+on: [push]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: webfactory/ssh-agent@v0.4.0
+          with:
+            ssh-private-key: ${{ secrets.PRIVATE_KEY }}
+      - run: git subtree push --prefix api ${{ secrets.REMOTE_URL }} master
