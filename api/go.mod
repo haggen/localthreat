@@ -4,4 +4,7 @@ module github.com/haggen/localthreat/api
 
 go 1.15
 
-require github.com/jackc/pgx/v4 v4.8.1
+require (
+	github.com/jackc/pgx/v4 v4.8.1
+	github.com/matoous/go-nanoid v1.4.1
+)
