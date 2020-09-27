@@ -140,6 +140,7 @@ func main() {
 	w.Use(web.RequestIDHandler())
 	w.Use(web.LoggingHandler())
 	w.Use(web.RemoteAddrHandler())
+	w.Use(web.RateLimiterHandler())
 	w.Use(web.CORSHandler())
 	w.Use(v1APIHandler(database))
 
