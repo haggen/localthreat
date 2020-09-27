@@ -9,8 +9,8 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.PRIVATE_KEY }}
       - env:
-          REMOTE_SSH: ${{ secrets.REMOTE_SSH }}
+          REMOTE_PUBLIC_KEY: ${{ secrets.REMOTE_PUBLIC_KEY }}
           REMOTE_URL: ${{ secrets.REMOTE_URL }}
         run: |
-          ssh-keyscan $REMOTE_SSH 
+          echo "$REMOTE_PUBLIC_KEY" >> ~/.ssh/known_hosts
           git subtree push --prefix api $REMOTE_URL master
