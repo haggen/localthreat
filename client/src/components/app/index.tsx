@@ -8,7 +8,7 @@ import { News } from "components/news";
 import { History, Provider as HistoryProvider } from "components/history";
 import { Help } from "components/help";
 // import { Settings } from "components/settings";
-import { DrawerProvider } from "components/drawer";
+import { Provider as DrawerProvider } from "components/drawer";
 
 import style from "./style.module.css";
 
@@ -16,18 +16,18 @@ export const App = () => {
   return (
     <DrawerProvider>
       <HistoryProvider>
-      <News />
-      {/* <Settings /> */}
-      <Help />
+        <News />
+        {/* <Settings /> */}
+        <Help />
         <History />
-      <Topbar />
-      <main className={style.main}>
-        <Switch>
-          <Route path="/" component={Welcome} />
-          <Route path="/:id" component={Report} />
-        </Switch>
-      </main>
-      <Footer />
+        <Topbar />
+        <main className={style.main}>
+          <Switch>
+            <Route path="/" component={Welcome} />
+            <Route path="/:id" component={Report} />
+          </Switch>
+        </main>
+        <Footer />
       </HistoryProvider>
     </DrawerProvider>
   );

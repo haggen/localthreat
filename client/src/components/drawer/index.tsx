@@ -31,7 +31,7 @@ type DrawerProviderProps = {
   children: ReactNode;
 };
 
-export const DrawerProvider = ({ children }: DrawerProviderProps) => {
+export const Provider = ({ children }: DrawerProviderProps) => {
   const [state, setState] = useState<State["state"]>({});
 
   const set: State["set"] = (name, value) => {
