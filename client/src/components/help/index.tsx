@@ -39,7 +39,7 @@ export const Help = () => {
             and can be accessed using the History panel.
           </li>
           <li>
-            <del>Overheat beliefs!</del>
+            <del>Overheat belief!</del>
           </li>
         </ul>
       </Article>
@@ -69,7 +69,7 @@ export const Help = () => {
             open an issue on GitHub
           </a>{" "}
           or send an EVE-mail to <strong>Jason Chorant</strong> and I'll get
-          back to you.
+          back to you, eventually.
         </p>
       </Article>
     </Drawer>
