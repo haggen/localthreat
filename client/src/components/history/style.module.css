@@ -1,0 +1,17 @@
+.list li {
+  display: block;
+}
+
+.list li + li {
+  margin-top: 0.75rem;
+}
+
+.list a,
+.list small,
+.list strong {
+  display: block;
+}
+
+.list strong {
+  display: block;
+}

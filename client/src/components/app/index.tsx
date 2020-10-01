@@ -5,7 +5,7 @@ import { Report } from "components/report";
 import { Topbar } from "components/topbar";
 import { Footer } from "components/footer";
 import { News } from "components/news";
-// import { History } from "components/history";
+import { History, Provider as HistoryProvider } from "components/history";
 import { Help } from "components/help";
 // import { Settings } from "components/settings";
 import { DrawerProvider } from "components/drawer";
@@ -15,10 +15,11 @@ import style from "./style.module.css";
 export const App = () => {
   return (
     <DrawerProvider>
+      <HistoryProvider>
       <News />
       {/* <Settings /> */}
       <Help />
-      {/* <History /> */}
+        <History />
       <Topbar />
       <main className={style.main}>
         <Switch>
@@ -27,6 +28,7 @@ export const App = () => {
         </Switch>
       </main>
       <Footer />
+      </HistoryProvider>
     </DrawerProvider>
   );
 };

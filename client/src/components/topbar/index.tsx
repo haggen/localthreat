@@ -10,7 +10,7 @@ export const Topbar = () => {
   const { open: openNewsPanel } = useDrawer("news");
   // const { open: openSettingsPanel } = useDrawer("settings");
   const { open: openHelpPanel } = useDrawer("help");
-  // const { open: openHistoryPanel } = useDrawer("history");
+  const { open: openHistoryPanel } = useDrawer("history");
 
   return (
     <nav className={style.menu}>
@@ -47,9 +47,9 @@ export const Topbar = () => {
         <li>
           <Link href="/">New Report</Link>
         </li>
-        {/* <li>
+        <li>
           <button onClick={() => openHistoryPanel()}>History</button>
-        </li> */}
+        </li>
       </ul>
     </nav>
   );

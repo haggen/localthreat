@@ -1,8 +1,9 @@
+import { useHistory } from "components/history";
 import { Summary } from "components/summary";
 import { Table } from "components/table";
 import { usePaste } from "hooks/use-paste";
-import React, { Reducer, useCallback, useEffect, useReducer } from "react";
-import { Action, PlayerData, EntityData } from "types";
+import React, { useCallback, useEffect, useReducer } from "react";
+import { PlayerData, EntityData } from "types";
 import style from "./style.module.css";
 
 type Props = {
@@ -15,9 +16,30 @@ type State = {
   allys: Record<number, EntityData>;
 };
 
-const reducer = (state: State, action: Action) => {
+type Action =
+  | {
+      type: "add" | "reset";
+      data: string[];
+    }
+  | {
+      type: "update";
+      data: PlayerData;
+    };
+
+const getInitialState = () => {
+  return {
+    chars: {},
+    corps: {},
+    allys: {},
+  };
+};
+
+const reducer = (state: State, action: Action): State => {
+  console.log(action.type, action);
   const { chars, corps, allys } = state;
   switch (action.type) {
+    case "reset":
+      return reducer(getInitialState(), { ...action, type: "add" });
     case "add":
       for (const i in action.data) {
         const name = action.data[i];
@@ -50,11 +72,9 @@ const reducer = (state: State, action: Action) => {
 };
 
 export const Report = ({ params: { id } }: Props) => {
-  const [data, dispatch] = useReducer<Reducer<State, Action>>(reducer, {
-    chars: {},
-    corps: {},
-    allys: {},
-  });
+  const [data, dispatch] = useReducer(reducer, null, getInitialState);
+
+  const { push } = useHistory();
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/v1/reports/${id}`)
@@ -65,12 +85,17 @@ export const Report = ({ params: { id } }: Props) => {
         return resp.json();
       })
       .then((report) => {
-        dispatch({ type: "add", data: report.data });
+        dispatch({ type: "reset", data: report.data });
+        push({
+          id: report.id,
+          time: report.time,
+          data: report.data,
+        });
       })
       .catch((err) => {
         throw err;
       });
-  }, [id]);
+  }, [id, push]);
 
   const paste = usePaste();
 

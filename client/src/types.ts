@@ -19,13 +19,3 @@ export type PlayerData = {
     name: string;
   }[];
 };
-
-export type Action =
-  | {
-      type: "add";
-      data: string[];
-    }
-  | {
-      type: "update";
-      data: PlayerData;
-    };
