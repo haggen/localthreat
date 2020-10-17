@@ -35,7 +35,6 @@ const getInitialState = () => {
 };
 
 const reducer = (state: State, action: Action): State => {
-  console.log(action.type, action);
   const { chars, corps, allys } = state;
   switch (action.type) {
     case "reset":
