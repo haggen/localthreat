@@ -65,3 +65,7 @@ export const schedule = (id: number) => {
     });
   });
 };
+
+export const clear = () => {
+  queue.splice(0, queue.length);
+};

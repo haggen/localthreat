@@ -2,6 +2,7 @@ import { useHistory } from "components/history";
 import { Summary } from "components/summary";
 import { Table } from "components/table";
 import { usePaste } from "hooks/use-paste";
+import { clear as clearStatsRequests } from "lib/fetch-stats";
 import React, { useCallback, useEffect, useReducer } from "react";
 import { PlayerData, EntityData } from "types";
 import style from "./style.module.css";
@@ -71,7 +72,7 @@ const reducer = (state: State, action: Action): State => {
 };
 
 export const Report = ({ params: { id } }: Props) => {
-  const [data, dispatch] = useReducer(reducer, null, getInitialState);
+  const [state, dispatch] = useReducer(reducer, null, getInitialState);
 
   const { push } = useHistory();
 
@@ -119,6 +120,13 @@ export const Report = ({ params: { id } }: Props) => {
     }
   }, [paste, id]);
 
+  useEffect(
+    () => () => {
+      clearStatsRequests();
+    },
+    []
+  );
+
   const update = useCallback(
     (data: PlayerData) => {
       dispatch({ type: "update", data });
@@ -129,10 +137,10 @@ export const Report = ({ params: { id } }: Props) => {
   return (
     <div className={style.report}>
       <div className={style.summaries}>
-        <Summary type="corp" data={Object.values(data.corps)} />
-        <Summary type="ally" data={Object.values(data.allys)} />
+        <Summary type="corp" data={Object.values(state.corps)} />
+        <Summary type="ally" data={Object.values(state.allys)} />
       </div>
-      <Table data={Object.values(data.chars)} update={update} />
+      <Table data={Object.values(state.chars)} update={update} />
     </div>
   );
 };
