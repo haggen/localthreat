@@ -4,7 +4,7 @@
   max-width: 100%;
 }
 
-.entity img {
+.entity .image {
   border-radius: 0.125rem;
   background-color: hsla(0, 0%, 0%, 0.5);
   display: block;
@@ -13,11 +13,11 @@
   width: 2em;
 }
 
-.entity img + span {
+.entity .image + .text {
   margin-left: 0.375rem;
 }
 
-.entity span {
+.entity .text {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

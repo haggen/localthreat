@@ -51,6 +51,7 @@ export const Entity = ({ type, name, ids, truncate }: Props) => {
   if (!ids.every(Boolean)) {
     return null;
   }
+
   return (
     <a
       className={style.entity}
@@ -59,13 +60,14 @@ export const Entity = ({ type, name, ids, truncate }: Props) => {
       rel="noopener noreferrer"
     >
       <img
+        className={style.image}
         src={getImageSrc(type, ids)}
         width="32"
         height="32"
         alt={name ?? "…"}
         title={name ?? "…"}
       />
-      {truncate ? null : <span>{name ?? "…"}</span>}
+      {truncate ? null : <span className={style.text}>{name ?? "…"}</span>}
     </a>
   );
 };
