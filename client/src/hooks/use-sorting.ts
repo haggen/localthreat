@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PlayerData } from "types";
+import { PlayerData } from "lib/types";
 
 type Config = [
   (

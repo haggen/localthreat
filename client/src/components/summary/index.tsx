@@ -1,6 +1,6 @@
 import { Entity } from "components/entity";
 import React from "react";
-import { EntityData } from "types";
+import { EntityData } from "lib/types";
 import style from "./style.module.css";
 
 type Props = {

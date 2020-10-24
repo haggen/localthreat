@@ -4,7 +4,7 @@ import { Table } from "components/table";
 import { usePaste } from "hooks/use-paste";
 import { clear as clearStatsRequests } from "lib/fetch-stats";
 import React, { useCallback, useEffect, useReducer } from "react";
-import { PlayerData, EntityData } from "types";
+import { PlayerData, EntityData } from "lib/types";
 import style from "./style.module.css";
 
 type Props = {

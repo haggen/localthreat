@@ -1,6 +1,6 @@
 import React from "react";
 import { Row } from "components/row";
-import { PlayerData } from "types";
+import { PlayerData } from "lib/types";
 import { useSorting } from "hooks/use-sorting";
 import style from "./style.module.css";
 
