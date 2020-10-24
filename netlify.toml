@@ -3,6 +3,10 @@
   command = "npm run-script build"
   publish = "client/build/"
 [[redirects]]
+  from = "/sw.js"
+  to = "/service-worker.ts"
+  status = 200
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
