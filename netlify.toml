@@ -1,7 +1,7 @@
 [build]
   base = "client/"
   command = "npm run-script build"
-  publish = "client/build/"
+  publish = "build/"
 [[redirects]]
   from = "/sw.js"
   to = "/service-worker.js"
