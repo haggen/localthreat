@@ -15,7 +15,7 @@ I accept **ISK donations** as contributions to the project. If you feel like loc
 ## Development
 
 - 👨‍💻 The code and documentation are hosted on [GitHub](https://github.com/haggen/localthreat).
-- 🎨 The design lives on [Figma](https://www.figma.com/file/BPH2xeVvbBDAnWpjMI58GpnW/localthreat.next).
+- 🎨 The design lives on [Figma](https://www.figma.com/file/BPH2xeVvbBDAnWpjMI58GpnW/localthreat.next?node-id=0%3A1).
 - 🐛 Bug tracking, feature requests, and other feedback must be made on the [repository's issues page](https://github.com/haggen/localthreat/issues/new/choose).
 
 ### Docker setup (recommended)
