@@ -1,4 +1,4 @@
-# localthreat ![deploy](https://github.com/haggen/localthreat/workflows/deploy/badge.svg?branch=next)
+# localthreat ![Netlify status](https://img.shields.io/netlify/f8fbdc5c-e10c-4a4d-bd13-47d261566f08?label=client&style=flat-square) ![Back-end deploy status](https://img.shields.io/github/workflow/status/haggen/localthreat/Back-end%20deploy?label=api&style=flat-square) ![CodeQL status](https://img.shields.io/github/workflow/status/haggen/localthreat/CodeQL?label=codeql&style=flat-square)
 
 [![localthreat.xyz](screenshot.png)](https://localthreat.xyz)
 
