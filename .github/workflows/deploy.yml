@@ -15,4 +15,5 @@ jobs:
           REMOTE_URL: ${{ secrets.REMOTE_URL }}
         run: |
           echo "$REMOTE_PUBLIC_KEY" >> ~/.ssh/known_hosts
-          git subtree push --force --prefix api $REMOTE_URL master
+          git subtree split --prefix api -b api
+          git push -f $REMOTE_URL api:master
