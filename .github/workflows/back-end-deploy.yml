@@ -1,16 +1,20 @@
-name: deploy
+name: "Back-end deploy"
 on: [push]
 jobs:
   deploy:
+    name: Deploy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - uses: webfactory/ssh-agent@v0.4.0
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.4.0
         with:
           ssh-private-key: ${{ secrets.PRIVATE_KEY }}
-      - env:
+      - name: Push new release
+        env:
           REMOTE_PUBLIC_KEY: ${{ secrets.REMOTE_PUBLIC_KEY }}
           REMOTE_URL: ${{ secrets.REMOTE_URL }}
         run: |
