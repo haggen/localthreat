@@ -20,7 +20,7 @@ I accept **ISK donations** as contributions to the project. If you feel like loc
 
 ### Docker setup (recommended)
 
-You'll need to be resolving any subdomain of localhost to localhost. If you're using Chrome it does that automatically. Otherwise you'll need to edit your `hosts` file or have something like [dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc.html)responding to `client-localthreat.localhost` and `api-localthreat.localhost`.
+You'll need to be resolving any subdomain of localhost to localhost. If you're using Chrome it does that automatically. Otherwise you'll need to edit your `hosts` file or have something like [dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc.html) resolving `client-localthreat.localhost` and `api-localthreat.localhost`.
 
 With Docker up and docker-compose installed , run:
 
