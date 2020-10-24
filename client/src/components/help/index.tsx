@@ -13,12 +13,12 @@ export const Help = () => {
       </Article>
       <Article title="How does it work?">
         <p>
-          It listens to paste events from the user. You need to copy a chat's
-          transcript or a channel members list from in-game and press CTRL+V on
-          this page. Once an input is detected it parses the content for
-          character names and queries information from the game servers and
-          other third-party APIs to offer a complete a report of affiliations
-          and PvP statiscs of those players.
+          With the window in focus it listens to paste events from the user.
+          You'll need to copy a chat's transcript or a channel members list from
+          in-game and press CTRL+V on this page. Once an input is detected it
+          parses the content for character names and queries information from
+          the game servers and other third-party APIs to offer a complete a
+          report of affiliations and PvP statiscs of those players.
         </p>
       </Article>
       <Article title="What else can it do?">
