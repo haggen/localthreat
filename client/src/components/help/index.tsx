@@ -49,7 +49,7 @@ export const Help = () => {
           and also has its source code released under a fairly permissive
           license on GitHub. Go{" "}
           <a
-            href="https://github.com/haggen/localthreat/tree/next"
+            href="https://github.com/haggen/localthreat"
             target="blank"
             rel="noopener noreferrer"
           >

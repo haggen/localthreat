@@ -9,7 +9,7 @@ export const Footer = () => {
         <li>
           Source on{" "}
           <a
-            href="https://github.com/haggen/localthreat/tree/next"
+            href="https://github.com/haggen/localthreat"
             target="blank"
             rel="noopener noreferrer"
           >
