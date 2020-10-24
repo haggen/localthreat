@@ -1,24 +1,28 @@
-[![next.localthreat.xyz](localthreat.svg)](https://next.localthreat.xyz)
+# localthreat ![deploy](https://github.com/haggen/localthreat/workflows/deploy/badge.svg?branch=next)
 
-> Paste the transcript or members from chat to get a report of affiliations and PvP stats.
+[![localthreat.xyz](screenshot.png)](https://localthreat.xyz)
 
-# About
+---
 
-**[localthreat](https://next.localthreat.xyz/)** is an online tool to help EVE players with threat assessment.
+## About
 
-# Contribution
+**[localthreat](https://localthreat.xyz/)** is an online tool to help EVE players with threat assessment.
+
+## Contribution
 
 I accept **ISK donations** as contributions to the project. If you feel like localthreat has helped you please consider contributing. Send a donation in-game of any value to **Jason Chorant**. This helps to keep me motivated and also with the costs of running and maintaining this service.
 
-# Development
+## Development
 
-The code and documentation are hosted on [GitHub](https://github.com/haggen/localthreat). The design lives on [Figma](https://www.figma.com/file/BPH2xeVvbBDAnWpjMI58GpnW/localthreat.next). Bug tracking, feature request, and any other feedback must be made on the [repository's issues page](https://github.com/haggen/localthreat/issues/new).
+- 👨‍💻 The code and documentation are hosted on [GitHub](https://github.com/haggen/localthreat).
+- 🎨 The design lives on [Figma](https://www.figma.com/file/BPH2xeVvbBDAnWpjMI58GpnW/localthreat.next).
+- 🐛 Bug tracking, feature requests, and other feedback must be made on the [repository's issues page](https://github.com/haggen/localthreat/issues/new/choose).
 
-## Docker setup (recommended)
+### Docker setup (recommended)
 
-You'll need to be resolving any subdomain of localhost to localhost. If you're using Chrome it does that automatically. Otherwise you'll need to edit your `hosts` file or have something like [dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc.html).
+You'll need to be resolving any subdomain of localhost to localhost. If you're using Chrome it does that automatically. Otherwise you'll need to edit your `hosts` file or have something like [dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc.html)responding to `client-localthreat.localhost` and `api-localthreat.localhost`.
 
-With Docker running and docker-compose installed, run:
+With Docker up and docker-compose installed , run:
 
 ```shell
 $ docker-compose up
@@ -26,7 +30,7 @@ $ docker-compose up
 
 This will boot everything you need in one go. You can resume your work later with the same command.
 
-If it's your first run though, you'll need to seed the database; with the containers running:
+If it's your first run though, you'll need to seed the database. Once the containers are up, run:
 
 ```shell
 $ docker-compose exec -T db psql -h localhost -U postgres postgres < api/schema.sql
@@ -34,11 +38,11 @@ $ docker-compose exec -T db psql -h localhost -U postgres postgres < api/schema.
 
 You can access the app at http://client-localthreat.localhost and the API at http://api-localthreat.localhost.
 
-## Manual setup
+### Manual setup
 
-If you don't have Docker or don't want to deal with proxies you can build and run everything locally.
+If you don't have Docker or don't want to deal with DNS you can build and run everything locally.
 
-### API
+#### API
 
 It's a simple web server written in Go that talks JSON.
 
@@ -51,7 +55,6 @@ $ go get
 To download all the dependencies and then:
 
 ```shell
-$ make test
 $ make
 ```
 
@@ -65,11 +68,11 @@ $ DATABASE_URL=postgres://postgres@localhost/postgres PORT=5000 ./api
 
 This will start the API server. You might want to adjust the `DATABASE_URL` and `PORT` values accordingly.
 
-### Client
+#### Client
 
 It's a [Create React App](https://create-react-app.dev/) written in TypeScript.
 
-You'll need Node 14+ and npm installed. Hop into the `client/` sub-directory and run:
+You'll need Node 12+ and npm installed. Hop into the `client/` sub-directory and run:
 
 ```shell
 $ npm install
@@ -83,7 +86,7 @@ $ REACT_APP_API_URL=http://localhost:5000 npm run-script start
 
 To start the development server. You might want to adjust the `REACT_APP_API_URL` value accordingly.
 
-# Legal
+## Legal
 
 [The MIT License](LICENSE) © 2017 Arthur Corenzan
 
