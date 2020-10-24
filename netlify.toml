@@ -4,7 +4,7 @@
   publish = "client/build/"
 [[redirects]]
   from = "/sw.js"
-  to = "/service-worker.ts"
+  to = "/service-worker.js"
   status = 200
 [[redirects]]
   from = "/*"
