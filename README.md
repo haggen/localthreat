@@ -22,13 +22,13 @@ I accept **ISK donations** as contributions to the project. If you feel like loc
 
 You'll need to be resolving any subdomain of localhost to localhost. If you're using Chrome it does that automatically. Otherwise you'll need to edit your `hosts` file or have something like [dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc.html) resolving `client-localthreat.localhost` and `api-localthreat.localhost`.
 
-With Docker up and docker-compose installed , run:
+With [Docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/) installed , run:
 
 ```shell
 $ docker-compose up
 ```
 
-This will boot everything you need in one go. You can resume your work later with the same command.
+This will boot everything you need in one go. Pass `-d` to free your terminal (daemon mode). You can resume your work later with the same command.
 
 If it's your first run though, you'll need to seed the database. Once the containers are up, run:
 
