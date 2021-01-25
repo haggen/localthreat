@@ -10,7 +10,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.4.0
+        uses: webfactory/ssh-agent@v0.4.1
         with:
           ssh-private-key: ${{ secrets.PRIVATE_KEY }}
       - name: Push new release
