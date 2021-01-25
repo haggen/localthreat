@@ -13,9 +13,10 @@ import (
 	gonanoid "github.com/matoous/go-nanoid"
 
 	"github.com/jackc/pgx/v4"
+	"github.com/jackc/pgx/v4/pgxpool"
 )
 
-func v1APIHandler(db *pgx.Conn) web.Middleware {
+func v1APIHandler(db *pgxpool.Pool) web.Middleware {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			if !strings.HasPrefix(r.URL.Path, "/v1/") {
@@ -105,11 +106,11 @@ func v1APIHandler(db *pgx.Conn) web.Middleware {
 }
 
 func main() {
-	database, err := pgx.Connect(context.Background(), os.Getenv("DATABASE_URL"))
+	database, err := pgxpool.Connect(context.Background(), os.Getenv("DATABASE_URL"))
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer database.Close(context.Background())
+	defer database.Close()
 
 	w := web.New()
 
