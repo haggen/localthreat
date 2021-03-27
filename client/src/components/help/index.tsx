@@ -7,8 +7,8 @@ export const Help = () => {
     <Drawer name="help" title="Help" side="left">
       <Article title="What is localthreat?">
         <p>
-          It's a web site to help players of EVE Online quickly identify friend
-          from foe and asses the level of threat their enemy may present.
+          It's a website to help players of EVE Online quickly identify friend
+          from foe and assess the level of threat their enemy may present.
         </p>
       </Article>
       <Article title="How does it work?">
@@ -18,7 +18,7 @@ export const Help = () => {
           in-game and press CTRL+V on this page. Once an input is detected it
           parses the content for character names and queries information from
           the game servers and other third-party APIs to offer a complete a
-          report of affiliations and PvP statiscs of those players.
+          report of affiliations and PvP statistics of those players.
         </p>
       </Article>
       <Article title="What else can it do?">
@@ -35,7 +35,7 @@ export const Help = () => {
             Pasting on an existing report will add non duplicate names to it.
           </li>
           <li>
-            A history of visited reports will be stored localy on your browser
+            A history of visited reports will be stored locally on your browser
             and can be accessed using the History panel.
           </li>
           <li>
