@@ -20,27 +20,27 @@ I accept **ISK donations** as contributions to the project. If you feel like loc
 
 ### Docker setup (recommended)
 
-You'll need to be resolving any subdomain of localhost to localhost. If you're using Chrome it does that automatically. Otherwise you'll need to edit your `hosts` file or have something like [dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc.html) resolving `client-localthreat.localhost` and `api-localthreat.localhost`.
-
-With [Docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/) installed , run:
+With [Docker](https://docs.docker.com/get-docker/) and [docker compose](https://docs.docker.com/compose/install/) installed , run:
 
 ```shell
-$ docker-compose up
+docker compose up
 ```
 
 This will boot everything you need in one go. Pass `-d` to free your terminal (daemon mode). You can resume your work later with the same command.
 
-If it's your first run though, you'll need to seed the database. Once the containers are up, run:
+If it's your first run though, you'll need to create the database schema. Once the containers are up, run:
 
 ```shell
-$ docker-compose exec -T db psql -h localhost -U postgres postgres < api/schema.sql
+docker compose exec -Tu postgres db psql < api/schema.sql
 ```
 
-You can access the app at http://client-localthreat.localhost and the API at http://api-localthreat.localhost.
+You can access the application at http://client-localthreat.local.crz.li and the API at http://api-localthreat.local.crz.li.
+
+> 💡 local.crz.li is a public wildcard loopback domain. It resolves to `127.0.0.1` or `::1` in IPv6.
 
 ### Manual setup
 
-If you don't have Docker or don't want to deal with DNS you can build and run everything locally.
+If you don't have Docker or don't want to deal with it you can build and run everything locally.
 
 #### API
 
@@ -49,13 +49,13 @@ It's a simple web server written in Go that talks JSON.
 You'll need Go 1.15+ installed. Hop into the `api/` sub-directory and run:
 
 ```shell
-$ go get
+go get
 ```
 
 To download all the dependencies and then:
 
 ```shell
-$ make
+make
 ```
 
 To test and build the binary.
@@ -63,7 +63,7 @@ To test and build the binary.
 You'll also need PostgreSQL 12+ running. Load `api/schema.sql` file into your database and run:
 
 ```shell
-$ DATABASE_URL=postgres://postgres@localhost/postgres PORT=5000 ./api
+DATABASE_URL=postgres://postgres@localhost/postgres PORT=5000 ./api
 ```
 
 This will start the API server. You might want to adjust the `DATABASE_URL` and `PORT` values accordingly.
@@ -75,13 +75,13 @@ It's a [Create React App](https://create-react-app.dev/) written in TypeScript.
 You'll need Node 12+ and npm installed. Hop into the `client/` sub-directory and run:
 
 ```shell
-$ npm install
+npm install
 ```
 
 To download all the dependencies and then:
 
 ```shell
-$ REACT_APP_API_URL=http://localhost:5000 npm run-script start
+REACT_APP_API_URL=http://localhost:5000 npm run-script start
 ```
 
 To start the development server. You might want to adjust the `REACT_APP_API_URL` value accordingly.
