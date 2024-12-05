@@ -1,7 +1,7 @@
 version: "3"
 services:
   proxy:
-    image: traefik:2.3
+    image: traefik:3.2
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     ports:
@@ -32,6 +32,6 @@ services:
       CI: "true"
       EXTEND_ESLINT: "true"
   db:
-    image: postgres:12.4-alpine
+    image: postgres:17-alpine
     environment:
       - POSTGRES_PASSWORD=123
