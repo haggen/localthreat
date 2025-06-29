@@ -1,22 +1,22 @@
 package main
 
 import (
-	"context"
+	"database/sql"
 	"encoding/json"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/haggen/localthreat/api/web"
 	gonanoid "github.com/matoous/go-nanoid"
 
-	"github.com/jackc/pgx/v4"
-	"github.com/jackc/pgx/v4/pgxpool"
+	_ "github.com/mattn/go-sqlite3"
 )
 
-func v1APIHandler(db *pgxpool.Pool) web.Middleware {
+func v1APIHandler(db *sql.DB) web.Middleware {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			if !strings.HasPrefix(r.URL.Path, "/v1/") {
@@ -46,57 +46,63 @@ func v1APIHandler(db *pgxpool.Pool) web.Middleware {
 					panic(err)
 				}
 				report := &Report{
-					ID: id,
+					ID:        id,
+					CreatedAt: time.Now().UTC().Format(time.RFC3339),
+					Source:    string(src),
 				}
-				report.Parse(string(src))
-				data, err := json.Marshal(report)
+				report.Parse()
+				_, err = db.Exec(`INSERT INTO reports (id, createdAt, source) VALUES (?, ?, ?);`, report.ID, report.CreatedAt, report.String())
 				if err != nil {
 					panic(err)
 				}
-				_, err = db.Exec(context.Background(), `INSERT INTO reports VALUES ($1, $2);`, report.ID, report.Data)
+				body, err := json.Marshal(report)
 				if err != nil {
 					panic(err)
 				}
-				w.Write(data)
 				w.WriteHeader(http.StatusCreated)
+				w.Write(body)
 			case route.Match("GET", "/v1/reports/*"):
 				report := &Report{}
-				err := db.QueryRow(context.Background(), `SELECT id, time, data FROM reports WHERE id = $1;`, route.Target).Scan(&report.ID, &report.Time, &report.Data)
-				if err == pgx.ErrNoRows {
+				err := db.QueryRow(`SELECT id, createdAt, source FROM reports WHERE id = ?;`, route.Target).Scan(&report.ID, &report.CreatedAt, &report.Source)
+				if err == sql.ErrNoRows {
 					w.WriteHeader(http.StatusNotFound)
 					return
 				} else if err != nil {
 					panic(err)
 				}
-				data, err := json.Marshal(report)
+				report.Parse()
+				body, err := json.Marshal(report)
 				if err != nil {
 					panic(err)
 				}
-				w.Write(data)
 				w.WriteHeader(http.StatusOK)
+				w.Write(body)
 			case route.Match("PATCH", "/v1/reports/*"):
-				report := &Report{}
-				err := db.QueryRow(context.Background(), `SELECT id, time, data FROM reports WHERE id = $1;`, route.Target).Scan(&report.ID, &report.Time, &report.Data)
-				if err == pgx.ErrNoRows {
-					w.WriteHeader(http.StatusNotFound)
-					return
-				} else if err != nil {
-					panic(err)
-				}
 				src, err := ioutil.ReadAll(r.Body)
 				if err != nil {
 					panic(err)
 				}
-				report.Parse(string(src))
-				_, err = db.Exec(context.Background(), `UPDATE reports SET data = $2 WHERE id = $1;`, report.ID, report.Data)
+				report := &Report{
+					Source: string(src),
+				}
+				report.Parse()
+				err = db.QueryRow(`SELECT id, createdAt, source FROM reports WHERE id = ?;`, route.Target).Scan(&report.ID, &report.CreatedAt, &report.Source)
+				if err == sql.ErrNoRows {
+					w.WriteHeader(http.StatusNotFound)
+					return
+				} else if err != nil {
+					panic(err)
+				}
+				report.Parse()
+				_, err = db.Exec(`UPDATE reports SET source = ? WHERE id = ?;`, report.String(), report.ID)
 				if err != nil {
 					panic(err)
 				}
-				data, err := json.Marshal(report)
+				body, err := json.Marshal(report)
 				if err != nil {
 					panic(err)
 				}
-				w.Write(data)
+				w.Write(body)
 				w.WriteHeader(http.StatusOK)
 			default:
 				w.WriteHeader(http.StatusNotFound)
@@ -106,11 +112,20 @@ func v1APIHandler(db *pgxpool.Pool) web.Middleware {
 }
 
 func main() {
-	database, err := pgxpool.Connect(context.Background(), os.Getenv("DATABASE_URL"))
+	database, err := sql.Open("sqlite3", "./database.sqlite")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer database.Close()
+
+	schema, err := os.ReadFile("./schema.sql")
+	if err != nil {
+		log.Fatal(err)
+	}
+	_, err = database.Exec(string(schema))
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	w := web.New()
 
@@ -122,5 +137,5 @@ func main() {
 	w.Use(web.CORSHandler())
 	w.Use(v1APIHandler(database))
 
-	w.Listen(":" + os.Getenv("PORT"))
+	w.Listen(":5000")
 }

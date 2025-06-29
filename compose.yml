@@ -1,0 +1,70 @@
+services:
+  proxy:
+    profiles:
+      - proxy
+    image: traefik:3.2
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - 80:80
+    command:
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+  api:
+    build: ./api
+    networks:
+      - default
+      - traefik
+    ports:
+      - 5000
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.localthreat-api.rule=Host(`api.localthreat.local.crz.li`)"
+      # - "traefik.http.routers.localthreat-api.entrypoints=web"
+      # - "traefik.http.services.localthreat-api.loadbalancer.server.port=5000"
+    develop:
+      watch:
+        - # x-initialSync was introduced in v2.29.2
+          # but it doesn't seem to be documented.
+          # It fixes synchronization issues when files
+          # are modified while the container is down.
+          x-initialSync: true
+          action: sync
+          path: ./api
+          target: /usr/local/src
+          ignore:
+            - tmp
+            - api
+
+  client:
+    build: ./client
+    networks:
+      - default
+      - traefik
+    ports:
+      - 3000
+    environment:
+      REACT_APP_API_URL: http://api.localthreat.local.crz.li
+      CI: "true"
+      EXTEND_ESLINT: "true"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.localthreat-client.rule=Host(`localthreat.local.crz.li`)"
+      # - "traefik.http.routers.localthreat-client.entrypoints=web"
+      # - "traefik.http.services.localthreat-client.loadbalancer.server.port=3000"
+    develop:
+      watch:
+        - # x-initialSync was introduced in v2.29.2
+          # but it doesn't seem to be documented.
+          # It fixes synchronization issues when files
+          # are modified while the container is down.
+          x-initialSync: true
+          action: sync
+          path: ./client
+          target: /usr/local/src
+          ignore:
+            - node_modules
+
+networks:
+  traefik:
+    external: true
