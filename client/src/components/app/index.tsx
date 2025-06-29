@@ -1,12 +1,11 @@
-import React from "react";
-import { Route, Switch } from "wouter";
-import { Welcome } from "components/welcome";
+import { Footer } from "components/footer";
+import { Help } from "components/help";
+import { History, Provider as HistoryProvider } from "components/history";
 import { Report } from "components/report";
 import { Topbar } from "components/topbar";
-import { Footer } from "components/footer";
-import { News } from "components/news";
-import { History, Provider as HistoryProvider } from "components/history";
-import { Help } from "components/help";
+import { Welcome } from "components/welcome";
+import React from "react";
+import { Route, Switch } from "wouter";
 // import { Settings } from "components/settings";
 import { Provider as DrawerProvider } from "components/drawer";
 
@@ -16,7 +15,6 @@ export const App = () => {
   return (
     <DrawerProvider>
       <HistoryProvider>
-        <News />
         {/* <Settings /> */}
         <Help />
         <History />

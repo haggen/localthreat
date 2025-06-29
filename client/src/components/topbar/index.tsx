@@ -1,10 +1,10 @@
-import React from "react";
-import { Link } from "wouter";
 import { useDrawer } from "components/drawer";
 import { Share } from "components/share";
+import React from "react";
+import { Link } from "wouter";
 
-import style from "./style.module.css";
 import { ReactComponent as Brand } from "./localthreat.svg";
+import style from "./style.module.css";
 
 export const Topbar = () => {
   const { open: openNewsPanel } = useDrawer("news");
@@ -22,9 +22,6 @@ export const Topbar = () => {
         </Link>
       </h1>
       <ul>
-        <li>
-          <button onClick={() => openNewsPanel()}>News</button>
-        </li>
         {/* <li>
           <button onClick={() => openSettingsPanel()}>Settings</button>
         </li> */}
