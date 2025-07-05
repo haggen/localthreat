@@ -27,7 +27,7 @@ You can also contribute by reporting bugs, suggesting features, sending feedback
 With [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/) installed, and port 80 available, run:
 
 ```shell
-docker compose --profile proxy up -w
+docker compose up -w
 ```
 
 This will start everything you need in watch mode.
