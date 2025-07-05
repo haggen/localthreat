@@ -24,7 +24,7 @@ services:
           x-initialSync: true
           action: sync
           path: ./api
-          target: /usr/local/src
+          target: /app
           ignore:
             - tmp
             - api

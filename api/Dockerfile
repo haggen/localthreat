@@ -1,10 +1,10 @@
 FROM golang:1.21-alpine
 
-RUN apk add --no-cache build-base git 
+RUN apk add --no-cache build-base git
 RUN go install github.com/pilu/fresh@latest
 
-WORKDIR /usr/local/src
-ADD . /usr/local/src
+WORKDIR /app
+ADD . /app
 
 EXPOSE 5000
 

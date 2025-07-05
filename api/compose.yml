@@ -1,0 +1,13 @@
+services:
+  api:
+    build: .
+    volumes:
+      - storage:/app/storage
+    ports:
+      - 5000
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.localthreat-api.rule=Host(`api.localthreat.xyz`)"
+
+volumes:
+  storage: {}
