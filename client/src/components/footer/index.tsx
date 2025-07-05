@@ -1,11 +1,10 @@
-import React from "react";
 import style from "./style.module.css";
 
 export const Footer = () => {
   return (
     <footer className={style.footer}>
       <ul>
-        <li>© 2017–2020 Arthur Corenzan</li>
+        <li>© 2017 Arthur Corenzan</li>
         <li>
           Source on{" "}
           <a
