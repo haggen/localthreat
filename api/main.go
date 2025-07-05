@@ -112,7 +112,7 @@ func v1APIHandler(db *sql.DB) web.Middleware {
 }
 
 func main() {
-	database, err := sql.Open("sqlite3", "./database.sqlite")
+	database, err := sql.Open("sqlite3", "./storage/database.sqlite")
 	if err != nil {
 		log.Fatal(err)
 	}
