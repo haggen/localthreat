@@ -1,7 +1,6 @@
-import React from "react";
-import { Row } from "components/row";
-import { PlayerData } from "lib/types";
-import { useSorting } from "hooks/use-sorting";
+import { Row } from "~/components/row";
+import { useSorting } from "~/hooks/use-sorting";
+import type { PlayerData } from "~/lib/types";
 import style from "./style.module.css";
 
 type Props = {

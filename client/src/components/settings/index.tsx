@@ -1,5 +1,5 @@
 import React from "react";
-import { Drawer } from "components/drawer";
+import { Drawer } from "~/components/drawer";
 
 export const Settings = () => {
   return (

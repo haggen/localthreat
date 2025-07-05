@@ -34,6 +34,7 @@
 .table td,
 .table th {
   padding: 0.375rem;
+  vertical-align: middle;
 }
 
 .table tr:nth-child(2n + 1) td {

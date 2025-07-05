@@ -1,10 +1,10 @@
-import { useHistory } from "components/history";
-import { Summary } from "components/summary";
-import { Table } from "components/table";
-import { usePaste } from "hooks/use-paste";
-import { clear as clearStatsRequests } from "lib/fetch-stats";
-import React, { useCallback, useEffect, useReducer } from "react";
-import { PlayerData, EntityData } from "lib/types";
+import { useCallback, useEffect, useReducer } from "react";
+import { useHistory } from "~/components/history";
+import { Summary } from "~/components/summary";
+import { Table } from "~/components/table";
+import { usePaste } from "~/hooks/use-paste";
+import { clear as clearStatsRequests } from "~/lib/fetch-stats";
+import type { EntityData, PlayerData } from "~/lib/types";
 import style from "./style.module.css";
 
 type Props = {
@@ -77,7 +77,7 @@ export const Report = ({ params: { id } }: Props) => {
   const { push } = useHistory();
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/v1/reports/${id}`)
+    fetch(`${import.meta.env.VITE_API_URL}/v1/reports/${id}`)
       .then((resp) => {
         if (!resp.ok) {
           throw new Error(`Unhandled status ${resp.status}`);
@@ -101,7 +101,7 @@ export const Report = ({ params: { id } }: Props) => {
 
   useEffect(() => {
     if (paste) {
-      fetch(`${process.env.REACT_APP_API_URL}/v1/reports/${id}`, {
+      fetch(`${import.meta.env.VITE_API_URL}/v1/reports/${id}`, {
         method: "PATCH",
         body: paste,
       })

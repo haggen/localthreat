@@ -1,10 +1,10 @@
-import React, { useEffect, memo, useCallback, useRef } from "react";
-import { schedule as fetchId } from "lib/fetch-ids";
-import { schedule as fetchAffiliation } from "lib/fetch-affiliation";
-import { schedule as fetchName } from "lib/fetch-names";
-import { schedule as fetchStats } from "lib/fetch-stats";
-import { PlayerData } from "lib/types";
-import { Entity } from "components/entity";
+import { memo, useCallback, useEffect, useRef } from "react";
+import { Entity } from "~/components/entity";
+import { schedule as fetchAffiliation } from "~/lib/fetch-affiliation";
+import { schedule as fetchId } from "~/lib/fetch-ids";
+import { schedule as fetchName } from "~/lib/fetch-names";
+import { schedule as fetchStats } from "~/lib/fetch-stats";
+import type { PlayerData } from "~/lib/types";
 import style from "./style.module.css";
 
 type Props = PlayerData & { update: (data: PlayerData) => void };

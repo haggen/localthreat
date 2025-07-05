@@ -1,53 +1,13 @@
 {
   "name": "localthreat",
-  "version": "0.0.0",
   "private": true,
-  "dependencies": {
-    "@popperjs/core": "^2.5.3",
-    "@testing-library/jest-dom": "^5.11.5",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "@types/classnames": "^2.2.10",
-    "@types/jest": "^26.0.15",
-    "@types/node": "^14.14.2",
-    "@types/react": "^16.9.53",
-    "@types/react-dom": "^16.9.8",
-    "classnames": "^2.2.6",
-    "copy-to-clipboard": "^3.3.1",
-    "nanoid": "^3.1.15",
-    "react": "17.0.1",
-    "react-dom": "17.0.1",
-    "react-popper": "^2.2.3",
-    "react-scripts": "4.0.0",
-    "resetize": "^27.1.2",
-    "typescript": "~4.0.5",
-    "web-vitals": "^0.2.4",
-    "workbox-background-sync": "^5.1.4",
-    "workbox-broadcast-update": "^5.1.4",
-    "workbox-cacheable-response": "^5.1.4",
-    "workbox-core": "^5.1.4",
-    "workbox-expiration": "^5.1.4",
-    "workbox-google-analytics": "^5.1.4",
-    "workbox-navigation-preload": "^5.1.4",
-    "workbox-precaching": "^5.1.4",
-    "workbox-range-requests": "^5.1.4",
-    "workbox-routing": "^5.1.4",
-    "workbox-strategies": "^5.1.4",
-    "workbox-streams": "^5.1.4",
-    "wouter": "^2.5.3"
-  },
+  "version": "0.0.0",
+  "license": "MIT",
+  "author": "Arthur <arthur@corenzan.com>",
   "scripts": {
-    "serve": "serve ./build",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app",
-    "rules": {
-      "jsx-a11y/anchor-is-valid": "off"
-    }
+    "build": "vite build",
+    "start": "vite",
+    "preview": "vite preview"
   },
   "browserslist": [
     "last 2 chrome version",
@@ -55,7 +15,40 @@
     "last 2 opera version",
     "last 2 safari version"
   ],
+  "dependencies": {
+    "@floating-ui/react": "^0.27.13",
+    "classnames": "^2.5.1",
+    "copy-to-clipboard": "^3.3.3",
+    "nanoid": "^5.1.5",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "resetize": "^31.2.0",
+    "web-vitals": "^5.0.3",
+    "workbox-background-sync": "^7.3.0",
+    "workbox-broadcast-update": "^7.3.0",
+    "workbox-cacheable-response": "^7.3.0",
+    "workbox-core": "^7.3.0",
+    "workbox-expiration": "^7.3.0",
+    "workbox-google-analytics": "^7.3.0",
+    "workbox-navigation-preload": "^7.3.0",
+    "workbox-precaching": "^7.3.0",
+    "workbox-range-requests": "^7.3.0",
+    "workbox-routing": "^7.3.0",
+    "workbox-strategies": "^7.3.0",
+    "workbox-streams": "^7.3.0",
+    "wouter": "^3.7.1"
+  },
   "devDependencies": {
-    "serve": "^11.3.2"
+    "@tsconfig/vite-react": "^6.3.6",
+    "@types/classnames": "^2.3.4",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.0.10",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react": "^4.6.0",
+    "serve": "^14.2.4",
+    "typescript": "~5.8.3",
+    "vite": "^7.0.2",
+    "vite-plugin-svgr": "^4.3.0"
   }
 }

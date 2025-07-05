@@ -17,9 +17,10 @@ const queue: Request[] = [];
 let timeoutRef = 0;
 
 const fetchIds = async (reqs: Request[]) => {
+  console.debug(reqs);
   const resp = await fetch(`https://esi.evetech.net/latest/universe/ids/`, {
     method: "post",
-    body: JSON.stringify(reqs.map((req) => req.name)),
+    body: JSON.stringify(Array.from(new Set(reqs.map((req) => req.name)))),
   });
   if (!resp.ok) {
     throw Error(resp.statusText);
@@ -40,7 +41,7 @@ export const schedule = (name: string) => {
 
   timeoutRef = setTimeout(() => {
     fetchIds(queue.splice(0, queue.length));
-  }, 100);
+  }, 10);
 
   return new Promise<number>((resolve) => {
     queue.push({

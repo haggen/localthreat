@@ -14,12 +14,12 @@
   transition-property: opacity, visibility, margin;
 }
 
-.tooltip:not(.active) {
+.tooltip:not(.open) {
   opacity: 0;
   pointer-events: none;
   visibility: hidden;
 }
 
-.tooltip.active {
+.tooltip.open {
   margin-top: 0.375rem;
 }

@@ -5,7 +5,7 @@ import React, {
   useEffect,
   useReducer,
 } from "react";
-import { Drawer } from "components/drawer";
+import { Drawer } from "~/components/drawer";
 import { Link } from "wouter";
 
 import style from "./style.module.css";

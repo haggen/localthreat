@@ -1,96 +1,42 @@
-import React, {
-  Children,
-  cloneElement,
-  ReactElement,
-  ReactNode,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import { createPortal } from "react-dom";
+import { autoUpdate, FloatingPortal, useFloating } from "@floating-ui/react";
 import c from "classnames";
-import { usePopper } from "react-popper";
+import { useMemo, useState, type ReactNode } from "react";
 import style from "./style.module.css";
-import { Placement } from "@popperjs/core";
 
-const { setTimeout } = window;
+export function useTooltip() {
+  const [open, setOpen] = useState(false);
 
-type Props = {
-  trigger: "hover" | "click";
-  children: ReactElement;
-  text: ReactNode;
-  placement?: Placement;
-};
-
-export const Tooltip = ({
-  trigger,
-  text,
-  children,
-  placement = "bottom",
-}: Props) => {
-  const [active, setActive] = useState(false);
-  const timeoutRef = useRef(0);
-  const triggerRef = useRef(null);
-  const tooltipRef = useRef<HTMLDivElement>(null);
-  const popper = usePopper(triggerRef.current, tooltipRef.current, {
-    placement,
+  const floating = useFloating({
+    open,
+    onOpenChange: setOpen,
+    whileElementsMounted: autoUpdate,
   });
 
-  useEffect(() => {
-    return () => {
-      clearTimeout(timeoutRef.current);
-    };
-  }, []);
+  return useMemo(
+    () => ({
+      open,
+      setOpen,
+      floating,
+    }),
+    [open, floating]
+  );
+}
 
-  const onClick = () => {
-    if (trigger === "click") {
-      setActive(true);
-    }
-  };
+type Props = {
+  tooltip: any;
+  children: ReactNode;
+};
 
-  const onMouseEnter = () => {
-    if (trigger === "hover") {
-      setActive(true);
-    }
-    clearTimeout(timeoutRef.current);
-  };
-
-  const onMouseLeave = () => {
-    timeoutRef.current = setTimeout(() => {
-      setActive(false);
-    }, 1000);
-  };
-
-  const child = Children.only(children);
-
+export const Tooltip = ({ tooltip, children }: Props) => {
   return (
-    <>
-      {createPortal(
-        <div
-          ref={tooltipRef}
-          className={c(style.tooltip, { [style.active]: active })}
-          style={popper.styles.popper}
-          {...popper.attributes.popper}
-        >
-          {text}
-        </div>,
-        document.body
-      )}
-      {cloneElement(child, {
-        ref: triggerRef,
-        onClick: (e: Event) => {
-          onClick();
-          child.props.onClick?.(e);
-        },
-        onMouseEnter: (e: Event) => {
-          onMouseEnter();
-          child.props.onMouseEnter?.(e);
-        },
-        onMouseLeave: (e: Event) => {
-          onMouseLeave();
-          child.props.onMouseLeave?.(e);
-        },
-      })}
-    </>
+    <FloatingPortal>
+      <div
+        ref={tooltip.floating.refs.setFloating}
+        className={c(style.tooltip, { [style.open]: tooltip.open })}
+        style={tooltip.floating.floatingStyles}
+      >
+        {children}
+      </div>
+    </FloatingPortal>
   );
 };

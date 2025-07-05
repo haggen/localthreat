@@ -37,7 +37,7 @@ export const schedule = (id: number) => {
 
   timeoutRef = setTimeout(() => {
     fetchNames(queue.splice(0, queue.length));
-  }, 100);
+  }, 10);
 
   return new Promise<string>((resolve) => {
     queue.push({

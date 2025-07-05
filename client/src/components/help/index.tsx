@@ -1,5 +1,5 @@
-import { Article } from "components/article";
-import { Drawer } from "components/drawer";
+import { Article } from "~/components/article";
+import { Drawer } from "~/components/drawer";
 import React from "react";
 
 export const Help = () => {

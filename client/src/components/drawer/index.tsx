@@ -1,6 +1,6 @@
 import React, { ReactNode, createContext, useContext, useState } from "react";
 import c from "classnames";
-import { useEscape } from "hooks/use-escape";
+import { useEscape } from "~/hooks/use-escape";
 
 import style from "./style.module.css";
 

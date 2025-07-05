@@ -1,6 +1,6 @@
 import React from "react";
-import { Drawer } from "components/drawer";
-import { Article } from "components/article";
+import { Drawer } from "~/components/drawer";
+import { Article } from "~/components/article";
 
 export const News = () => {
   return (

@@ -1,13 +1,12 @@
-import { useDrawer } from "components/drawer";
-import { Share } from "components/share";
-import React from "react";
 import { Link } from "wouter";
+import { useDrawer } from "~/components/drawer";
+import { Share } from "~/components/share";
 
-import { ReactComponent as Brand } from "./localthreat.svg";
+import Brand from "./localthreat.svg?react";
 import style from "./style.module.css";
 
 export const Topbar = () => {
-  const { open: openNewsPanel } = useDrawer("news");
+  // const { open: openNewsPanel } = useDrawer("news");
   // const { open: openSettingsPanel } = useDrawer("settings");
   const { open: openHelpPanel } = useDrawer("help");
   const { open: openHistoryPanel } = useDrawer("history");
@@ -16,9 +15,7 @@ export const Topbar = () => {
     <nav className={style.menu}>
       <h1>
         <Link href="/">
-          <a aria-label="localthreat">
-            <Brand />
-          </a>
+          <Brand aria-label="localthreat" style={{ height: "1.75rem" }} />
         </Link>
       </h1>
       <ul>

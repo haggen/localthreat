@@ -1,20 +1,39 @@
-import React from "react";
-import { useLocation } from "wouter";
 import copy from "copy-to-clipboard";
-import { Tooltip } from "components/tooltip";
+import { Fragment, useEffect, useRef } from "react";
+import { useLocation } from "wouter";
+import { Tooltip, useTooltip } from "~/components/tooltip";
 
 export const Share = () => {
   const [location] = useLocation();
+  const tooltip = useTooltip();
+  const timeoutRef = useRef(0);
 
   const onClick = () => {
     copy(window.location.href);
+    tooltip.setOpen(true);
+    timeoutRef.current = window.setTimeout(() => {
+      tooltip.setOpen(false);
+    }, 2000);
   };
 
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
   return (
-    <Tooltip text={"Copied!"} trigger="click">
-      <button onClick={onClick} disabled={location === "/"}>
+    <Fragment>
+      <button
+        ref={tooltip.floating.refs.setReference}
+        onClick={onClick}
+        disabled={location === "/"}
+      >
         Share
       </button>
-    </Tooltip>
+      <Tooltip tooltip={tooltip}>Copied to clipboard.</Tooltip>
+    </Fragment>
   );
 };

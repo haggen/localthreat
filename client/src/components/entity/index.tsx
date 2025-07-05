@@ -1,5 +1,4 @@
-import React from "react";
-
+import { Tooltip, useTooltip } from "~/components/tooltip";
 import style from "./style.module.css";
 
 type Type = "char" | "corp" | "ally" | "ship";
@@ -48,6 +47,16 @@ const getImageSrc = (type: Type, ids: Props["ids"]) => {
 };
 
 export const Entity = ({ type, name, ids, truncate }: Props) => {
+  const tooltip = useTooltip();
+
+  const onMouseOver = () => {
+    tooltip.setOpen(true);
+  };
+
+  const onMouseOut = () => {
+    tooltip.setOpen(false);
+  };
+
   if (!ids.every(Boolean)) {
     return null;
   }
@@ -58,6 +67,9 @@ export const Entity = ({ type, name, ids, truncate }: Props) => {
       href={getEntityUrl(type, ids)}
       target="blank"
       rel="noopener noreferrer"
+      ref={tooltip.floating.refs.setReference}
+      onMouseOver={onMouseOver}
+      onMouseOut={onMouseOut}
     >
       <img
         className={style.image}
@@ -65,9 +77,12 @@ export const Entity = ({ type, name, ids, truncate }: Props) => {
         width="32"
         height="32"
         alt={name ?? "…"}
-        title={name ?? "…"}
       />
-      {truncate ? null : <span className={style.text}>{name ?? "…"}</span>}
+      {truncate ? (
+        <Tooltip tooltip={tooltip}>{name ?? "…"}</Tooltip>
+      ) : (
+        <span className={style.text}>{name ?? "…"}</span>
+      )}
     </a>
   );
 };
