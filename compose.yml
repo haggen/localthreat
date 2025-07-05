@@ -12,6 +12,8 @@ services:
     build: ./api
     ports:
       - 5000
+    volumes:
+      - storage:/app/storage
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.localthreat-api.rule=Host(`api.localthreat.local.crz.li`)"
@@ -50,3 +52,6 @@ services:
           target: /app
           ignore:
             - node_modules
+
+volumes:
+  storage: {}
