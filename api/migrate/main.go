@@ -35,7 +35,7 @@ func main() {
 		createdAt := record[1]
 		source := record[2]
 
-		_, err = db.Exec(`INSERT INTO reports (id, createdAt, source) VALUES (?, ?, ?)`, id, createdAt, source)
+		_, err = db.Exec(`INSERT OR IGNORE INTO reports (id, createdAt, source) VALUES (?, ?, ?)`, id, createdAt, source)
 		if err != nil {
 			log.Fatal(err)
 		}
