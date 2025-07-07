@@ -1,54 +1,35 @@
 {
   "name": "localthreat",
-  "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "MIT",
   "author": "Arthur <arthur@corenzan.com>",
+  "type": "module",
   "scripts": {
-    "build": "vite build",
     "start": "vite",
+    "build": "vite build",
     "preview": "vite preview"
   },
-  "browserslist": [
-    "last 2 chrome version",
-    "last 2 firefox version",
-    "last 2 opera version",
-    "last 2 safari version"
-  ],
-  "dependencies": {
-    "@floating-ui/react": "^0.27.13",
-    "classnames": "^2.5.1",
-    "copy-to-clipboard": "^3.3.3",
-    "nanoid": "^5.1.5",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "resetize": "^31.2.0",
-    "web-vitals": "^5.0.3",
-    "workbox-background-sync": "^7.3.0",
-    "workbox-broadcast-update": "^7.3.0",
-    "workbox-cacheable-response": "^7.3.0",
-    "workbox-core": "^7.3.0",
-    "workbox-expiration": "^7.3.0",
-    "workbox-google-analytics": "^7.3.0",
-    "workbox-navigation-preload": "^7.3.0",
-    "workbox-precaching": "^7.3.0",
-    "workbox-range-requests": "^7.3.0",
-    "workbox-routing": "^7.3.0",
-    "workbox-strategies": "^7.3.0",
-    "workbox-streams": "^7.3.0",
-    "wouter": "^3.7.1"
-  },
   "devDependencies": {
+    "@eslint/js": "^9.30.1",
+    "@tailwindcss/vite": "^4.1.11",
     "@tsconfig/vite-react": "^6.3.6",
-    "@types/classnames": "^2.3.4",
-    "@types/jest": "^30.0.0",
     "@types/node": "^24.0.10",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react": "^4.6.0",
-    "serve": "^14.2.4",
-    "typescript": "~5.8.3",
-    "vite": "^7.0.2",
+    "@vitejs/plugin-react-oxc": "^0.2.3",
+    "eslint": "^9.30.1",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.3.0",
+    "tailwindcss": "^4.1.11",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.35.1",
+    "vite": "npm:rolldown-vite@^7.0.5",
     "vite-plugin-svgr": "^4.3.0"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   }
 }

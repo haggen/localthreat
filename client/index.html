@@ -1,44 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#ffffff" />
-    <meta
-      name="description"
-      content="localthreat is a website that helps EVE Online players with threat assessment."
-    />
-
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>localthreat</title>
-
-    <link rel="icon" href="/favicon.ico" sizes="32x32" />
-    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="manifest" href="/manifest.json" />
-
-    <link rel="preconnect" href="%VITE_API_URL%" crossorigin />
-    <link rel="preconnect" href="https://esi.evetech.net" crossorigin />
-    <link rel="preconnect" href="https://images.evetech.net" crossorigin />
-    <link rel="preconnect" href="https://zkillboard.com" crossorigin />
-
-    <script type="module" src="/src/index.tsx"></script>
-
-    <script
-      src="https://www.googletagmanager.com/gtag/js?id=G-N98JNTFN9D"
-      async
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-      gtag("config", "G-N98JNTFN9D");
-    </script>
+    <link rel="stylesheet" href="/src/style.css" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <script type="module" src="/src/script.tsx"></script>
   </head>
   <body>
     <div id="root">
-      <noscript>You need to enable JavaScript to run this app.</noscript>
+      <noscript>
+        <p>This application requires JavaScript to be enabled.</p>
+      </noscript>
     </div>
   </body>
 </html>
