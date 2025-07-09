@@ -1,1 +1,17 @@
 @import "tailwindcss";
+
+@layer base {
+  button {
+    cursor: pointer;
+  }
+
+  [disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+@theme {
+  --color-foreground: hsl(210, 30%, 90%);
+  --color-background: hsl(210, 10%, 10%);
+}

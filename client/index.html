@@ -1,12 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="text-foreground bg-background">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="localthreat is a website that helps EVE Online players with threat assessment."
+    />
     <title>localthreat</title>
     <link rel="stylesheet" href="/src/style.css" />
-    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <script type="module" src="/src/script.tsx"></script>
+
+    <script
+      src="https://www.googletagmanager.com/gtag/js?id=G-N98JNTFN9D"
+      async
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-N98JNTFN9D");
+    </script>
   </head>
   <body>
     <div id="root">

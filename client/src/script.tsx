@@ -1,14 +1,15 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { App } from "~/components/App";
 
 const root = document.getElementById("root");
 
 if (!root) {
-  throw new Error("Root element not found");
+  throw new Error("Missing root element.");
 }
 
 createRoot(root).render(
   <StrictMode>
-    <h1>localthreat</h1>
+    <App />
   </StrictMode>
 );
