@@ -1,17 +1,20 @@
 import { useCallback } from "react";
 import { Panel } from "~/components/Panel";
+import { useTheme } from "~/lib/theme";
 
 export function App() {
-  const helpId = "help";
-  const historyId = "history";
+  const theme = useTheme();
 
   const onShare = useCallback(() => {
     navigator.clipboard.writeText(window.location.href);
   }, []);
 
+  const helpId = "help";
+  const historyId = "history";
+
   return (
     <div className="grid grid-rows-[auto_1fr_auto] mx-auto min-h-dvh">
-      <header className="grid grid-cols-[auto_1fr] items-center gap-12 h-12 px-6">
+      <header className="grid grid-cols-[auto_1fr_auto_auto] items-center gap-12 h-18 px-6">
         <h1>
           <a href="/">
             <svg
@@ -37,32 +40,40 @@ export function App() {
           </a>
         </h1>
 
-        <div className="flex items-center justify-between">
-          <menu className="flex items-center gap-6 font-bold">
-            <li>
-              <button popoverTarget={helpId}>Help</button>
-            </li>
-            <li>
-              <a href="https://github.com/haggen/localthreat/issues/new/choose">
-                Feedback
-              </a>
-            </li>
-          </menu>
+        <menu className="flex items-center gap-6 font-bold">
+          <li>
+            <button popoverTarget={helpId}>Help</button>
+          </li>
+          <li>
+            <a href="https://github.com/haggen/localthreat/issues/new/choose">
+              Feedback
+            </a>
+          </li>
+        </menu>
 
-          <menu className="flex items-center gap-6 font-bold">
-            <li>
-              <button onClick={onShare} disabled>
-                Share
-              </button>
-            </li>
-            <li>
-              <button disabled>New Report</button>
-            </li>
-            <li>
-              <button popoverTarget={historyId}>History</button>
-            </li>
-          </menu>
-        </div>
+        <menu className="flex items-center gap-6 font-bold">
+          <li>
+            <button onClick={onShare} disabled>
+              Share
+            </button>
+          </li>
+          <li>
+            <button disabled>New Report</button>
+          </li>
+          <li>
+            <button popoverTarget={historyId}>History</button>
+          </li>
+        </menu>
+
+        <menu className="flex items-center gap-6 font-bold">
+          <li>
+            <button
+              className="block h-5 w-5 rounded-full bg-accent"
+              aria-label="Cycle theme"
+              onClick={theme.cycle}
+            ></button>
+          </li>
+        </menu>
       </header>
 
       <main className="self-center">
@@ -71,10 +82,10 @@ export function App() {
             Paste the transcript or members from chat…
           </h1>
           <p className="max-w-xl">
-            Right-click on your chat transcript and select Copy All, or
-            left-click on members and press CTRL-A followed by CTRL-C. Then come
-            here and press CTRL-V to get a report of all characters affiliations
-            and PvP stats.
+            In the game, right-click on your chat transcript and select Copy
+            All, or left-click on members and press CTRL-A followed by CTRL-C.
+            Then come here and press CTRL-V to get a report of all characters
+            affiliations and PvP stats.
           </p>
         </article>
 
@@ -93,11 +104,11 @@ export function App() {
               <p>
                 With the window in focus, it listens for paste events from the
                 user. You'll need to copy a chat transcript or a channel member
-                list from in-game and press CTRL+V on this page. Once input is
-                detected, it parses the content for character names and queries
-                information from the game servers and other third-party APIs to
-                offer a complete report of affiliations and PvP statistics for
-                those players.
+                list from in-game and press <code>CTRL-V</code> on this page.
+                localthreat will then parse the pasted content, looking for
+                character names, and query more information from official and
+                third-party services, to offer a complete report of affiliations
+                and PvP statistics for those players.
               </p>
             </article>
             <article className="flex flex-col gap-3">
