@@ -1,27 +1,60 @@
-import { useCallback } from "react";
+import { useCallback, useEffect, type MouseEvent } from "react";
+import { Link, Route, Router, useLocation, useRoute } from "wouter";
+import { Help } from "~/components/Help";
+import { Hint } from "~/components/Hint";
+import { History } from "~/components/History";
 import { Panel } from "~/components/Panel";
+import { Report } from "~/components/Report";
+import { copy } from "~/lib/clipboard";
 import { useTheme } from "~/lib/theme";
 
 export function App() {
   const theme = useTheme();
+  const [hasReportId] = useRoute("/:reportId");
+  const [, navigate] = useLocation();
 
   const onShare = useCallback(() => {
-    navigator.clipboard.writeText(window.location.href);
+    copy(location.href);
   }, []);
+
+  const onNewReport = useCallback(() => {
+    navigate("/");
+  }, [navigate]);
+
+  const onCycleTheme = useCallback(
+    (event: MouseEvent) => {
+      theme.cycle(event.shiftKey);
+    },
+    [theme]
+  );
+
+  useEffect(() => {
+    const onPaste = (event: ClipboardEvent) => {
+      const text = event.clipboardData?.getData("text/plain");
+      if (text) {
+        event.preventDefault();
+        navigate(`${Date.now().toString(36).replace(".", "")}`);
+      }
+    };
+    document.addEventListener("paste", onPaste);
+    return () => {
+      document.removeEventListener("paste", onPaste);
+    };
+  }, [navigate]);
 
   const helpId = "help";
   const historyId = "history";
 
   return (
     <div className="grid grid-rows-[auto_1fr_auto] mx-auto min-h-dvh">
-      <header className="grid grid-cols-[auto_1fr_auto_auto] items-center gap-12 h-18 px-6">
+      <header className="grid grid-cols-[1fr_auto_1fr] items-center gap-12 h-18 px-6">
         <h1>
-          <a href="/">
+          <Link href="/">
             <svg
               viewBox="0 0 216 40"
               fill="currentColor"
               xmlns="http://www.w3.org/2000/svg"
-              className="h-7 block"
+              className="h-7 mb-1"
               aria-label="localthreat"
             >
               <path d="M40.8492 0H2.15085C0.965341 0 0 0.897494 0 1.99968V29.9873C0 31.0895 0.965341 31.987 2.15085 31.987H7.73966C8.21386 31.987 8.60339 32.3413 8.60339 32.79V39.1985C8.60339 39.907 9.52639 40.2692 10.0683 39.7653L17.1983 32.2626C17.3592 32.0894 17.5963 31.9949 17.8419 31.9949H40.8492C42.0347 31.9949 43 31.0974 43 29.9952V1.99968C43 0.897494 42.0347 0 40.8492 0ZM23.6508 27.1846C23.6508 27.6255 23.2698 27.9877 22.7871 27.9877H20.2044C19.7302 27.9877 19.3407 27.6334 19.3407 27.1846V24.7834C19.3407 24.3426 19.7217 23.9804 20.2044 23.9804H22.7871C23.2613 23.9804 23.6508 24.3347 23.6508 24.7834V27.1846ZM23.6508 19.1938C23.6508 19.6347 23.2698 19.9968 22.7871 19.9968H20.2044C19.7302 19.9968 19.3407 19.6425 19.3407 19.1938V4.79451C19.3407 4.35364 19.7217 3.99149 20.2044 3.99149H22.7871C23.2613 3.99149 23.6508 4.34576 23.6508 4.79451V19.1938Z" />
@@ -37,147 +70,58 @@ export function App() {
               <path d="M190.833 31C189.178 31 187.829 30.5374 186.785 29.6123C185.761 28.6675 185.249 27.4472 185.249 25.9512C185.249 24.5931 185.722 23.4711 186.667 22.5854C187.613 21.6799 188.942 21.0894 190.656 20.8139C191.089 20.7745 191.503 20.7154 191.897 20.6367C193.275 20.4792 194.112 20.3611 194.408 20.2824C195.137 20.1643 195.501 19.751 195.501 19.0424C195.501 18.3141 195.196 17.7334 194.585 17.3004C193.994 16.8477 193.246 16.6213 192.34 16.6213C190.744 16.6213 189.582 17.202 188.853 18.3633C188.696 18.6192 188.509 18.7471 188.292 18.7471C188.135 18.7471 188.007 18.7077 187.908 18.629L186.254 17.5071C186.076 17.389 185.988 17.2217 185.988 17.0051C185.988 16.9461 186.007 16.8575 186.047 16.7394C186.618 15.6568 187.465 14.8203 188.588 14.2298C189.71 13.6196 190.981 13.3145 192.399 13.3145C193.699 13.3145 194.841 13.5605 195.826 14.0526C196.811 14.5447 197.569 15.2435 198.101 16.1489C198.652 17.0543 198.928 18.0976 198.928 19.2786V29.9961C198.928 30.1733 198.869 30.3209 198.751 30.439C198.633 30.5571 198.485 30.6162 198.308 30.6162H196.299C196.121 30.6162 195.974 30.567 195.856 30.4686C195.737 30.3505 195.678 30.193 195.678 29.9961V28.8447C194.319 30.2816 192.704 31 190.833 31ZM191.099 27.8408C191.867 27.8408 192.596 27.644 193.285 27.2503C193.975 26.8567 194.526 26.3449 194.94 25.715C195.373 25.0655 195.59 24.3864 195.59 23.6778V23.0873L193.374 23.4121C192.172 23.5499 191.394 23.6581 191.04 23.7368C189.425 24.0321 188.617 24.7309 188.617 25.8331C188.617 26.4433 188.844 26.9354 189.297 27.3094C189.75 27.6637 190.35 27.8408 191.099 27.8408Z" />
               <path d="M208.634 30.6162C207.098 30.6162 205.847 30.1438 204.882 29.199C203.937 28.2542 203.464 27.0141 203.464 25.4788V17.0051H201.425C201.248 17.0051 201.1 16.9461 200.982 16.828C200.864 16.7099 200.805 16.5623 200.805 16.3851V14.3184C200.805 14.1412 200.864 13.9936 200.982 13.8755C201.1 13.7574 201.248 13.6983 201.425 13.6983H203.464V10.5096C203.464 10.3325 203.523 10.1849 203.641 10.0668C203.759 9.94865 203.907 9.8896 204.084 9.8896H206.389C206.566 9.8896 206.714 9.94865 206.832 10.0668C206.95 10.1849 207.009 10.3325 207.009 10.5096V13.6983H212.002C212.18 13.6983 212.327 13.7574 212.445 13.8755C212.564 13.9936 212.623 14.1412 212.623 14.3184V16.4146C212.623 16.5918 212.564 16.7394 212.445 16.8575C212.327 16.9756 212.18 17.0347 212.002 17.0347H207.009V25.3312C207.009 25.9217 207.177 26.3941 207.511 26.7484C207.866 27.1027 208.329 27.2798 208.9 27.2798L212.002 27.3094C212.18 27.3094 212.327 27.3684 212.445 27.4865C212.564 27.6046 212.623 27.7522 212.623 27.9294V29.9961C212.623 30.1733 212.564 30.3209 212.445 30.439C212.327 30.5571 212.18 30.6162 212.002 30.6162H208.634Z" />
             </svg>
-          </a>
+          </Link>
         </h1>
 
         <menu className="flex items-center gap-6 font-bold">
           <li>
-            <button popoverTarget={helpId}>Help</button>
-          </li>
-          <li>
-            <a href="https://github.com/haggen/localthreat/issues/new/choose">
-              Feedback
-            </a>
-          </li>
-        </menu>
-
-        <menu className="flex items-center gap-6 font-bold">
-          <li>
-            <button onClick={onShare} disabled>
+            <button onClick={onShare} disabled={!hasReportId}>
               Share
             </button>
           </li>
           <li>
-            <button disabled>New Report</button>
+            <button onClick={onNewReport} disabled={!hasReportId}>
+              New Report
+            </button>
           </li>
           <li>
             <button popoverTarget={historyId}>History</button>
           </li>
         </menu>
 
-        <menu className="flex items-center gap-6 font-bold">
+        <menu className="flex items-center gap-6 justify-self-end font-bold">
           <li>
-            <button
-              className="block h-5 w-5 rounded-full bg-accent"
-              aria-label="Cycle theme"
-              onClick={theme.cycle}
-            ></button>
+            <button popoverTarget={helpId}>Help</button>
+          </li>
+          <li>
+            <button className="p-1.5" onClick={onCycleTheme}>
+              <span
+                aria-label="Theme"
+                className="block w-4 h-4 bg-accent rounded"
+              />
+            </button>
           </li>
         </menu>
       </header>
 
       <main className="self-center">
-        <article className="flex flex-col gap-3 p-6 items-center text-center">
-          <h1 className="text-4xl opacity-50">
-            Paste the transcript or members from chat…
-          </h1>
-          <p className="max-w-xl">
-            In the game, right-click on your chat transcript and select Copy
-            All, or left-click on members and press CTRL-A followed by CTRL-C.
-            Then come here and press CTRL-V to get a report of all characters
-            affiliations and PvP stats.
-          </p>
-        </article>
+        <Router>
+          <Route path="/" component={Hint} />
+          <Route path="/:reportId" component={Report} />
+        </Router>
 
         <Panel id={helpId} title="Help" side="left">
-          <div className="flex flex-col gap-12 p-6 overflow-y-auto">
-            <article className="flex flex-col gap-3">
-              <h1 className="text-xl font-bold">What is localthreat?</h1>
-              <p>
-                It's a website that helps players of EVE Online quickly identify
-                friend from foe and assess the level of threat their enemies may
-                present.
-              </p>
-            </article>
-            <article className="flex flex-col gap-3">
-              <h1 className="text-xl font-bold">How does it work?</h1>
-              <p>
-                With the window in focus, it listens for paste events from the
-                user. You'll need to copy a chat transcript or a channel member
-                list from in-game and press <code>CTRL-V</code> on this page.
-                localthreat will then parse the pasted content, looking for
-                character names, and query more information from official and
-                third-party services, to offer a complete report of affiliations
-                and PvP statistics for those players.
-              </p>
-            </article>
-            <article className="flex flex-col gap-3">
-              <h1 className="text-xl font-bold">What else can it do?</h1>
-              <ul className="list-disc pl-6">
-                <li>
-                  A report will have a unique URL that can be shared with your
-                  friends.
-                </li>
-                <li>
-                  The table can be sorted alphabetically or by any of the
-                  displayed stats.
-                </li>
-                <li>
-                  Pasting into an existing report will add non-duplicate names
-                  to it.
-                </li>
-                <li>
-                  A history of visited reports will be stored locally in your
-                  browser and can be accessed using the History panel.
-                </li>
-                <li>
-                  <del>Overheat belief!</del>
-                </li>
-              </ul>
-            </article>
-            <article className="flex flex-col gap-3">
-              <h1 className="text-xl font-bold">How much does it cost?</h1>
-              <p>
-                Nothing to you. localthreat is completely free to use, displays
-                no ads, and has its{" "}
-                <a
-                  href="https://github.com/haggen/localthreat"
-                  className="underline"
-                >
-                  source code released on GitHub
-                </a>
-                . Although the service has some costs associated with hosting
-                and maintenance, I've been happily covering it for the past{" "}
-                {new Date().getFullYear() - 2017} years.
-              </p>
-            </article>
-            <article className="flex flex-col gap-3">
-              <h1 className="text-xl font-bold">I have other questions.</h1>
-              <p>
-                If you'd like, we can chat about what's on your mind. You may{" "}
-                <a
-                  href="https://github.com/haggen/localthreat/issues/new"
-                  className="underline"
-                >
-                  open an issue on GitHub
-                </a>{" "}
-                or send an EVE-mail to <strong>Jason Chorant</strong>, and I'll
-                get back to you—eventually.
-              </p>
-            </article>
-          </div>
+          <Help />
         </Panel>
 
         <Panel id={historyId} title="History" side="right">
-          <div className="p-6">
-            <p>Hello, world.</p>
-          </div>
+          <History />
         </Panel>
       </main>
 
       <footer className="flex flex-col gap-3 p-6 text-center not-hover:opacity-50 transition-opacity">
         <p>
-          © 2017 Arthur Corenzan. Source on{" "}
+          © 2017 Arthur Corenzan. Source and feedback on{" "}
           <a className="underline" href="http://github.com/haggen/localthreat">
             GitHub
           </a>

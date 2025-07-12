@@ -10,8 +10,6 @@ services:
       - "--providers.docker.exposedbydefault=false"
   api:
     build: ./api
-    ports:
-      - 5000
     volumes:
       - storage:/app/storage
     labels:
@@ -33,8 +31,6 @@ services:
 
   client:
     build: ./client
-    ports:
-      - 3000
     environment:
       VITE_API_URL: http://api.localthreat.local.crz.li
     labels:

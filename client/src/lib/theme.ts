@@ -1,45 +1,36 @@
-import { useCallback, useEffect, useMemo, type MouseEvent } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
+const storageKey = "theme";
+const attribute = "data-theme";
 const initial = "seo";
 const available = ["seo", "gallente", "minmatar", "amarr", "caldari"];
 
 export function useTheme() {
-  const set = useCallback((theme: string) => {
-    const element = document.querySelector("html");
-    if (!element) {
-      throw new Error("HTML element not found");
-    }
-    element.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-  }, []);
+  const [theme, setTheme] = useState(
+    localStorage.getItem(storageKey) ?? initial
+  );
 
   const cycle = useCallback(
-    (event: MouseEvent) => {
-      const element = document.querySelector("html");
-      if (!element) {
-        throw new Error("HTML element not found");
-      }
-      const theme = element.dataset.theme ?? initial;
+    (reverse: boolean) => {
       const index = available.indexOf(theme);
-      const offset = event.shiftKey ? -1 : 1;
-      set(available[(index + offset + available.length) % available.length]);
+      const offset = reverse ? -1 : 1;
+      setTheme(
+        available[(available.length + index + offset) % available.length]
+      );
     },
-    [set]
+    [theme]
   );
 
   useEffect(() => {
-    const theme = localStorage.getItem("theme") ?? initial;
     const element = document.querySelector("html");
     if (!element) {
       throw new Error("HTML element not found");
     }
-    set(theme);
-  }, [set]);
+    element.setAttribute(attribute, theme);
+    localStorage.setItem(storageKey, theme);
+  }, [theme]);
 
   return useMemo(() => {
-    return {
-      set,
-      cycle,
-    };
-  }, [set, cycle]);
+    return { theme, set: setTheme, cycle, available };
+  }, [theme, cycle]);
 }

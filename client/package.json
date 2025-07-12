@@ -30,6 +30,8 @@
   },
   "dependencies": {
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "tailwind-variants": "^1.0.0",
+    "wouter": "^3.7.1"
   }
 }
