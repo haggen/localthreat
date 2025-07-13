@@ -1,6 +1,6 @@
 # localthreat
 
-[![localthreat.xyz](screenshot.png)](https://localthreat.xyz)
+[![Screenshot of localthreat](localthreat.png)](https://localthreat.xyz)
 
 ---
 
@@ -40,4 +40,4 @@ You can access the application at http://localthreat.local.crz.li, and the API a
 
 [The MIT License](LICENSE) © 2017 Arthur Corenzan.
 
-EVE Online and the EVE logo are the registered trademarks of CCP hf. All rights are reserved worldwide. All other trademarks are the property of their respective owners. EVE Online, the EVE logo, EVE and all associated logos and designs are the intellectual property of CCP hf. All artwork, screenshots, characters, vehicles, storylines, world facts or other recognizable features of the intellectual property relating to these trademarks are likewise the intellectual property of CCP hf.
+EVE Online and the EVE logo are registered trademarks of CCP hf. All rights reserved. All other trademarks are the property of their respective owners. localthreat is an independent project and is not affiliated with, sponsored, or endorsed by CCP hf.
