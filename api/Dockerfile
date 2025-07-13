@@ -1,11 +1,11 @@
-FROM golang:1.21-alpine
-
-RUN apk add --no-cache build-base git
-RUN go install github.com/pilu/fresh@latest
+FROM oven/bun:alpine
 
 WORKDIR /app
-ADD . /app
+ADD package.json bun.lock ./
+RUN bun install
 
-EXPOSE 5000
+ADD . .
 
-CMD ["fresh"]
+EXPOSE 3000
+
+CMD ["bun", "start"]

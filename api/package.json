@@ -1,0 +1,21 @@
+{
+  "name": "localthreat",
+  "private": true,
+  "license": "MIT",
+  "author": "Arthur <arthur@corenzan.com>",
+  "type": "module",
+  "module": "src/index.ts",
+  "scripts": {
+    "start": "bun --hot run src/index.ts"
+  },
+  "devDependencies": {
+    "@tsconfig/bun": "^1.0.8",
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "nanoid": "^5.1.5"
+  }
+}
