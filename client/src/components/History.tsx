@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { fmt } from "~/lib/fmt";
 import { useHistory } from "~/lib/history";
 
 function formatContent(content: string[]) {
@@ -6,13 +7,6 @@ function formatContent(content: string[]) {
     return content.join(", ");
   }
   return `${content.slice(0, 2).join(", ")} and ${content.length - 2} more`;
-}
-
-function formatDate(date: string) {
-  return new Intl.DateTimeFormat("en-US", {
-    dateStyle: "short",
-    timeStyle: "short",
-  }).format(new Date(date));
 }
 
 export function History() {
@@ -28,7 +22,7 @@ export function History() {
         {items.map((item) => (
           <li key={item.id} className="mb-3">
             <Link href={`/${item.id}`}>
-              <h1 className="font-bold">{formatDate(item.visitedAt)}</h1>
+              <h1 className="font-bold">{fmt.datetime(item.visitedAt)}</h1>
               <p className="text-sm">{formatContent(item.content)}</p>
             </Link>
           </li>

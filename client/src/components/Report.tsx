@@ -1,16 +1,23 @@
 import { useEffect, type HTMLAttributes } from "react";
 import { Entity } from "~/components/Entity";
+import { useAffiliations } from "~/lib/affiliations";
 import { request } from "~/lib/api";
 import { useAsync } from "~/lib/async";
 import { usePaste } from "~/lib/clipboard";
+import { fmt } from "~/lib/fmt";
 import { useHistoryRecorder } from "~/lib/history";
+import { useIds } from "~/lib/ids";
+import { useNames } from "~/lib/names";
 import type { Report } from "~/lib/report";
 import {
   Ascending,
+  compareEntityName,
+  compareNumber,
   Descending,
   useSorting,
   type Direction,
 } from "~/lib/sorting";
+import { useZKillboard } from "~/lib/zkillboard";
 
 function Header({
   sorting,
@@ -47,31 +54,15 @@ type Row = {
   faction?: null | { id: number; name?: string };
   alliance?: null | { id: number; name?: string };
   ships?: { id: number; name: string }[];
-  dangerRatio?: number;
-  groupRatio?: number;
-  killCount?: number;
-  lossCount?: number;
+  dangerRatio?: number | null;
+  gangRatio?: number | null;
+  killCount?: number | null;
+  lossCount?: number | null;
 };
-
-function compareEntityName(
-  a: null | undefined | { name?: string | undefined },
-  b: null | undefined | { name?: string | undefined }
-) {
-  if (!a?.name || !b?.name) {
-    return 0;
-  }
-  return a.name.localeCompare(b.name);
-}
-
-function compareNumber(a: number | undefined, b: number | undefined) {
-  if (a === undefined || b === undefined) {
-    return 0;
-  }
-  return a - b;
-}
 
 export function Report({ params }: { params: { reportId: string } }) {
   const { data, error, execute } = useAsync<Report>();
+
   const sorting = useSorting<Row>(
     {
       character: compareEntityName,
@@ -79,11 +70,11 @@ export function Report({ params }: { params: { reportId: string } }) {
       faction: compareEntityName,
       alliance: compareEntityName,
       dangerRatio: compareNumber,
-      groupRatio: compareNumber,
+      gangRatio: compareNumber,
       killCount: compareNumber,
       lossCount: compareNumber,
     },
-    { killCount: 1 }
+    { dangerRatio: 1 }
   );
 
   useEffect(() => {
@@ -96,16 +87,65 @@ export function Report({ params }: { params: { reportId: string } }) {
 
   useHistoryRecorder(data);
 
+  const ids = useIds();
+  const names = useNames();
+  const affiliations = useAffiliations();
+  const zkillboard = useZKillboard();
+
   const table =
     data?.content?.map((name) => {
+      const characterId = ids.query("character", name);
+
+      const corporationId = characterId
+        ? affiliations.query("corporation", characterId)
+        : undefined;
+
+      const corporation = corporationId
+        ? {
+            id: corporationId,
+            name: names.query("corporation", corporationId),
+          }
+        : undefined;
+
+      const factionId = characterId
+        ? affiliations.query("faction", characterId)
+        : undefined;
+
+      const faction = factionId
+        ? {
+            id: factionId,
+            name: names.query("faction", factionId),
+          }
+        : factionId;
+
+      const allianceId = characterId
+        ? affiliations.query("alliance", characterId)
+        : undefined;
+
+      const alliance = allianceId
+        ? {
+            id: allianceId,
+            name: names.query("alliance", allianceId),
+          }
+        : allianceId;
+
+      const killboard = characterId ? zkillboard.query(characterId) : {};
+
       return {
         character: {
           name,
+          id: characterId,
         },
+        corporation,
+        faction,
+        alliance,
+        ...killboard,
       } as Row;
     }) ?? [];
 
   table.sort(sorting.sorter);
+
+  console.log(table);
 
   if (error) {
     return (
@@ -178,8 +218,8 @@ export function Report({ params }: { params: { reportId: string } }) {
               ☠️
             </Header>
             <Header
-              sorting={sorting.current.groupRatio}
-              onClick={() => sorting.set("groupRatio")}
+              sorting={sorting.current.gangRatio}
+              onClick={() => sorting.set("gangRatio")}
               aria-label="Group ratio"
             >
               👥
@@ -214,14 +254,16 @@ export function Report({ params }: { params: { reportId: string } }) {
                 />
               </td>
               <td className="p-1.5">
-                {row.faction?.id ? (
+                {row.faction ? (
                   <Entity
                     type="faction"
                     id={row.faction.id}
                     name={row.faction.name ?? "⋯"}
                   />
-                ) : (
+                ) : row.faction === undefined ? (
                   "⋯"
+                ) : (
+                  "-"
                 )}
               </td>
               <td className="p-1.5">
@@ -236,14 +278,16 @@ export function Report({ params }: { params: { reportId: string } }) {
                 )}
               </td>
               <td className="p-1.5">
-                {row.alliance?.id ? (
+                {row.alliance ? (
                   <Entity
                     type="alliance"
                     id={row.alliance.id}
                     name={row.alliance.name ?? "⋯"}
                   />
-                ) : (
+                ) : row.alliance === undefined ? (
                   "⋯"
+                ) : (
+                  "-"
                 )}
               </td>
               <td className="p-1.5">
@@ -264,30 +308,46 @@ export function Report({ params }: { params: { reportId: string } }) {
               </td>
               <td className="p-1.5 text-center">
                 {typeof row.dangerRatio === "number" ? (
-                  <span className="font-mono text-sm">{row.dangerRatio}%</span>
-                ) : (
+                  <span className="font-mono text-sm">
+                    {fmt.number(row.dangerRatio / 100, { style: "percent" })}
+                  </span>
+                ) : row.dangerRatio === undefined ? (
                   "⋯"
+                ) : (
+                  "-"
                 )}
               </td>
               <td className="p-1.5 text-center">
-                {typeof row.groupRatio === "number" ? (
-                  <span className="font-mono text-sm">{row.groupRatio}</span>
-                ) : (
+                {typeof row.gangRatio === "number" ? (
+                  <span className="font-mono text-sm">
+                    {fmt.number(row.gangRatio / 100, { style: "percent" })}
+                  </span>
+                ) : row.gangRatio === undefined ? (
                   "⋯"
+                ) : (
+                  "-"
                 )}
               </td>
               <td className="p-1.5 text-center">
                 {typeof row.killCount === "number" ? (
-                  <span className="font-mono text-sm">{row.killCount}</span>
-                ) : (
+                  <span className="font-mono text-sm">
+                    {fmt.number(row.killCount)}
+                  </span>
+                ) : row.killCount === undefined ? (
                   "⋯"
+                ) : (
+                  "-"
                 )}
               </td>
               <td className="p-1.5 text-center rounded-r-md">
                 {typeof row.lossCount === "number" ? (
-                  <span className="font-mono text-sm">{row.lossCount}</span>
-                ) : (
+                  <span className="font-mono text-sm">
+                    {fmt.number(row.lossCount)}
+                  </span>
+                ) : row.lossCount === undefined ? (
                   "⋯"
+                ) : (
+                  "-"
                 )}
               </td>
             </tr>

@@ -56,7 +56,7 @@ export function Entity({
         alt={name}
         width={32}
         height={32}
-        className="rounded"
+        className="rounded bg-black"
       />
       {collapsed ? null : <div className="truncate">{name}</div>}
     </a>

@@ -46,3 +46,35 @@ export function useSorting<T>(
 
   return { current, sorter, set };
 }
+
+export function compareEntityName(
+  a: null | undefined | { name?: string | undefined },
+  b: null | undefined | { name?: string | undefined }
+) {
+  if (a?.name && b?.name) {
+    return a.name.localeCompare(b.name);
+  }
+  if (a?.name) {
+    return 1;
+  }
+  if (b?.name) {
+    return -1;
+  }
+  return 0;
+}
+
+export function compareNumber(
+  a: number | null | undefined,
+  b: number | null | undefined
+) {
+  if (typeof a === "number" && typeof b === "number") {
+    return a - b;
+  }
+  if (typeof a === "number") {
+    return 1;
+  }
+  if (typeof b === "number") {
+    return -1;
+  }
+  return 0;
+}
