@@ -1,6 +1,6 @@
 {
   "name": "localthreat",
-  "version": "1.0.0",
+  "private": true,
   "license": "MIT",
   "author": "Arthur <arthur@corenzan.com>",
   "type": "module",

@@ -12,7 +12,7 @@
 }
 
 @theme {
-  --color-foreground: hsl(210, 15%, 90%);
+  --color-foreground: hsl(210, 10%, 90%);
   --color-background: hsl(210, 5%, 10%);
   --color-accent: hsl(210, 20%, 70%);
 }
@@ -20,25 +20,25 @@
 @layer base {
   html[data-theme="gallente"] {
     --color-foreground: hsl(165, 50%, 90%);
-    --color-background: hsl(165, 15%, 10%);
+    --color-background: hsl(165, 20%, 10%);
     --color-accent: hsl(165, 25%, 40%);
   }
 
   html[data-theme="minmatar"] {
-    --color-foreground: hsl(0, 30%, 90%);
-    --color-background: hsl(0, 10%, 10%);
-    --color-accent: hsl(0, 25%, 40%);
+    --color-foreground: hsl(0, 40%, 90%);
+    --color-background: hsl(0, 30%, 10%);
+    --color-accent: hsl(0, 30%, 40%);
   }
 
   html[data-theme="amarr"] {
     --color-foreground: hsl(45, 40%, 90%);
-    --color-background: hsl(45, 10%, 10%);
-    --color-accent: hsl(45, 30%, 50%);
+    --color-background: hsl(45, 30%, 10%);
+    --color-accent: hsl(45, 40%, 50%);
   }
 
   html[data-theme="caldari"] {
     --color-foreground: hsl(210, 60%, 90%);
-    --color-background: hsl(210, 25%, 10%);
-    --color-accent: hsl(210, 25%, 40%);
+    --color-background: hsl(210, 40%, 10%);
+    --color-accent: hsl(210, 30%, 40%);
   }
 }

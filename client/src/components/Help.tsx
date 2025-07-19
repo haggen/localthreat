@@ -26,6 +26,9 @@ export function Help() {
         <h1 className="text-xl font-bold">What else can it do?</h1>
         <ul className="list-disc pl-6">
           <li>
+            It can understand both chat members list or chat transcript formats.
+          </li>
+          <li>
             A report will have a unique URL that can be shared with other
             people.
           </li>

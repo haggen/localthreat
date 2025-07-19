@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 const storageKey = "theme";
 const attribute = "data-theme";
 const initial = "seo";
-const available = ["seo", "gallente", "minmatar", "amarr", "caldari"];
+const available = ["seo", "gallente", "minmatar", "caldari", "amarr"];
 
 export function useTheme() {
   const [theme, setTheme] = useState(
