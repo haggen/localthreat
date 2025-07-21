@@ -42,3 +42,7 @@
     --color-accent: hsl(210, 30%, 40%);
   }
 }
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+}

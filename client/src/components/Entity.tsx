@@ -29,36 +29,87 @@ const getImageSrc = (type: string, id: number) => {
     case "ship":
       return `${baseImageSrc}/types/${id}/render?size=64`;
     default:
-      throw new Error("Unknown entity type");
+      throw new Error(`Unknown entity type: ${type}`);
   }
 };
 
-export function Entity({
-  type,
-  id,
-  characterId,
-  name,
-  collapsed,
-}: {
-  type: "character" | "faction" | "corporation" | "alliance" | "ship";
-  id: number;
-  characterId?: number;
-  name: string;
-  collapsed?: boolean;
+type Entity = {
+  id?: number;
+  name?: string;
+};
+
+function getEntity(props: {
+  character?: Entity;
+  faction?: null | Entity;
+  corporation?: Entity;
+  alliance?: null | Entity;
+  ship?: Entity;
 }) {
+  // Ship must be tested first because it'll get the `character` prop too.
+  if ("ship" in props) {
+    return { type: "ship", ...props.ship };
+  }
+  if ("character" in props) {
+    return { type: "character", ...props.character };
+  }
+  if ("faction" in props) {
+    return { type: "faction", null: props.faction === null, ...props.faction };
+  }
+  if ("corporation" in props) {
+    return { type: "corporation", ...props.corporation };
+  }
+  if ("alliance" in props) {
+    return {
+      type: "alliance",
+      null: props.alliance === null,
+      ...props.alliance,
+    };
+  }
+}
+
+export function Entity({
+  collapsed,
+  className,
+  ...props
+}: {
+  character?: Entity;
+  faction?: null | Entity;
+  corporation?: Entity;
+  alliance?: null | Entity;
+  ship?: Entity;
+  collapsed?: boolean;
+  className?: string;
+}) {
+  const entity = getEntity(props);
+
+  if (entity === undefined) {
+    return "⋯";
+  }
+
+  if ("null" in entity && entity.null) {
+    return "-";
+  }
+
   return (
     <a
-      href={getUrl(type, id, characterId)}
-      className="flex gap-1.5 items-center"
+      href={
+        entity.id
+          ? getUrl(entity.type, entity.id, props.character?.id)
+          : undefined
+      }
+      className={`flex gap-1.5 items-center ${className}`}
     >
-      <img
-        src={getImageSrc(type, id)}
-        alt={name}
-        width={32}
-        height={32}
-        className="rounded bg-black"
-      />
-      {collapsed ? null : <div className="truncate">{name}</div>}
+      {/* We still want to render the generic protrait for characters. */}
+      {entity.type === "character" || entity.id ? (
+        <img
+          src={getImageSrc(entity.type, entity.id ?? 1)}
+          alt={entity.name}
+          width={32}
+          height={32}
+          className="rounded bg-black"
+        />
+      ) : null}
+      {collapsed ? null : <div className="truncate">{entity.name ?? "⋯"}</div>}
     </a>
   );
 }

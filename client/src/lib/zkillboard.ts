@@ -8,6 +8,7 @@ type State = {
     lossCount: number | null;
     dangerRatio: number | null;
     gangRatio: number | null;
+    ships: Array<{ id: number; name: string }> | null;
   };
 };
 
@@ -16,6 +17,10 @@ type Data = {
   shipsLost?: number;
   dangerRatio?: number;
   gangRatio?: number;
+  topLists?: Array<{
+    type: string;
+    values: Array<{ id: number; name: string }>;
+  }>;
 };
 
 export function useZKillboard() {
@@ -49,8 +54,21 @@ export function useZKillboard() {
             [characterId]: {
               killCount: data.shipsDestroyed ?? null,
               lossCount: data.shipsLost ?? null,
-              dangerRatio: data.dangerRatio ?? null,
-              gangRatio: data.gangRatio ?? null,
+              dangerRatio:
+                typeof data.dangerRatio === "number"
+                  ? data.dangerRatio / 100
+                  : null,
+              gangRatio:
+                typeof data.gangRatio === "number"
+                  ? data.gangRatio / 100
+                  : null,
+              ships:
+                data.topLists
+                  ?.find(({ type }) => type === "shipType")
+                  ?.values.map(({ id, name }) => ({
+                    id,
+                    name,
+                  })) ?? null,
             },
           };
 

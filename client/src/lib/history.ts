@@ -14,7 +14,6 @@ export function useHistory() {
 
   useEffect(() => {
     const onStorage = (event: StorageEvent) => {
-      console.log("Storage event:", event);
       if (event.key === "history") {
         setHistory(getHistory());
       }

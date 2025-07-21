@@ -1,10 +1,10 @@
 import { useEffect, type HTMLAttributes } from "react";
 import { Entity } from "~/components/Entity";
+import { Stat } from "~/components/Stat";
 import { useAffiliations } from "~/lib/affiliations";
 import { request } from "~/lib/api";
 import { useAsync } from "~/lib/async";
 import { usePaste } from "~/lib/clipboard";
-import { fmt } from "~/lib/fmt";
 import { useHistoryRecorder } from "~/lib/history";
 import { useIds } from "~/lib/ids";
 import { useNames } from "~/lib/names";
@@ -42,6 +42,21 @@ function Header({
   );
 }
 
+function Cell({
+  className,
+  children,
+  ...props
+}: HTMLAttributes<HTMLTableCellElement>) {
+  return (
+    <td
+      className={`p-1.5 first:rounded-l-md last:rounded-r-md ${className}`}
+      {...props}
+    >
+      {children}
+    </td>
+  );
+}
+
 /**
  * Data structure for a row in the report table.
  *
@@ -53,7 +68,7 @@ type Row = {
   corporation?: { id: number; name?: string };
   faction?: null | { id: number; name?: string };
   alliance?: null | { id: number; name?: string };
-  ships?: { id: number; name: string }[];
+  ships?: null | { id: number; name: string }[];
   dangerRatio?: number | null;
   gangRatio?: number | null;
   killCount?: number | null;
@@ -62,6 +77,16 @@ type Row = {
 
 export function Report({ params }: { params: { reportId: string } }) {
   const { data, error, execute } = useAsync<Report>();
+
+  useEffect(() => {
+    execute(() => request("GET", `/v1/reports/${params.reportId}`));
+  }, [params.reportId, execute]);
+
+  usePaste((text) => {
+    execute(() => request("PATCH", `/v1/reports/${params.reportId}`, text));
+  });
+
+  useHistoryRecorder(data);
 
   const sorting = useSorting<Row>(
     {
@@ -74,18 +99,8 @@ export function Report({ params }: { params: { reportId: string } }) {
       killCount: compareNumber,
       lossCount: compareNumber,
     },
-    { dangerRatio: 1 }
+    { dangerRatio: Descending }
   );
-
-  useEffect(() => {
-    execute(() => request("GET", `/v1/reports/${params.reportId}`));
-  }, [params.reportId, execute]);
-
-  usePaste((text) => {
-    execute(() => request("PATCH", `/v1/reports/${params.reportId}`, text));
-  });
-
-  useHistoryRecorder(data);
 
   const ids = useIds();
   const names = useNames();
@@ -129,7 +144,8 @@ export function Report({ params }: { params: { reportId: string } }) {
           }
         : allianceId;
 
-      const killboard = characterId ? zkillboard.query(characterId) : {};
+      const killboard =
+        typeof characterId === "number" ? zkillboard.query(characterId) : {};
 
       return {
         character: {
@@ -144,8 +160,6 @@ export function Report({ params }: { params: { reportId: string } }) {
     }) ?? [];
 
   table.sort(sorting.sorter);
-
-  console.log(table);
 
   if (error) {
     return (
@@ -207,9 +221,7 @@ export function Report({ params }: { params: { reportId: string } }) {
             >
               Alliance
             </Header>
-            <Header sorting={undefined} className="text-left">
-              Ships
-            </Header>
+            <Header className="text-left">Ships</Header>
             <Header
               sorting={sorting.current.dangerRatio}
               onClick={() => sorting.set("dangerRatio")}
@@ -228,6 +240,7 @@ export function Report({ params }: { params: { reportId: string } }) {
               sorting={sorting.current.killCount}
               onClick={() => sorting.set("killCount")}
               aria-label="Ships destroyed"
+              className="text-right"
             >
               🎯
             </Header>
@@ -235,6 +248,7 @@ export function Report({ params }: { params: { reportId: string } }) {
               sorting={sorting.current.lossCount}
               onClick={() => sorting.set("lossCount")}
               aria-label="Ships lost"
+              className="text-right"
             >
               💥
             </Header>
@@ -246,110 +260,49 @@ export function Report({ params }: { params: { reportId: string } }) {
               key={row.character.name}
               className={i % 2 === 0 ? "bg-foreground/5" : ""}
             >
-              <td className="p-1.5 rounded-l-md">
-                <Entity
-                  type="character"
-                  id={row.character.id ?? 1}
-                  name={row.character.name}
-                />
-              </td>
-              <td className="p-1.5">
-                {row.faction ? (
-                  <Entity
-                    type="faction"
-                    id={row.faction.id}
-                    name={row.faction.name ?? "⋯"}
-                  />
-                ) : row.faction === undefined ? (
-                  "⋯"
-                ) : (
-                  "-"
-                )}
-              </td>
-              <td className="p-1.5">
-                {row.corporation?.id ? (
-                  <Entity
-                    type="corporation"
-                    id={row.corporation.id}
-                    name={row.corporation.name ?? "⋯"}
-                  />
-                ) : (
-                  "⋯"
-                )}
-              </td>
-              <td className="p-1.5">
-                {row.alliance ? (
-                  <Entity
-                    type="alliance"
-                    id={row.alliance.id}
-                    name={row.alliance.name ?? "⋯"}
-                  />
-                ) : row.alliance === undefined ? (
-                  "⋯"
-                ) : (
-                  "-"
-                )}
-              </td>
-              <td className="p-1.5">
-                <div className="flex gap-1 5">
-                  {row.ships?.length
-                    ? row.ships.map((ship) => (
-                        <Entity
-                          key={ship.id}
-                          type="ship"
-                          id={ship.id}
-                          characterId={row.character.id ?? 1}
-                          name={ship.name}
-                          collapsed
-                        />
-                      ))
-                    : "⋯"}
+              <Cell>
+                <Entity character={row.character} />
+              </Cell>
+              <Cell>
+                <Entity faction={row.faction} />
+              </Cell>
+              <Cell>
+                <Entity corporation={row.corporation} />
+              </Cell>
+              <Cell>
+                <Entity alliance={row.alliance} />
+              </Cell>
+              <Cell>
+                <div className="overflow-x-scroll scrollbar-none">
+                  <div className="flex gap-1.5">
+                    {row.ships?.length
+                      ? row.ships.map((ship) => (
+                          <Entity
+                            key={ship.id}
+                            ship={ship}
+                            character={row.character}
+                            className="min-w-fit"
+                            collapsed
+                          />
+                        ))
+                      : row.ships === undefined
+                      ? "⋯"
+                      : "-"}
+                  </div>
                 </div>
-              </td>
-              <td className="p-1.5 text-center">
-                {typeof row.dangerRatio === "number" ? (
-                  <span className="font-mono text-sm">
-                    {fmt.number(row.dangerRatio / 100, { style: "percent" })}
-                  </span>
-                ) : row.dangerRatio === undefined ? (
-                  "⋯"
-                ) : (
-                  "-"
-                )}
-              </td>
-              <td className="p-1.5 text-center">
-                {typeof row.gangRatio === "number" ? (
-                  <span className="font-mono text-sm">
-                    {fmt.number(row.gangRatio / 100, { style: "percent" })}
-                  </span>
-                ) : row.gangRatio === undefined ? (
-                  "⋯"
-                ) : (
-                  "-"
-                )}
-              </td>
-              <td className="p-1.5 text-center">
-                {typeof row.killCount === "number" ? (
-                  <span className="font-mono text-sm">
-                    {fmt.number(row.killCount)}
-                  </span>
-                ) : row.killCount === undefined ? (
-                  "⋯"
-                ) : (
-                  "-"
-                )}
-              </td>
-              <td className="p-1.5 text-center rounded-r-md">
-                {typeof row.lossCount === "number" ? (
-                  <span className="font-mono text-sm">
-                    {fmt.number(row.lossCount)}
-                  </span>
-                ) : row.lossCount === undefined ? (
-                  "⋯"
-                ) : (
-                  "-"
-                )}
-              </td>
+              </Cell>
+              <Cell className="text-center">
+                <Stat value={row.dangerRatio} style="percent" />
+              </Cell>
+              <Cell className="text-center">
+                <Stat value={row.gangRatio} style="percent" />
+              </Cell>
+              <Cell className="text-right">
+                <Stat value={row.killCount} />
+              </Cell>
+              <Cell className="text-right">
+                <Stat value={row.lossCount} />
+              </Cell>
             </tr>
           ))}
         </tbody>
