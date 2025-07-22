@@ -1,4 +1,4 @@
-import { useEffect, type HTMLAttributes } from "react";
+import { useEffect, type HTMLAttributes, type MouseEvent } from "react";
 import { Entity } from "~/components/Entity";
 import { Stat } from "~/components/Stat";
 import { useAffiliations } from "~/lib/affiliations";
@@ -15,7 +15,6 @@ import {
   compareNumber,
   Descending,
   useSorting,
-  type Direction,
 } from "~/lib/sorting";
 import { useZKillboard } from "~/lib/zkillboard";
 
@@ -25,19 +24,33 @@ function Header({
   className,
   ...props
 }: HTMLAttributes<HTMLTableCellElement> & {
-  sorting?: Direction;
+  sorting?: [ReturnType<typeof useSorting<Row>>, keyof Row];
 }) {
+  const sortable = sorting !== undefined;
+  const direction = sortable ? sorting[0].current[sorting[1]] : undefined;
+
+  const onClick = (event: MouseEvent) => {
+    if (sortable) {
+      event.preventDefault();
+      sorting?.[0].set(sorting[1]);
+    }
+  };
+
   return (
     <th
       className={`p-1.5 text-foreground/50 ${
-        "onClick" in props ? "cursor-pointer" : ""
+        sortable ? "cursor-pointer" : ""
       } ${className}`}
+      onClick={onClick}
       {...props}
     >
       {children}
-      <span className="absolute pl-1">
-        {sorting === Ascending ? "▲" : sorting === Descending ? "▼" : ""}
-      </span>
+
+      {sortable ? (
+        <span className="absolute ml-1">
+          {direction === Ascending ? "↑" : direction === Descending ? "↓" : ""}
+        </span>
+      ) : null}
     </th>
   );
 }
@@ -75,6 +88,17 @@ type Row = {
   lossCount?: number | null;
 };
 
+const comparers = {
+  character: compareEntityName,
+  corporation: compareEntityName,
+  faction: compareEntityName,
+  alliance: compareEntityName,
+  dangerRatio: compareNumber,
+  gangRatio: compareNumber,
+  killCount: compareNumber,
+  lossCount: compareNumber,
+};
+
 export function Report({ params }: { params: { reportId: string } }) {
   const { data, error, execute } = useAsync<Report>();
 
@@ -88,19 +112,7 @@ export function Report({ params }: { params: { reportId: string } }) {
 
   useHistoryRecorder(data);
 
-  const sorting = useSorting<Row>(
-    {
-      character: compareEntityName,
-      corporation: compareEntityName,
-      faction: compareEntityName,
-      alliance: compareEntityName,
-      dangerRatio: compareNumber,
-      gangRatio: compareNumber,
-      killCount: compareNumber,
-      lossCount: compareNumber,
-    },
-    { dangerRatio: Descending }
-  );
+  const sorting = useSorting<Row>(comparers, { dangerRatio: Descending });
 
   const ids = useIds();
   const names = useNames();
@@ -193,63 +205,35 @@ export function Report({ params }: { params: { reportId: string } }) {
         <colgroup span={2} className="w-24"></colgroup>
         <thead>
           <tr>
-            <Header
-              sorting={sorting.current.character}
-              onClick={() => sorting.set("character")}
-              className="text-left"
-            >
+            <Header sorting={[sorting, "character"]} className="text-left">
               Character
             </Header>
-            <Header
-              sorting={sorting.current.faction}
-              onClick={() => sorting.set("faction")}
-              className="text-left"
-            >
+            <Header sorting={[sorting, "faction"]} className="text-left">
               Faction
             </Header>
-            <Header
-              sorting={sorting.current.corporation}
-              onClick={() => sorting.set("corporation")}
-              className="text-left"
-            >
+            <Header sorting={[sorting, "corporation"]} className="text-left">
               Corporation
             </Header>
-            <Header
-              sorting={sorting.current.alliance}
-              onClick={() => sorting.set("alliance")}
-              className="text-left"
-            >
+            <Header sorting={[sorting, "alliance"]} className="text-left">
               Alliance
             </Header>
             <Header className="text-left">Ships</Header>
             <Header
-              sorting={sorting.current.dangerRatio}
-              onClick={() => sorting.set("dangerRatio")}
+              sorting={[sorting, "dangerRatio"]}
               aria-label="Danger ratio"
             >
               ☠️
             </Header>
-            <Header
-              sorting={sorting.current.gangRatio}
-              onClick={() => sorting.set("gangRatio")}
-              aria-label="Group ratio"
-            >
+            <Header sorting={[sorting, "gangRatio"]} aria-label="Group ratio">
               👥
             </Header>
             <Header
-              sorting={sorting.current.killCount}
-              onClick={() => sorting.set("killCount")}
+              sorting={[sorting, "killCount"]}
               aria-label="Ships destroyed"
-              className="text-right"
             >
               🎯
             </Header>
-            <Header
-              sorting={sorting.current.lossCount}
-              onClick={() => sorting.set("lossCount")}
-              aria-label="Ships lost"
-              className="text-right"
-            >
+            <Header sorting={[sorting, "lossCount"]} aria-label="Ships lost">
               💥
             </Header>
           </tr>
@@ -297,10 +281,10 @@ export function Report({ params }: { params: { reportId: string } }) {
               <Cell className="text-center">
                 <Stat value={row.gangRatio} style="percent" />
               </Cell>
-              <Cell className="text-right">
+              <Cell className="text-center">
                 <Stat value={row.killCount} />
               </Cell>
-              <Cell className="text-right">
+              <Cell className="text-center">
                 <Stat value={row.lossCount} />
               </Cell>
             </tr>

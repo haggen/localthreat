@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useReducer } from "react";
 
 const queue = new Set<number>();
+const delay = 100;
 
 type State = {
   [Id in number]: {
@@ -33,7 +34,7 @@ export function useZKillboard() {
   );
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const intervalId = setInterval(() => {
       const characterId = queue.values().next().value;
 
       if (!characterId) {
@@ -77,10 +78,10 @@ export function useZKillboard() {
         .catch((error) => {
           console.error(error);
         });
-    }, 1000);
+    }, delay);
 
     return () => {
-      clearInterval(interval);
+      clearInterval(intervalId);
     };
   }, []);
 

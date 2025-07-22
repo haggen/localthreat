@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useReducer } from "react";
 
 const queue = new Set<number>();
+const delay = 100;
 
 type State = {
   character: Record<number, string>;
@@ -26,7 +27,7 @@ export function useNames() {
   );
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const intervalId = setInterval(() => {
       if (queue.size === 0) {
         return;
       }
@@ -70,10 +71,10 @@ export function useNames() {
         .catch((error) => {
           console.error(error);
         });
-    }, 1000);
+    }, delay);
 
     return () => {
-      clearInterval(interval);
+      clearInterval(intervalId);
     };
   }, []);
 
