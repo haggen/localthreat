@@ -7,15 +7,15 @@ type State<T> = {
 };
 
 type Action<T> =
-  | { type: "start" }
+  | { type: "execute" }
   | { type: "resolve"; payload: T }
   | { type: "reject"; payload: unknown };
 
 function reducer<T>() {
   return (state: State<T>, action: Action<T>): State<T> => {
     switch (action.type) {
-      case "start":
-        return { status: "busy", data: null, error: null };
+      case "execute":
+        return { ...state, status: "busy" };
       case "resolve":
         return { status: "idle", data: action.payload, error: null };
       case "reject":
@@ -34,7 +34,7 @@ export function useAsync<T>() {
   });
 
   const execute = useCallback(async (fn: () => Promise<T>) => {
-    dispatch({ type: "start" });
+    dispatch({ type: "execute" });
 
     try {
       const data = await fn();
