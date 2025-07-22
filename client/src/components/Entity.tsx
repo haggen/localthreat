@@ -1,3 +1,6 @@
+import { Tooltip } from "~/components/Tooltip";
+import { useTooltip } from "~/lib/tooltip";
+
 const baseUrl = "https://zkillboard.com";
 const baseImageSrc = "https://images.evetech.net";
 
@@ -80,6 +83,20 @@ export function Entity({
   collapsed?: boolean;
   className?: string;
 }) {
+  const tooltip = useTooltip();
+
+  const onMouseOver = () => {
+    if (collapsed) {
+      tooltip.open();
+    }
+  };
+
+  const onMouseOut = () => {
+    if (collapsed) {
+      tooltip.close();
+    }
+  };
+
   const entity = getEntity(props);
 
   if (entity === undefined) {
@@ -90,6 +107,8 @@ export function Entity({
     return "-";
   }
 
+  const name = entity.name ?? "⋯";
+
   return (
     <a
       href={
@@ -98,18 +117,25 @@ export function Entity({
           : undefined
       }
       className={`flex gap-1.5 items-center ${className}`}
+      onMouseOver={onMouseOver}
+      onMouseOut={onMouseOut}
+      ref={tooltip.refs.setReference}
     >
       {/* We still want to render the generic protrait for characters. */}
       {entity.type === "character" || entity.id ? (
         <img
           src={getImageSrc(entity.type, entity.id ?? 1)}
-          alt={entity.name}
+          alt={name}
           width={32}
           height={32}
           className="rounded bg-black"
         />
       ) : null}
-      {collapsed ? null : <div className="truncate">{entity.name ?? "⋯"}</div>}
+      {collapsed ? (
+        <Tooltip context={tooltip}>{name}</Tooltip>
+      ) : (
+        <div className="truncate">{name}</div>
+      )}
     </a>
   );
 }

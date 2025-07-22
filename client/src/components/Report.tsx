@@ -29,7 +29,8 @@ function Header({
   const sortable = sorting !== undefined;
   const direction = sortable ? sorting[0].current[sorting[1]] : undefined;
 
-  const onClick = (event: MouseEvent) => {
+  // onMouseDown is used to prevent the default text selection behavior.
+  const onMouseDown = (event: MouseEvent) => {
     if (sortable) {
       event.preventDefault();
       sorting?.[0].set(sorting[1]);
@@ -41,7 +42,7 @@ function Header({
       className={`p-1.5 text-foreground/50 ${
         sortable ? "cursor-pointer" : ""
       } ${className}`}
-      onClick={onClick}
+      onMouseDown={onMouseDown}
       {...props}
     >
       {children}
