@@ -25,22 +25,27 @@ function withCors<T extends Request>(
   handle: (request: T) => Promise<Response>
 ) {
   return async (request: T) => {
+    const origin = request.headers.get("Origin");
+
     if (request.method === "OPTIONS") {
-      return new Response(null, {
-        status: 204,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "GET, POST, PATCH, OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type",
-        },
-      });
+      if (origin) {
+        return new Response(null, {
+          status: 204,
+          headers: {
+            "Access-Control-Allow-Origin": origin,
+            "Access-Control-Allow-Methods": "GET, POST, PATCH, OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type",
+          },
+        });
+      }
+
+      return new Response(null, { status: 204 });
     }
 
     const response = await handle(request);
 
-    const origin = request.headers.get("Origin");
     if (origin) {
-      response.headers.set("Access-Control-Allow-Origin", "*");
+      response.headers.set("Access-Control-Allow-Origin", origin);
     }
 
     return response;
