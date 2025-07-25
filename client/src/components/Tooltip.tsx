@@ -14,7 +14,7 @@ export function Tooltip({
       ref={context.refs.setFloating}
       style={context.floatingStyles}
       className="bg-accent/50 backdrop-blur-lg shadow-lg text-foreground rounded-full px-3 py-0.5 max-w-sm opacity-0 starting:opacity-100 open:opacity-100 open:starting:opacity-0 transition-opacity transition-discrete ease-in-out"
-      popover="auto"
+      popover="manual"
     >
       {children}
     </div>,

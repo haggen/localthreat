@@ -18,7 +18,7 @@ export function Panel({
 
   return (
     <aside
-      className={`block bg-transparent p-1.5 w-md fixed inset-0 h-full transform transition-transform ease-in-out ${className}`}
+      className={`block bg-transparent p-1.5 w-md fixed inset-0 h-full transform transition-transform ease-in-out z-20 ${className}`}
       popover="auto"
       id={id}
     >
