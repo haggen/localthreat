@@ -1,4 +1,9 @@
-import { useEffect, type HTMLAttributes, type MouseEvent } from "react";
+import {
+  useEffect,
+  useMemo,
+  type HTMLAttributes,
+  type MouseEvent,
+} from "react";
 import { Entity } from "~/components/Entity";
 import { Stat } from "~/components/Stat";
 import { useAffiliations } from "~/lib/affiliations";
@@ -100,6 +105,11 @@ const comparers = {
   lossCount: compareNumber,
 };
 
+function sorted<T>(array: T[], compare: (a: T, b: T) => number) {
+  array.sort(compare);
+  return array;
+}
+
 export function Report({ params }: { params: { reportId: string } }) {
   const { data, error, execute } = useAsync<Report>();
 
@@ -120,59 +130,109 @@ export function Report({ params }: { params: { reportId: string } }) {
   const affiliations = useAffiliations();
   const zkillboard = useZKillboard();
 
-  const table =
-    data?.content?.map((name) => {
-      const characterId = ids.query("character", name);
+  const table = useMemo(
+    () =>
+      sorted(
+        (data?.content ?? []).map((name) => {
+          const characterId = ids.query("character", name);
 
-      const corporationId = characterId
-        ? affiliations.query("corporation", characterId)
-        : undefined;
+          const corporationId = characterId
+            ? affiliations.query("corporation", characterId)
+            : undefined;
 
-      const corporation = corporationId
-        ? {
-            id: corporationId,
-            name: names.query("corporation", corporationId),
-          }
-        : undefined;
+          const corporation = corporationId
+            ? {
+                id: corporationId,
+                name: names.query("corporation", corporationId),
+              }
+            : undefined;
 
-      const factionId = characterId
-        ? affiliations.query("faction", characterId)
-        : undefined;
+          const factionId = characterId
+            ? affiliations.query("faction", characterId)
+            : undefined;
 
-      const faction = factionId
-        ? {
-            id: factionId,
-            name: names.query("faction", factionId),
-          }
-        : factionId;
+          const faction = factionId
+            ? {
+                id: factionId,
+                name: names.query("faction", factionId),
+              }
+            : factionId;
 
-      const allianceId = characterId
-        ? affiliations.query("alliance", characterId)
-        : undefined;
+          const allianceId = characterId
+            ? affiliations.query("alliance", characterId)
+            : undefined;
 
-      const alliance = allianceId
-        ? {
-            id: allianceId,
-            name: names.query("alliance", allianceId),
-          }
-        : allianceId;
+          const alliance = allianceId
+            ? {
+                id: allianceId,
+                name: names.query("alliance", allianceId),
+              }
+            : allianceId;
 
-      const killboard =
-        typeof characterId === "number" ? zkillboard.query(characterId) : {};
+          const killboard =
+            typeof characterId === "number"
+              ? zkillboard.query(characterId)
+              : {};
 
-      return {
-        character: {
-          name,
-          id: characterId,
-        },
-        corporation,
-        faction,
-        alliance,
-        ...killboard,
-      } as Row;
-    }) ?? [];
+          return {
+            character: {
+              name,
+              id: characterId,
+            },
+            corporation,
+            faction,
+            alliance,
+            ...killboard,
+          } as Row;
+        }),
+        sorting.sorter
+      ),
+    [data?.content, ids, affiliations, names, zkillboard, sorting.sorter]
+  );
 
-  table.sort(sorting.sorter);
+  const { factions, corporations, alliances } = useMemo(() => {
+    const factions = new Map<number, string | undefined>();
+    const corporations = new Map<number, string | undefined>();
+    const alliances = new Map<number, string | undefined>();
+
+    for (const row of table) {
+      if (row.faction?.id) {
+        factions.set(row.faction.id, row.faction.name);
+      }
+
+      if (row.corporation?.id) {
+        corporations.set(row.corporation.id, row.corporation.name);
+      }
+
+      if (row.alliance?.id) {
+        alliances.set(row.alliance.id, row.alliance.name);
+      }
+    }
+
+    return {
+      factions: sorted(
+        Array.from(factions.keys()).map((id) => ({
+          id,
+          name: factions.get(id),
+        })),
+        compareEntityName
+      ),
+      corporations: sorted(
+        Array.from(corporations.keys()).map((id) => ({
+          id,
+          name: corporations.get(id),
+        })),
+        compareEntityName
+      ),
+      alliances: sorted(
+        Array.from(alliances.keys()).map((id) => ({
+          id,
+          name: alliances.get(id),
+        })),
+        compareEntityName
+      ),
+    };
+  }, [table]);
 
   if (error) {
     return (
@@ -200,98 +260,151 @@ export function Report({ params }: { params: { reportId: string } }) {
 
   return (
     <main className="p-6">
-      <table className="w-full table-fixed">
-        <colgroup span={5}></colgroup>
-        <colgroup span={2} className="w-20"></colgroup>
-        <colgroup span={2} className="w-24"></colgroup>
-        <thead>
-          <tr>
-            <Header sorting={[sorting, "character"]} className="text-left">
-              Character
-            </Header>
-            <Header sorting={[sorting, "faction"]} className="text-left">
-              Faction
-            </Header>
-            <Header sorting={[sorting, "corporation"]} className="text-left">
-              Corporation
-            </Header>
-            <Header sorting={[sorting, "alliance"]} className="text-left">
-              Alliance
-            </Header>
-            <Header className="text-left">Ships</Header>
-            <Header
-              sorting={[sorting, "dangerRatio"]}
-              aria-label="Danger ratio"
-            >
-              ☠️
-            </Header>
-            <Header sorting={[sorting, "gangRatio"]} aria-label="Group ratio">
-              👥
-            </Header>
-            <Header
-              sorting={[sorting, "killCount"]}
-              aria-label="Ships destroyed"
-            >
-              🎯
-            </Header>
-            <Header sorting={[sorting, "lossCount"]} aria-label="Ships lost">
-              💥
-            </Header>
-          </tr>
-        </thead>
-        <tbody>
-          {table.map((row, i) => (
-            <tr
-              key={row.character.name}
-              className={i % 2 === 0 ? "bg-foreground/5" : ""}
-            >
-              <Cell>
-                <Entity character={row.character} />
-              </Cell>
-              <Cell>
-                <Entity faction={row.faction} />
-              </Cell>
-              <Cell>
-                <Entity corporation={row.corporation} />
-              </Cell>
-              <Cell>
-                <Entity alliance={row.alliance} />
-              </Cell>
-              <Cell>
-                <div className="overflow-x-scroll scrollbar-none">
-                  <div className="flex gap-1.5">
-                    {row.ships?.length
-                      ? row.ships.map((ship) => (
-                          <Entity
-                            key={ship.id}
-                            ship={ship}
-                            character={row.character}
-                            className="min-w-fit"
-                            collapsed
-                          />
-                        ))
-                      : row.ships === undefined
-                      ? "⋯"
-                      : "-"}
-                  </div>
-                </div>
-              </Cell>
-              <Cell className="text-center">
-                <Stat value={row.dangerRatio} style="percent" />
-              </Cell>
-              <Cell className="text-center">
-                <Stat value={row.gangRatio} style="percent" />
-              </Cell>
-              <Cell className="text-center">
-                <Stat value={row.killCount} />
-              </Cell>
-              <Cell className="text-center">
-                <Stat value={row.lossCount} />
-              </Cell>
+      <div className="grid grid-cols-3 items-start gap-6">
+        <section className="grid grid-rows-[auto_1fr] self-stretch">
+          <h1 className="p-1.5 text-foreground/50 font-bold">Factions</h1>
+          <div className="rounded bg-foreground/5 text-foreground/50 p-1.5">
+            {factions.length ? (
+              <ul className="flex gap-1.5 flex-wrap">
+                {factions.map((faction) => (
+                  <li key={faction.id}>
+                    <Entity faction={faction} collapsed />
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-center place-self-center">Empty.</p>
+            )}
+          </div>
+        </section>
+
+        <section className="grid grid-rows-[auto_1fr] self-stretch">
+          <h1 className="p-1.5 text-foreground/50 font-bold">Corporations</h1>
+          <div className="rounded bg-foreground/5 text-foreground/50 p-1.5">
+            {corporations.length ? (
+              <ul className="flex gap-1.5 flex-wrap">
+                {corporations.map((corporation) => (
+                  <li key={corporation.id}>
+                    <Entity corporation={corporation} collapsed />
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-center place-self-center">Empty.</p>
+            )}
+          </div>
+        </section>
+
+        <section className="grid grid-rows-[auto_1fr] self-stretch">
+          <h1 className="p-1.5 text-foreground/50 font-bold">Alliances</h1>
+          <div className="rounded bg-foreground/5 text-foreground/50 p-1.5">
+            {alliances.length ? (
+              <ul className="flex gap-1.5 flex-wrap">
+                {alliances.map((alliance) => (
+                  <li key={alliance.id}>
+                    <Entity alliance={alliance} collapsed />
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-center place-self-center">Empty.</p>
+            )}
+          </div>
+        </section>
+
+        <table className="col-span-3 table-fixed">
+          <colgroup span={5}></colgroup>
+          <colgroup span={2} className="w-20"></colgroup>
+          <colgroup span={2} className="w-24"></colgroup>
+          <thead>
+            <tr>
+              <Header sorting={[sorting, "character"]} className="text-left">
+                Character
+              </Header>
+              <Header sorting={[sorting, "faction"]} className="text-left">
+                Faction
+              </Header>
+              <Header sorting={[sorting, "corporation"]} className="text-left">
+                Corporation
+              </Header>
+              <Header sorting={[sorting, "alliance"]} className="text-left">
+                Alliance
+              </Header>
+              <Header className="text-left">Ships</Header>
+              <Header
+                sorting={[sorting, "dangerRatio"]}
+                aria-label="Danger ratio"
+              >
+                ☠️
+              </Header>
+              <Header sorting={[sorting, "gangRatio"]} aria-label="Group ratio">
+                👥
+              </Header>
+              <Header
+                sorting={[sorting, "killCount"]}
+                aria-label="Ships destroyed"
+              >
+                🎯
+              </Header>
+              <Header sorting={[sorting, "lossCount"]} aria-label="Ships lost">
+                💥
+              </Header>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {table.map((row, i) => (
+              <tr
+                key={row.character.name}
+                className={i % 2 === 0 ? "bg-foreground/5" : ""}
+              >
+                <Cell>
+                  <Entity character={row.character} />
+                </Cell>
+                <Cell>
+                  <Entity faction={row.faction} />
+                </Cell>
+                <Cell>
+                  <Entity corporation={row.corporation} />
+                </Cell>
+                <Cell>
+                  <Entity alliance={row.alliance} />
+                </Cell>
+                <Cell>
+                  <div className="overflow-x-scroll scrollbar-none">
+                    <div className="flex gap-1.5">
+                      {row.ships?.length
+                        ? row.ships.map((ship) => (
+                            <Entity
+                              key={ship.id}
+                              ship={ship}
+                              character={row.character}
+                              className="min-w-fit"
+                              collapsed
+                            />
+                          ))
+                        : row.ships === undefined
+                        ? "⋯"
+                        : "-"}
+                    </div>
+                  </div>
+                </Cell>
+                <Cell className="text-center">
+                  <Stat value={row.dangerRatio} style="percent" />
+                </Cell>
+                <Cell className="text-center">
+                  <Stat value={row.gangRatio} style="percent" />
+                </Cell>
+                <Cell className="text-center">
+                  <Stat value={row.killCount} />
+                </Cell>
+                <Cell className="text-center">
+                  <Stat value={row.lossCount} />
+                </Cell>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </main>
   );
 }
