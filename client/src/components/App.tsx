@@ -40,7 +40,7 @@ export function App() {
 
       <div className="grid grid-rows-[auto_1fr_auto] mx-auto min-h-dvh">
         <header className="p-1.5 sticky top-0 z-10">
-          <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-12 h-18 px-6 bg-background/5 backdrop-blur-2xl rounded-lg">
+          <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-12 h-18 px-6 bg-background/5 backdrop-blur-2xl rounded-lg ">
             <h1>
               <Link href="/">
                 <svg

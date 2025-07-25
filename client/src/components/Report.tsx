@@ -69,7 +69,7 @@ function Cell({
 }: HTMLAttributes<HTMLTableCellElement>) {
   return (
     <td
-      className={`p-1.5 first:rounded-l-md last:rounded-r-md ${className}`}
+      className={`p-1.5 first:rounded-l-lg last:rounded-r-lg ${className}`}
       {...props}
     >
       {children}
@@ -88,7 +88,7 @@ function Summary({
     <section className="grid grid-rows-[auto_1fr] self-stretch">
       <h1 className="p-1.5 text-foreground/50 font-bold">{title}</h1>
 
-      <div className="rounded bg-foreground/5 text-foreground/50 p-1.5">
+      <div className="rounded-lg bg-foreground/5 text-foreground/50 p-1.5">
         {children.length ? (
           <ul className="flex gap-1.5 flex-wrap">{children}</ul>
         ) : (
@@ -283,7 +283,7 @@ export function Report({ params }: { params: { reportId: string } }) {
 
   return (
     <main className="p-6">
-      <div className="grid grid-cols-3 items-start gap-6">
+      <div className="grid grid-cols-3 items-start gap-6 relative">
         <Summary title="Factions">
           {factions.map((faction) => (
             <li key={faction.id}>
@@ -309,42 +309,44 @@ export function Report({ params }: { params: { reportId: string } }) {
         </Summary>
 
         <table className="col-span-3 table-fixed">
-          <colgroup span={4} className="w-1/7" />
-          <colgroup />
-          <colgroup span={2} className="w-20" />
-          <colgroup span={2} className="w-24" />
-          <thead>
+          <thead className="sticky top-20 bg-background/5 backdrop-blur-2xl rounded-lg outline-background">
             <tr>
-              <Header sorting={[sorting, "character"]} className="text-left">
+              <Header
+                sorting={[sorting, "character"]}
+                className="text-left w-1/7"
+              >
                 Character
               </Header>
-              <Header sorting={[sorting, "faction"]} className="text-left">
+              <Header
+                sorting={[sorting, "faction"]}
+                className="text-left w-1/7"
+              >
                 Faction
               </Header>
-              <Header sorting={[sorting, "corporation"]} className="text-left">
+              <Header
+                sorting={[sorting, "corporation"]}
+                className="text-left w-1/7"
+              >
                 Corporation
               </Header>
-              <Header sorting={[sorting, "alliance"]} className="text-left">
+              <Header
+                sorting={[sorting, "alliance"]}
+                className="text-left w-1/7"
+              >
                 Alliance
               </Header>
               <Header className="text-left">Ships</Header>
-              <Header
-                sorting={[sorting, "dangerRatio"]}
-                aria-label="Danger ratio"
-              >
-                ☠️
+              <Header sorting={[sorting, "dangerRatio"]} className="w-24">
+                Risk
               </Header>
-              <Header sorting={[sorting, "gangRatio"]} aria-label="Group ratio">
-                👥
+              <Header sorting={[sorting, "gangRatio"]} className="w-24">
+                Group
               </Header>
-              <Header
-                sorting={[sorting, "killCount"]}
-                aria-label="Ships destroyed"
-              >
-                🎯
+              <Header sorting={[sorting, "killCount"]} className="w-24">
+                K
               </Header>
-              <Header sorting={[sorting, "lossCount"]} aria-label="Ships lost">
-                💥
+              <Header sorting={[sorting, "lossCount"]} className="w-24">
+                L
               </Header>
             </tr>
           </thead>
