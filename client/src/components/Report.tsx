@@ -3,6 +3,7 @@ import {
   useMemo,
   type HTMLAttributes,
   type MouseEvent,
+  type ReactNode,
 } from "react";
 import { Entity } from "~/components/Entity";
 import { Stat } from "~/components/Stat";
@@ -73,6 +74,28 @@ function Cell({
     >
       {children}
     </td>
+  );
+}
+
+function Summary({
+  title,
+  children,
+}: {
+  title: string;
+  children: ReactNode[];
+}) {
+  return (
+    <section className="grid grid-rows-[auto_1fr] self-stretch">
+      <h1 className="p-1.5 text-foreground/50 font-bold">{title}</h1>
+
+      <div className="rounded bg-foreground/5 text-foreground/50 p-1.5">
+        {children.length ? (
+          <ul className="flex gap-1.5 flex-wrap">{children}</ul>
+        ) : (
+          <p className="text-center py-1">Empty.</p>
+        )}
+      </div>
+    </section>
   );
 }
 
@@ -261,56 +284,29 @@ export function Report({ params }: { params: { reportId: string } }) {
   return (
     <main className="p-6">
       <div className="grid grid-cols-3 items-start gap-6">
-        <section className="grid grid-rows-[auto_1fr] self-stretch">
-          <h1 className="p-1.5 text-foreground/50 font-bold">Factions</h1>
-          <div className="rounded bg-foreground/5 text-foreground/50 p-1.5">
-            {factions.length ? (
-              <ul className="flex gap-1.5 flex-wrap">
-                {factions.map((faction) => (
-                  <li key={faction.id}>
-                    <Entity faction={faction} collapsed />
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="text-center place-self-center">Empty.</p>
-            )}
-          </div>
-        </section>
+        <Summary title="Factions">
+          {factions.map((faction) => (
+            <li key={faction.id}>
+              <Entity faction={faction} collapsed />
+            </li>
+          ))}
+        </Summary>
 
-        <section className="grid grid-rows-[auto_1fr] self-stretch">
-          <h1 className="p-1.5 text-foreground/50 font-bold">Corporations</h1>
-          <div className="rounded bg-foreground/5 text-foreground/50 p-1.5">
-            {corporations.length ? (
-              <ul className="flex gap-1.5 flex-wrap">
-                {corporations.map((corporation) => (
-                  <li key={corporation.id}>
-                    <Entity corporation={corporation} collapsed />
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="text-center place-self-center">Empty.</p>
-            )}
-          </div>
-        </section>
+        <Summary title="Corporations">
+          {corporations.map((corporation) => (
+            <li key={corporation.id}>
+              <Entity corporation={corporation} collapsed />
+            </li>
+          ))}
+        </Summary>
 
-        <section className="grid grid-rows-[auto_1fr] self-stretch">
-          <h1 className="p-1.5 text-foreground/50 font-bold">Alliances</h1>
-          <div className="rounded bg-foreground/5 text-foreground/50 p-1.5">
-            {alliances.length ? (
-              <ul className="flex gap-1.5 flex-wrap">
-                {alliances.map((alliance) => (
-                  <li key={alliance.id}>
-                    <Entity alliance={alliance} collapsed />
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="text-center place-self-center">Empty.</p>
-            )}
-          </div>
-        </section>
+        <Summary title="Alliances">
+          {alliances.map((alliance) => (
+            <li key={alliance.id}>
+              <Entity alliance={alliance} collapsed />
+            </li>
+          ))}
+        </Summary>
 
         <table className="col-span-3 table-fixed">
           <colgroup span={4} className="w-1/7" />
