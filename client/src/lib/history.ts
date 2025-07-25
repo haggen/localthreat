@@ -2,11 +2,39 @@ import { useEffect, useState } from "react";
 import type { Report } from "~/lib/report";
 
 type Entry = Report & { visitedAt: string };
-
 type History = Record<string, Entry>;
 
+type OldEntry = { id: string; time: string; data: string[] };
+type OldHistory = OldEntry[];
+
 function getHistory() {
-  return JSON.parse(localStorage.getItem("history") ?? "{}") as History;
+  const history = JSON.parse(localStorage.getItem("history") ?? "{}") as
+    | History
+    | OldHistory;
+
+  if (Array.isArray(history)) {
+    // Migrate old history format to new format.
+    localStorage.setItem(
+      "history",
+      JSON.stringify(
+        Object.fromEntries(
+          history.map((entry) => [
+            entry.id,
+            {
+              id: entry.id,
+              createdAt: entry.time,
+              visitedAt: entry.time,
+              content: entry.data,
+            },
+          ])
+        )
+      )
+    );
+
+    return getHistory();
+  }
+
+  return history;
 }
 
 export function useHistory() {
