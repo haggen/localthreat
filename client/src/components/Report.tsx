@@ -313,9 +313,10 @@ export function Report({ params }: { params: { reportId: string } }) {
         </section>
 
         <table className="col-span-3 table-fixed">
-          <colgroup span={5}></colgroup>
-          <colgroup span={2} className="w-20"></colgroup>
-          <colgroup span={2} className="w-24"></colgroup>
+          <colgroup span={4} className="w-1/7" />
+          <colgroup />
+          <colgroup span={2} className="w-20" />
+          <colgroup span={2} className="w-24" />
           <thead>
             <tr>
               <Header sorting={[sorting, "character"]} className="text-left">
