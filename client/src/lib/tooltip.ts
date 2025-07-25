@@ -1,4 +1,4 @@
-import { autoUpdate, offset, useFloating } from "@floating-ui/react-dom";
+import { autoUpdate, flip, offset, useFloating } from "@floating-ui/react-dom";
 import { useCallback, useMemo, useReducer } from "react";
 
 function reducer(state: boolean, patch?: boolean) {
@@ -10,7 +10,7 @@ export function useTooltip() {
 
   const floating = useFloating({
     open: state,
-    middleware: [offset(4)],
+    middleware: [flip({ fallbackAxisSideDirection: "start" }), offset(4)],
     whileElementsMounted: autoUpdate,
   });
 
