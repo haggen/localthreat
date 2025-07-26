@@ -5,6 +5,7 @@ import {
   type MouseEvent,
   type ReactNode,
 } from "react";
+import { twMerge } from "tailwind-merge";
 import { Entity } from "~/components/Entity";
 import { Stat } from "~/components/Stat";
 import { useAffiliations } from "~/lib/affiliations";
@@ -45,9 +46,11 @@ function Header({
 
   return (
     <th
-      className={`p-1.5 text-foreground/50 ${
-        sortable ? "cursor-pointer" : ""
-      } ${className}`}
+      className={twMerge(
+        "p-1.5 text-foreground/50",
+        sortable ? "cursor-pointer" : "",
+        className
+      )}
       onMouseDown={onMouseDown}
       {...props}
     >
@@ -69,7 +72,10 @@ function Cell({
 }: HTMLAttributes<HTMLTableCellElement>) {
   return (
     <td
-      className={`p-1.5 first:rounded-l-lg last:rounded-r-lg ${className}`}
+      className={twMerge(
+        "p-1.5 first:rounded-l-lg last:rounded-r-lg",
+        className
+      )}
       {...props}
     >
       {children}
@@ -92,7 +98,7 @@ function Summary({
         {children.length ? (
           <ul className="flex gap-1.5 flex-wrap">{children}</ul>
         ) : (
-          <p className="text-center py-1">Empty.</p>
+          <p className="py-1 text-center">Empty.</p>
         )}
       </div>
     </section>
@@ -260,7 +266,7 @@ export function Report({ params }: { params: { reportId: string } }) {
   if (error) {
     return (
       <main className="self-center p-6">
-        <article className="flex flex-col gap-3 items-center text-center">
+        <article className="flex flex-col items-center gap-3 text-center">
           <h1 className="text-2xl font-bold opacity-50">Error</h1>
           <p className="max-w-1/2">
             An error occurred while processing your input. Please try again.
@@ -273,7 +279,7 @@ export function Report({ params }: { params: { reportId: string } }) {
   if (!data) {
     return (
       <main className="self-center p-6">
-        <article className="flex flex-col gap-3 items-center text-center">
+        <article className="flex flex-col items-center gap-3 text-center">
           <h1 className="text-2xl font-bold opacity-50">Loading…</h1>
           <p className="max-w-1/2">Fetching information, please wait.</p>
         </article>
@@ -283,7 +289,7 @@ export function Report({ params }: { params: { reportId: string } }) {
 
   return (
     <main className="p-6">
-      <div className="grid grid-cols-3 items-start gap-6 relative">
+      <div className="relative grid items-start grid-cols-3 gap-6">
         <Summary title="Factions">
           {factions.map((faction) => (
             <li key={faction.id}>
@@ -309,7 +315,7 @@ export function Report({ params }: { params: { reportId: string } }) {
         </Summary>
 
         <table className="col-span-3 table-fixed">
-          <thead className="sticky top-20 bg-background/5 backdrop-blur-2xl rounded-lg outline-background">
+          <thead className="sticky z-20 top-14">
             <tr>
               <Header
                 sorting={[sorting, "character"]}

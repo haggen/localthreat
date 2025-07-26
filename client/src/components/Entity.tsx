@@ -1,3 +1,4 @@
+import { twMerge } from "tailwind-merge";
 import { Tooltip } from "~/components/Tooltip";
 import { useTooltip } from "~/lib/tooltip";
 
@@ -116,7 +117,7 @@ export function Entity({
           ? getUrl(entity.type, entity.id, props.character?.id)
           : undefined
       }
-      className={`flex gap-1.5 items-center ${className}`}
+      className={twMerge("flex gap-1.5 items-center", className)}
       onMouseOver={onMouseOver}
       onMouseOut={onMouseOut}
       ref={tooltip.refs.setReference}
@@ -129,7 +130,7 @@ export function Entity({
           alt={name}
           width={32}
           height={32}
-          className="rounded bg-black"
+          className="bg-black rounded"
         />
       ) : null}
       {collapsed ? (
