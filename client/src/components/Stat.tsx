@@ -15,7 +15,5 @@ export function Stat({
     return "⋯";
   }
 
-  return (
-    <span className={`font-mono text-sm`}>{fmt.number(value, { style })}</span>
-  );
+  return <span className={`font-mono`}>{fmt.number(value, { style })}</span>;
 }
