@@ -268,7 +268,7 @@ export function Report({ params }: { params: { reportId: string } }) {
       <main className="self-center p-6">
         <article className="flex flex-col items-center gap-3 text-center">
           <h1 className="text-2xl font-bold opacity-50">Error</h1>
-          <p className="max-w-1/2">
+          <p className="w-1/2">
             An error occurred while processing your input. Please try again.
           </p>
         </article>
@@ -281,7 +281,7 @@ export function Report({ params }: { params: { reportId: string } }) {
       <main className="self-center p-6">
         <article className="flex flex-col items-center gap-3 text-center">
           <h1 className="text-2xl font-bold opacity-50">Loading…</h1>
-          <p className="max-w-1/2">Fetching information, please wait.</p>
+          <p className="w-1/2">Fetching information, please wait.</p>
         </article>
       </main>
     );
@@ -319,39 +319,39 @@ export function Report({ params }: { params: { reportId: string } }) {
             <tr>
               <Header
                 sorting={[sorting, "character"]}
-                className="text-left max-w-1/7"
+                className="text-left w-1/7"
               >
                 Character
               </Header>
               <Header
                 sorting={[sorting, "faction"]}
-                className="text-left max-w-1/7"
+                className="text-left w-1/7"
               >
                 Faction
               </Header>
               <Header
                 sorting={[sorting, "corporation"]}
-                className="text-left max-w-1/7"
+                className="text-left w-1/7"
               >
                 Corporation
               </Header>
               <Header
                 sorting={[sorting, "alliance"]}
-                className="text-left max-w-1/7"
+                className="text-left w-1/7"
               >
                 Alliance
               </Header>
-              <Header className="text-left">Ships</Header>
-              <Header sorting={[sorting, "dangerRatio"]} className="w-24">
+              <Header className="w-full text-left">Ships</Header>
+              <Header sorting={[sorting, "dangerRatio"]} className="min-w-24">
                 Risk
               </Header>
-              <Header sorting={[sorting, "gangRatio"]} className="w-24">
+              <Header sorting={[sorting, "gangRatio"]} className="min-w-24">
                 Group
               </Header>
-              <Header sorting={[sorting, "killCount"]} className="w-24">
+              <Header sorting={[sorting, "killCount"]} className="min-w-24">
                 K
               </Header>
-              <Header sorting={[sorting, "lossCount"]} className="w-24">
+              <Header sorting={[sorting, "lossCount"]} className="min-w-24">
                 L
               </Header>
             </tr>
