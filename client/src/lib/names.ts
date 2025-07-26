@@ -10,67 +10,73 @@ type State = {
   alliance: Record<number, string>;
 };
 
+function reducer(state: State, patch: Partial<State>) {
+  return {
+    character: { ...state.character, ...patch.character },
+    corporation: { ...state.corporation, ...patch.corporation },
+    faction: { ...state.faction, ...patch.faction },
+    alliance: { ...state.alliance, ...patch.alliance },
+  };
+}
+
+const initialState: State = {
+  character: {},
+  corporation: {},
+  faction: {},
+  alliance: {},
+};
+
+function createStatePatch(
+  data: Array<{
+    category: "character" | "corporation" | "alliance" | "faction";
+    id: number;
+    name: string;
+  }>
+) {
+  const state: State = {
+    character: {},
+    corporation: {},
+    faction: {},
+    alliance: {},
+  };
+
+  for (const entry of data) {
+    state[entry.category][entry.id] = entry.name;
+  }
+
+  return state;
+}
+
 export function useNames() {
-  const [state, update] = useReducer(
-    (state: State, patch: Partial<State>) => ({
-      character: { ...state.character, ...patch.character },
-      corporation: { ...state.corporation, ...patch.corporation },
-      faction: { ...state.faction, ...patch.faction },
-      alliance: { ...state.alliance, ...patch.alliance },
-    }),
-    {
-      character: {},
-      corporation: {},
-      faction: {},
-      alliance: {},
-    }
-  );
+  const [state, update] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
+    const intervalId = setInterval(async () => {
       if (queue.size === 0) {
         return;
       }
 
-      const batch = Array.from(queue);
-      queue.clear();
+      // The API allows a maximum of 1000 IDs per request.
+      const batch = Array.from(queue).slice(0, 999);
+      for (const id of batch) {
+        queue.delete(id);
+      }
 
-      fetch("https://esi.evetech.net/latest/universe/names/", {
-        method: "POST",
-        body: JSON.stringify(batch),
-        headers: { "Content-Type": "application/json" },
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw response;
-          }
-          return response.json();
-        })
-        .then(
-          (
-            data: Array<{
-              category: "character" | "corporation" | "alliance";
-              id: number;
-              name: string;
-            }>
-          ) => {
-            const patch: State = {
-              character: {},
-              corporation: {},
-              faction: {},
-              alliance: {},
-            };
+      const resp = await fetch(
+        "https://esi.evetech.net/latest/universe/names/",
+        {
+          method: "POST",
+          body: JSON.stringify(batch),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
-            for (const entry of data) {
-              patch[entry.category][entry.id] = entry.name;
-            }
+      if (!resp.ok) {
+        throw resp;
+      }
 
-            update(patch);
-          }
-        )
-        .catch((error) => {
-          console.error(error);
-        });
+      const patch = createStatePatch(await resp.json());
+      update(patch);
     }, delay);
 
     return () => {
