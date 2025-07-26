@@ -120,6 +120,7 @@ export function Entity({
       onMouseOver={onMouseOver}
       onMouseOut={onMouseOut}
       ref={tooltip.refs.setReference}
+      target="_blank"
     >
       {/* We still want to render the generic protrait for characters. */}
       {entity.type === "character" || entity.id ? (
