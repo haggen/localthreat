@@ -314,44 +314,44 @@ export function Report({ params }: { params: { reportId: string } }) {
           ))}
         </Summary>
 
-        <table className="col-span-3 table-fixed">
+        <table className="w-full col-span-3 table-fixed">
           <thead className="sticky z-20 top-14">
             <tr>
               <Header
                 sorting={[sorting, "character"]}
-                className="text-left w-1/7"
+                className="text-left w-1/8"
               >
                 Character
               </Header>
               <Header
                 sorting={[sorting, "faction"]}
-                className="text-left w-1/7"
+                className="text-left w-1/8"
               >
                 Faction
               </Header>
               <Header
                 sorting={[sorting, "corporation"]}
-                className="text-left w-1/7"
+                className="text-left w-1/8"
               >
                 Corporation
               </Header>
               <Header
                 sorting={[sorting, "alliance"]}
-                className="text-left w-1/7"
+                className="text-left w-1/8"
               >
                 Alliance
               </Header>
-              <Header className="w-full text-left">Ships</Header>
-              <Header sorting={[sorting, "dangerRatio"]} className="min-w-24">
+              <Header className="text-left">Ships</Header>
+              <Header sorting={[sorting, "dangerRatio"]} className="w-24">
                 Risk
               </Header>
-              <Header sorting={[sorting, "gangRatio"]} className="min-w-24">
+              <Header sorting={[sorting, "gangRatio"]} className="w-24">
                 Group
               </Header>
-              <Header sorting={[sorting, "killCount"]} className="min-w-24">
+              <Header sorting={[sorting, "killCount"]} className="w-24">
                 K
               </Header>
-              <Header sorting={[sorting, "lossCount"]} className="min-w-24">
+              <Header sorting={[sorting, "lossCount"]} className="w-24">
                 L
               </Header>
             </tr>
@@ -383,7 +383,7 @@ export function Report({ params }: { params: { reportId: string } }) {
                               key={ship.id}
                               ship={ship}
                               character={row.character}
-                              className="min-w-fit"
+                              className="min-w-max"
                               collapsed
                             />
                           ))
