@@ -313,25 +313,25 @@ export function Report({ params }: { params: { reportId: string } }) {
             <tr>
               <Header
                 sorting={[sorting, "character"]}
-                className="text-left w-1/7"
+                className="text-left max-w-1/7"
               >
                 Character
               </Header>
               <Header
                 sorting={[sorting, "faction"]}
-                className="text-left w-1/7"
+                className="text-left max-w-1/7"
               >
                 Faction
               </Header>
               <Header
                 sorting={[sorting, "corporation"]}
-                className="text-left w-1/7"
+                className="text-left max-w-1/7"
               >
                 Corporation
               </Header>
               <Header
                 sorting={[sorting, "alliance"]}
-                className="text-left w-1/7"
+                className="text-left max-w-1/7"
               >
                 Alliance
               </Header>
