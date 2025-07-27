@@ -1,6 +1,7 @@
 import { twMerge } from "tailwind-merge";
 import { Tooltip } from "~/components/Tooltip";
 import { useTooltip } from "~/lib/tooltip";
+import { useTruncated } from "~/lib/truncated";
 
 const baseUrl = "https://zkillboard.com";
 const baseImageSrc = "https://images.evetech.net";
@@ -85,15 +86,16 @@ export function Entity({
   className?: string;
 }) {
   const tooltip = useTooltip();
+  const { ref: truncatingRef, truncated } = useTruncated();
 
   const onMouseOver = () => {
-    if (collapsed) {
+    if (collapsed || truncated) {
       tooltip.open();
     }
   };
 
   const onMouseOut = () => {
-    if (collapsed) {
+    if (collapsed || truncated) {
       tooltip.close();
     }
   };
@@ -133,11 +135,14 @@ export function Entity({
           className="bg-black rounded"
         />
       ) : null}
-      {collapsed ? (
-        <Tooltip context={tooltip}>{name}</Tooltip>
-      ) : (
-        <div className="truncate">{name}</div>
+      {collapsed ? null : (
+        <div ref={truncatingRef} className="truncate">
+          {name}
+        </div>
       )}
+      {collapsed || truncated ? (
+        <Tooltip context={tooltip}>{name}</Tooltip>
+      ) : null}
     </a>
   );
 }
