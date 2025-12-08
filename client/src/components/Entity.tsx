@@ -11,6 +11,7 @@ const getUrl = (type: string, id: number, characterId?: number) => {
     case "character":
       return `${baseUrl}/character/${id}/`;
     case "faction":
+      return `${baseUrl}/faction/${id}/`;
     case "corporation":
       return `${baseUrl}/corporation/${id}/`;
     case "alliance":
