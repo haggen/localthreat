@@ -321,7 +321,7 @@ export function Report({ params }: { params: { reportId: string } }) {
                 sorting={[sorting, "character"]}
                 className="text-left w-1/8"
               >
-                Character
+                Character ({table.length})
               </Header>
               <Header
                 sorting={[sorting, "faction"]}
