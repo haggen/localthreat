@@ -118,7 +118,7 @@ type Row = {
   alliance?: null | { id: number; name?: string };
   ships?: null | { id: number; name: string }[];
   dangerRatio?: number | null;
-  pointsRatio?: number | null;
+  pointsPerKill?: number | null;
   gangRatio?: number | null;
   killCount?: number | null;
   lossCount?: number | null;
@@ -130,7 +130,7 @@ const comparers = {
   faction: compareEntityName,
   alliance: compareEntityName,
   dangerRatio: compareNumber,
-  pointsRatio: compareNumber,
+  pointsPerKill: compareNumber,
   gangRatio: compareNumber,
   killCount: compareNumber,
   lossCount: compareNumber,
@@ -354,7 +354,7 @@ export function Report({ params }: { params: { reportId: string } }) {
                 sorting={[sorting, "gangRatio"]} className="w-24">
                 Group
               </Header>
-              <Header sorting={[sorting, "pointsRatio"]} className="w-24">
+              <Header sorting={[sorting, "pointsPerKill"]} className="w-24">
                 Points/kill
               </Header>
               <Header sorting={[sorting, "killCount"]} className="w-24">
@@ -409,7 +409,7 @@ export function Report({ params }: { params: { reportId: string } }) {
                   <Stat value={row.gangRatio} style="percent" />
                 </Cell>
                 <Cell className="text-center">
-                  <Stat value={row.pointsRatio} />
+                  <Stat value={row.pointsPerKill} />
                 </Cell>
                 <Cell className="text-center">
                   <Stat value={row.killCount} />
