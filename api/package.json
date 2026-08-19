@@ -4,18 +4,15 @@
   "license": "MIT",
   "author": "Arthur <arthur@corenzan.com>",
   "type": "module",
-  "module": "src/index.ts",
   "scripts": {
-    "start": "bun --hot run src/index.ts"
+    "start": "node --experimental-strip-types --watch src/index.ts",
+    "typecheck": "tsc"
   },
   "devDependencies": {
-    "@tsconfig/bun": "^1.0.8",
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
+    "@types/node": "^26.2.0",
+    "typescript": "^7.0.2"
   },
   "dependencies": {
-    "nanoid": "^5.1.5"
+    "nanoid": "^5.1.16"
   }
 }

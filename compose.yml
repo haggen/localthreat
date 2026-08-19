@@ -1,48 +1,40 @@
 services:
   proxy:
-    image: traefik:3.2
+    image: traefik:3.7
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     ports:
       - 80:80
     command:
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+
   api:
     build: ./api
     volumes:
       - storage:/app/storage
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.localthreat-api.rule=Host(`api.localthreat.local.crz.li`)"
+      - traefik.enable=true
+      - traefik.http.routers.localthreat-api.rule=Host(`api.localthreat.local.crz.li`)
     develop:
       watch:
-        - # x-initialSync was introduced in v2.29.2
-          # but it doesn't seem to be documented.
-          # It fixes synchronization issues when files
-          # are modified while the container is down.
-          x-initialSync: true
+        - initial_sync: true
           action: sync
           path: ./api
           target: /app
           ignore:
-            - tmp
-            - api
+            - node_modules
 
   client:
     build: ./client
     environment:
       VITE_API_URL: http://api.localthreat.local.crz.li
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.localthreat-client.rule=Host(`localthreat.local.crz.li`)"
+      - traefik.enable=true
+      - traefik.http.routers.localthreat-client.rule=Host(`localthreat.local.crz.li`)
     develop:
       watch:
-        - # x-initialSync was introduced in v2.29.2
-          # but it doesn't seem to be documented.
-          # It fixes synchronization issues when files
-          # are modified while the container is down.
-          x-initialSync: true
+        - initial_sync: true
           action: sync
           path: ./client
           target: /app
