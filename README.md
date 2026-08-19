@@ -1,6 +1,6 @@
 # localthreat
 
-[![Screenshot of localthreat](localthreat.png)](https://localthreat.xyz)
+[![Screenshot of localthreat](localthreat.webp)](https://localthreat.xyz)
 
 ---
 
