@@ -1,18 +1,14 @@
 import tailwindcss from "@tailwindcss/vite";
-import react from "@vitejs/plugin-react-oxc";
+import react from "@vitejs/plugin-react";
 import { join } from "path";
-import { defineConfig, withFilter } from "vite";
+import { defineConfig } from "vite";
 import svgr from "vite-plugin-svgr";
 
 export default defineConfig({
-  plugins: [
-    react(),
-    tailwindcss(),
-    withFilter(svgr(), { load: { id: /\.svg$/ } }),
-  ],
+  plugins: [react(), tailwindcss(), svgr()],
   resolve: {
     alias: {
-      "~": join(__dirname, "src"),
+      "~": join(import.meta.dirname, "src"),
     },
   },
   server: {
