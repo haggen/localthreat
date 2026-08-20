@@ -1,9 +1,8 @@
-import { Database } from "bun:sqlite";
+import { DatabaseSync } from "node:sqlite";
 
-export const db = new Database("./storage/database.sqlite", {
-  create: true,
-  strict: true,
-});
+export const db = new DatabaseSync("./storage/database.sqlite");
+
+db.exec("PRAGMA journal_mode=WAL;");
 
 db.exec(`
   CREATE TABLE IF NOT EXISTS reports (

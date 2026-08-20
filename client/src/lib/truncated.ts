@@ -1,34 +1,28 @@
-import { useCallback, useLayoutEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 export function useTruncated() {
-  const [element, setElement] = useState<HTMLElement>();
   const [truncated, setTruncated] = useState(false);
 
-  useLayoutEffect(() => {
-    if (!element) {
+  const ref = useCallback((node: HTMLElement | null) => {
+    if (!node) {
       return;
     }
 
-    setTruncated(element.offsetWidth < element.scrollWidth);
+    setTruncated(node.offsetWidth < node.scrollWidth);
 
     const observer = new ResizeObserver((entries) => {
       for (const entry of entries) {
         setTruncated(
-          entry.contentBoxSize[0].inlineSize < entry.target.scrollWidth
+          entry.contentBoxSize[0].inlineSize < entry.target.scrollWidth,
         );
       }
     });
-    observer.observe(element);
+
+    observer.observe(node);
 
     return () => {
       observer.disconnect();
     };
-  }, [element]);
-
-  const ref = useCallback((node: HTMLElement | null) => {
-    if (node) {
-      setElement(node);
-    }
   }, []);
 
   return { ref, truncated };

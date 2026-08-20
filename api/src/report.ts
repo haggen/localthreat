@@ -1,4 +1,4 @@
-import { createId } from "./createId";
+import { createId } from "./createId.ts";
 
 export type SerializedReport = {
   id: string;

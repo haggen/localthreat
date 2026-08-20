@@ -1,6 +1,6 @@
 # localthreat
 
-[![Screenshot of localthreat](localthreat.png)](https://localthreat.xyz)
+[![Screenshot of localthreat](localthreat.webp)](https://localthreat.xyz)
 
 ---
 
@@ -35,6 +35,8 @@ This will start everything you need in watch mode.
 You can access the application at http://localthreat.local.crz.li, and the API at http://api.localthreat.local.crz.li.
 
 > 💡 local.crz.li is a public wildcard loopback domain. It resolves to `127.0.0.1` (IPv4) or `::1` (IPv6).
+
+If you don't have port 80 available, or rather not use a proxy, use `compose.override.yml.example`.
 
 ## Legal
 

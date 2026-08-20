@@ -1,181 +1,189 @@
-import { type SQLQueryBindings } from "bun:sqlite";
-import { db } from "./db";
-import { Report, type SerializedReport } from "./report";
+import {
+  createServer,
+  type IncomingMessage,
+  type ServerResponse,
+} from "node:http";
+import { db } from "./db.ts";
+import { Report, type SerializedReport } from "./report.ts";
 
-function withLogging<T extends Request>(
-  handle: (request: T) => Promise<Response>
+function respond(
+  response: ServerResponse,
+  status: number,
+  body: unknown = null,
 ) {
-  return async (request: T) => {
-    performance.mark("request");
-
-    const response = await handle(request);
-
-    const { duration } = performance.measure("request", "request");
-    console.log(
-      `${new Date().toISOString()} ${request.method} ${
-        new URL(request.url).pathname
-      } ${response.status} ${duration.toFixed(2)}ms`
-    );
-
-    return response;
-  };
+  response.writeHead(status, { "Content-Type": "application/json" });
+  response.end(JSON.stringify(body));
 }
 
-function withCors<T extends Request>(
-  handle: (request: T) => Promise<Response>
-) {
-  return async (request: T) => {
-    const origin = request.headers.get("Origin");
+function getBody(req: IncomingMessage) {
+  return new Promise<string>((resolve, reject) => {
+    const chunks: Buffer[] = [];
+    req.on("data", (chunk: Buffer) => chunks.push(chunk));
+    req.on("end", () => resolve(Buffer.concat(chunks).toString("utf-8")));
+    req.on("error", reject);
+  });
+}
 
-    if (request.method === "OPTIONS") {
-      if (origin) {
-        return new Response(null, {
-          status: 204,
-          headers: {
-            "Access-Control-Allow-Origin": origin,
-            "Access-Control-Allow-Methods": "GET, POST, PATCH, OPTIONS",
-            "Access-Control-Allow-Headers": "Content-Type",
-          },
-        });
+type Route = {
+  pattern: URLPattern;
+  handler(params: {
+    req: IncomingMessage;
+    response: ServerResponse;
+    url: URLPatternResult;
+  }): Promise<void>;
+};
+
+const routes: Route[] = [
+  {
+    pattern: new URLPattern({ pathname: "/v1/reports" }),
+    async handler({ req, response }) {
+      const method = req.method ?? "GET";
+
+      switch (method) {
+        case "POST": {
+          const raw = await getBody(req);
+
+          if (raw.trim().length < 3) {
+            respond(response, 400, { error: "Content is too short" });
+            break;
+          }
+
+          const parsed = Report.parse(raw);
+
+          if (parsed.length < 1) {
+            respond(response, 400, { error: "Content couldn't be parsed" });
+            break;
+          }
+
+          const report = new Report();
+          report.append(parsed);
+
+          const data = report.serialize();
+          db.prepare(
+            `INSERT INTO reports (id, createdAt, source) VALUES (?, ?, ?);`,
+          ).run(data.id, data.createdAt, data.source);
+
+          respond(response, 201, report);
+          break;
+        }
+
+        default: {
+          respond(response, 405, { error: "Method not allowed" });
+          break;
+        }
       }
-
-      return new Response(null, { status: 204 });
-    }
-
-    const response = await handle(request);
-
-    if (origin) {
-      response.headers.set("Access-Control-Allow-Origin", origin);
-    }
-
-    return response;
-  };
-}
-
-function withErrorHandling<T extends Request>(
-  handle: (request: T) => Promise<Response>
-) {
-  return async (request: T) => {
-    try {
-      return await handle(request);
-    } catch (error) {
-      console.error(error);
-      return Response.json({ error: "Unexpected error" }, { status: 500 });
-    }
-  };
-}
-
-Bun.serve({
-  routes: {
-    "/v1/reports": {
-      POST: withLogging(
-        withErrorHandling(
-          withCors(async (request) => {
-            const body = await request.text();
-            if (body.trim().length < 3) {
-              return Response.json(
-                { error: "Content is too short" },
-                { status: 400 }
-              );
-            }
-
-            const content = Report.parse(body);
-            if (content.length < 1) {
-              return Response.json(
-                { error: "Content couldn't be parsed" },
-                { status: 400 }
-              );
-            }
-
-            const report = new Report();
-            report.append(content);
-
-            const data = report.serialize();
-            db.exec(
-              `INSERT INTO reports (id, createdAt, source) VALUES (?, ?, ?);`,
-              [data.id, data.createdAt, data.source]
-            );
-
-            return Response.json(report, { status: 201 });
-          })
-        )
-      ),
-    },
-
-    "/v1/reports/:id": {
-      GET: withLogging(
-        withErrorHandling(
-          withCors(async (request) => {
-            const data = db
-              .query<SerializedReport, SQLQueryBindings>(
-                `SELECT * FROM reports WHERE id = ? LIMIT 1;`
-              )
-              .get(request.params.id);
-
-            if (!data) {
-              return Response.json(
-                { error: "Report not found" },
-                { status: 404 }
-              );
-            }
-            const report = Report.unserialize(data);
-
-            return Response.json(report);
-          })
-        )
-      ),
-
-      PATCH: withLogging(
-        withErrorHandling(
-          withCors(async (request) => {
-            const data = db
-              .query<SerializedReport, SQLQueryBindings>(
-                `SELECT * FROM reports WHERE id = ? LIMIT 1;`
-              )
-              .get(request.params.id);
-
-            if (!data) {
-              return Response.json(
-                { error: "Report not found" },
-                { status: 404 }
-              );
-            }
-            const report = Report.unserialize(data);
-
-            const body = await request.text();
-            if (body.trim().length < 3) {
-              return Response.json(
-                { error: "Content is too short" },
-                { status: 400 }
-              );
-            }
-
-            const content = Report.parse(body);
-            if (content.length < 1) {
-              return Response.json(
-                { error: "Content couldn't be parsed" },
-                { status: 400 }
-              );
-            }
-            report.append(content);
-
-            db.exec(`UPDATE reports SET source = ? WHERE id = ?;`, [
-              report.serialize().source,
-              report.id,
-            ]);
-
-            return Response.json(report);
-          })
-        )
-      ),
     },
   },
+  {
+    pattern: new URLPattern({ pathname: "/v1/reports/:id" }),
+    async handler({ req, response, url }) {
+      const method = req.method ?? "GET";
+      const id = url.pathname.groups.id;
 
-  fetch: withLogging(
-    withErrorHandling(
-      withCors(async () => {
-        return Response.json({ error: "Not found" }, { status: 404 });
-      })
-    )
-  ),
-});
+      switch (method) {
+        case "GET": {
+          const data = db
+            .prepare(`SELECT * FROM reports WHERE id = ? LIMIT 1;`)
+            .get(id!) as SerializedReport | undefined;
+
+          if (!data) {
+            respond(response, 404, { error: "Report not found" });
+            break;
+          }
+
+          respond(response, 200, Report.unserialize(data));
+          break;
+        }
+
+        case "PATCH": {
+          const data = db
+            .prepare(`SELECT * FROM reports WHERE id = ? LIMIT 1;`)
+            .get(id!) as SerializedReport | undefined;
+
+          if (!data) {
+            respond(response, 404, { error: "Report not found" });
+            break;
+          }
+
+          const raw = await getBody(req);
+          if (raw.trim().length < 3) {
+            respond(response, 400, { error: "Content is too short" });
+            break;
+          }
+
+          const parsed = Report.parse(raw);
+          if (parsed.length < 1) {
+            respond(response, 400, { error: "Content couldn't be parsed" });
+            break;
+          }
+
+          const report = Report.unserialize(data);
+          report.append(parsed);
+
+          db.prepare(`UPDATE reports SET source = ? WHERE id = ?;`).run(
+            report.serialize().source,
+            report.id,
+          );
+
+          respond(response, 200, report);
+          break;
+        }
+
+        default: {
+          respond(response, 405, { error: "Method not allowed" });
+        }
+      }
+    },
+  },
+];
+
+async function handler(req: IncomingMessage, response: ServerResponse) {
+  const start = performance.now();
+
+  response.on("finish", () => {
+    console.log(
+      `${new Date().toISOString()} ${req.method} ${req.url} ${
+        response.statusCode
+      } ${(performance.now() - start).toFixed(2)}ms`,
+    );
+  });
+
+  try {
+    const method = req.method ?? "GET";
+    const origin = req.headers.origin;
+
+    if (method === "OPTIONS") {
+      response.writeHead(
+        204,
+        origin
+          ? {
+              "Access-Control-Allow-Origin": origin,
+              "Access-Control-Allow-Methods": "GET, POST, PATCH, OPTIONS",
+              "Access-Control-Allow-Headers": "Content-Type",
+            }
+          : {},
+      );
+      response.end();
+      return;
+    }
+
+    if (origin) {
+      response.setHeader("Access-Control-Allow-Origin", origin);
+    }
+
+    for (const route of routes) {
+      const url = route.pattern.exec(req.url, "http://localhost");
+      if (url) {
+        await route.handler({ req, response, url });
+        return;
+      }
+    }
+
+    respond(response, 404, { error: "Not found" });
+  } catch (error) {
+    console.error(error);
+    respond(response, 500, { error: "Unexpected error" });
+  }
+}
+
+createServer(handler).listen(3000);

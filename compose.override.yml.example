@@ -1,0 +1,14 @@
+# If you rather access API and Client directly, in different ports, copy this file as `compose.override.yml`.
+
+services:
+  proxy:
+    profiles:
+      - proxy
+  api:
+    ports:
+      - 5174:3000
+  client:
+    ports:
+      - 5173:5173
+    environment:
+      VITE_API_URL: http://localhost:5174

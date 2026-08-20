@@ -342,10 +342,14 @@ export function Report({ params }: { params: { reportId: string } }) {
                 Alliance
               </Header>
               <Header className="text-left">Ships</Header>
-              <Header sorting={[sorting, "dangerRatio"]} className="w-24">
+              <Header
+                title="zKillboard Danger Ratio"
+                sorting={[sorting, "dangerRatio"]} className="w-24">
                 Risk
               </Header>
-              <Header sorting={[sorting, "gangRatio"]} className="w-24">
+              <Header
+                title="Gang Participation Ratio"
+                sorting={[sorting, "gangRatio"]} className="w-24">
                 Group
               </Header>
               <Header sorting={[sorting, "killCount"]} className="w-24">
