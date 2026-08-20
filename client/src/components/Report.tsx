@@ -49,7 +49,7 @@ function Header({
       className={twMerge(
         "p-1.5 text-foreground/50",
         sortable ? "cursor-pointer" : "",
-        className
+        className,
       )}
       onMouseDown={onMouseDown}
       {...props}
@@ -74,7 +74,7 @@ function Cell({
     <td
       className={twMerge(
         "p-1.5 first:rounded-l-lg last:rounded-r-lg",
-        className
+        className,
       )}
       {...props}
     >
@@ -216,9 +216,9 @@ export function Report({ params }: { params: { reportId: string } }) {
             ...killboard,
           } as Row;
         }),
-        sorting.sorter
+        sorting.sorter,
       ),
-    [data?.content, ids, affiliations, names, zkillboard, sorting.sorter]
+    [data?.content, ids, affiliations, names, zkillboard, sorting.sorter],
   );
 
   const { factions, corporations, alliances } = useMemo(() => {
@@ -246,21 +246,21 @@ export function Report({ params }: { params: { reportId: string } }) {
           id,
           name: factions.get(id),
         })),
-        compareEntityName
+        compareEntityName,
       ),
       corporations: sorted(
         Array.from(corporations.keys()).map((id) => ({
           id,
           name: corporations.get(id),
         })),
-        compareEntityName
+        compareEntityName,
       ),
       alliances: sorted(
         Array.from(alliances.keys()).map((id) => ({
           id,
           name: alliances.get(id),
         })),
-        compareEntityName
+        compareEntityName,
       ),
     };
   }, [table]);
@@ -346,16 +346,24 @@ export function Report({ params }: { params: { reportId: string } }) {
               <Header className="text-left">Ships</Header>
               <Header
                 title="zKillboard Danger Ratio"
-                sorting={[sorting, "dangerRatio"]} className="w-24">
+                sorting={[sorting, "dangerRatio"]}
+                className="w-24"
+              >
                 Risk
               </Header>
               <Header
                 title="Gang Participation Ratio"
-                sorting={[sorting, "gangRatio"]} className="w-24">
+                sorting={[sorting, "gangRatio"]}
+                className="w-24"
+              >
                 Group
               </Header>
-              <Header sorting={[sorting, "pointsPerKill"]} className="w-24">
-                Points/kill
+              <Header
+                title="Points per kill. Average of difficulty/value of their kills."
+                sorting={[sorting, "pointsPerKill"]}
+                className="w-24"
+              >
+                P/K
               </Header>
               <Header sorting={[sorting, "killCount"]} className="w-24">
                 K
@@ -397,8 +405,8 @@ export function Report({ params }: { params: { reportId: string } }) {
                             />
                           ))
                         : row.ships === undefined
-                        ? "⋯"
-                        : "-"}
+                          ? "⋯"
+                          : "-"}
                     </div>
                   </div>
                 </Cell>
