@@ -6,8 +6,6 @@ export type SerializedReport = {
   source: string;
 };
 
-const transcriptExpr = new RegExp("<url=showinfo:13..//.+?>(.+?)</url>", "g");
-
 export class Report {
   id = createId();
   createdAt = new Date();
@@ -22,6 +20,11 @@ export class Report {
   }
 
   static parse(source: string) {
+    const transcriptExpr = new RegExp(
+      "<url=showinfo:13..//.+?>(.+?)</url>",
+      "g",
+    );
+
     let names = Array.from(source.matchAll(transcriptExpr), ([, name]) => name);
 
     if (names.length > 0) {
