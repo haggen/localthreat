@@ -41,7 +41,7 @@ export function App() {
       ([entry]) => {
         setStuck(entry.intersectionRatio < 1);
       },
-      { threshold: [1] }
+      { threshold: [1] },
     );
     observer.observe(topbar);
 
@@ -68,7 +68,7 @@ export function App() {
           <div
             className={twMerge(
               "pb-10 m-1.5 bg-background/5 backdrop-blur-2xl rounded-lg transition",
-              stuck ? "inset-ring inset-ring-foreground/5 shadow-2xl" : ""
+              stuck ? "inset-ring inset-ring-foreground/5 shadow-2xl" : "",
             )}
           >
             <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-12 h-12 px-3">
@@ -107,7 +107,9 @@ export function App() {
                     Share
                   </button>
 
-                  <Tooltip context={tooltip} /* eslint-disable-line react-hooks/refs */>
+                  <Tooltip
+                    context={tooltip} /* eslint-disable-line react-hooks/refs */
+                  >
                     Copied. Paste it to share.
                   </Tooltip>
                 </li>

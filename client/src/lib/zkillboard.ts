@@ -32,7 +32,7 @@ export function useZKillboard() {
       ...state,
       ...patch,
     }),
-    {}
+    {},
   );
 
   useEffect(() => {
@@ -65,7 +65,10 @@ export function useZKillboard() {
                 typeof data.gangRatio === "number"
                   ? data.gangRatio / 100
                   : null,
-              pointsPerKill: calcPointsPerKill(data.pointsDestroyed, data.shipsDestroyed),
+              pointsPerKill: calcPointsPerKill(
+                data.pointsDestroyed,
+                data.shipsDestroyed,
+              ),
               ships:
                 data.topLists
                   ?.find(({ type }) => type === "shipType")
@@ -95,13 +98,16 @@ export function useZKillboard() {
       }
       queue.add(id);
     },
-    [state]
+    [state],
   );
 
   return useMemo(() => ({ state, query }), [state, query]);
 }
 
-function calcPointsPerKill(points: number | undefined, ships: number | undefined): number | null {
+function calcPointsPerKill(
+  points: number | undefined,
+  ships: number | undefined,
+): number | null {
   if (points === undefined || !ships) {
     return null;
   }

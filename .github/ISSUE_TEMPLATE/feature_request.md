@@ -1,10 +1,9 @@
 ---
 name: Feature request
 about: Suggest an idea for localthreat
-title: ''
+title: ""
 labels: Feature
-assignees: ''
-
+assignees: ""
 ---
 
 **What's your idea?**

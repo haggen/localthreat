@@ -27,7 +27,7 @@ function createReducer<T>() {
 
 export function useSorting<T>(
   comparers: { [K in keyof T]: (a: T[K], b: T[K]) => number },
-  initial: State<T> = {}
+  initial: State<T> = {},
 ) {
   const [current, set] = useReducer(createReducer<T>(), initial);
 
@@ -49,7 +49,7 @@ export function useSorting<T>(
 
 export function compareEntityName(
   a: null | undefined | { name?: string | undefined },
-  b: null | undefined | { name?: string | undefined }
+  b: null | undefined | { name?: string | undefined },
 ) {
   if (a?.name && b?.name) {
     return a.name.localeCompare(b.name);
@@ -65,7 +65,7 @@ export function compareEntityName(
 
 export function compareNumber(
   a: number | null | undefined,
-  b: number | null | undefined
+  b: number | null | undefined,
 ) {
   if (typeof a === "number" && typeof b === "number") {
     return a - b;

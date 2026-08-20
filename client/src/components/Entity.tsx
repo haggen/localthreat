@@ -142,7 +142,9 @@ export function Entity({
         </div>
       )}
       {collapsed || truncated ? (
-        <Tooltip context={tooltip} /* eslint-disable-line react-hooks/refs */>{name}</Tooltip>
+        <Tooltip context={tooltip} /* eslint-disable-line react-hooks/refs */>
+          {name}
+        </Tooltip>
       ) : null}
     </a>
   );

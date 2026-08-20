@@ -8,7 +8,7 @@ export function ThemeCycler() {
     (event: MouseEvent) => {
       theme.cycle(event.shiftKey);
     },
-    [theme]
+    [theme],
   );
 
   return (

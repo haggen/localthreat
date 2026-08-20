@@ -31,7 +31,7 @@ function createStatePatch(
     category: "character" | "corporation" | "alliance" | "faction";
     id: number;
     name: string;
-  }>
+  }>,
 ) {
   const state: State = {
     character: {},
@@ -68,7 +68,7 @@ export function useNames() {
           method: "POST",
           body: JSON.stringify(batch),
           headers: { "Content-Type": "application/json" },
-        }
+        },
       );
 
       if (!resp.ok) {
@@ -91,7 +91,7 @@ export function useNames() {
       }
       queue.add(id);
     },
-    [state]
+    [state],
   );
 
   return useMemo(() => ({ state, query }), [state, query]);

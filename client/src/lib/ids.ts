@@ -111,7 +111,7 @@ export function useIds() {
       }
       queue.add(name);
     },
-    [state]
+    [state],
   );
 
   return useMemo(() => ({ state, query }), [state, query]);

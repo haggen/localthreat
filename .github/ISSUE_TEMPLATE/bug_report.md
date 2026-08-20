@@ -1,10 +1,9 @@
 ---
 name: Bug report
 about: Let us know the mistakes we made
-title: ''
+title: ""
 labels: Bug
-assignees: ''
-
+assignees: ""
 ---
 
 **What were you doing?**
