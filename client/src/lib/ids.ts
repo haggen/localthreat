@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useMemo, useReducer } from "react";
 
-const queue = new Set<string>();
+// Keyed by name, value is the type it was queried as:
+// a name that resolves under a different type must be banned for that query.
+const queue = new Map<string, keyof State>();
 const delay = 100;
 
 // An invalid name may be added to the queue,
@@ -66,14 +68,14 @@ export function useIds() {
       }
 
       // The API allows a maximum of 500 names per request.
-      const batch = Array.from(queue).slice(0, 499);
-      for (const name of batch) {
+      const batch = Array.from(queue.entries()).slice(0, 499);
+      for (const [name] of batch) {
         queue.delete(name);
       }
 
       const resp = await fetch("https://esi.evetech.net/latest/universe/ids/", {
         method: "POST",
-        body: JSON.stringify(batch),
+        body: JSON.stringify(batch.map(([name]) => name)),
         headers: { "Content-Type": "application/json" },
       });
 
@@ -83,17 +85,10 @@ export function useIds() {
 
       const patch = createStatePatch(await resp.json());
 
-      for (const name of batch) {
-        if (name in patch.character) {
-          continue;
+      for (const [name, type] of batch) {
+        if (!(name in patch[type])) {
+          banned.add(name);
         }
-        if (name in patch.corporation) {
-          continue;
-        }
-        if (name in patch.alliance) {
-          continue;
-        }
-        banned.add(name);
       }
 
       update(patch);
@@ -109,7 +104,10 @@ export function useIds() {
       if (name in state[type]) {
         return state[type][name];
       }
-      queue.add(name);
+      if (banned.has(name)) {
+        return undefined;
+      }
+      queue.set(name, type);
     },
     [state],
   );
