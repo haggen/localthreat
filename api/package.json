@@ -5,6 +5,7 @@
   "author": "Arthur <arthur@corenzan.com>",
   "type": "module",
   "scripts": {
+    "test": "node --experimental-strip-types --test",
     "start": "node --experimental-strip-types --watch src/index.ts",
     "typecheck": "tsc"
   },
