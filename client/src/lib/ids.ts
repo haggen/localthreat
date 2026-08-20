@@ -109,7 +109,9 @@ export function useIds() {
       if (name in state[type]) {
         return state[type][name];
       }
-      queue.add(name);
+      if (!banned.has(name)) {
+        queue.add(name);
+      }
     },
     [state],
   );
