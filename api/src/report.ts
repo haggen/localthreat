@@ -6,7 +6,7 @@ export type SerializedReport = {
   source: string;
 };
 
-const expr = new RegExp("<url=showinfo:13..//.+?>(.+?)</url>", "g");
+const transcriptExpr = new RegExp("<url=showinfo:13..//.+?>(.+?)</url>", "g");
 
 export class Report {
   id = createId();
@@ -22,18 +22,23 @@ export class Report {
   }
 
   static parse(source: string) {
-    const matches = source.match(expr);
-    if (matches) {
-      return matches.map(([, name]) => String(name));
+    let names = Array.from(source.matchAll(transcriptExpr), ([, name]) => name);
+
+    if (names.length > 0) {
+      return names;
     }
-    const content = source.trim().split(/[\n\r]+/);
-    for (const name of content) {
-      // Character names must be between 3 and 37 characters long.
+
+    names = source.trim().split(/[\n\r]+/);
+
+    // Character names must be between 3 and 37 characters long.
+    // If a single name isn't to code, we discard the whole input.
+    for (const name of names) {
       if (name.length < 3 || name.length > 37) {
         return [];
       }
     }
-    return content;
+
+    return names;
   }
 
   serialize(): SerializedReport {
@@ -44,7 +49,7 @@ export class Report {
     };
   }
 
-  append(added: string[]) {
-    this.content = Array.from(new Set([...this.content, ...added]));
+  append(content: string[]) {
+    this.content = Array.from(new Set([...this.content, ...content]));
   }
 }
