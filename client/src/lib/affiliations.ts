@@ -14,7 +14,7 @@ type State = {
 export function useAffiliations() {
   const [state, update] = useReducer(
     (state: State, patch: State) => ({ ...state, ...patch }),
-    {}
+    {},
   );
 
   useEffect(() => {
@@ -43,7 +43,7 @@ export function useAffiliations() {
               corporation_id?: number;
               faction_id?: number;
               alliance_id?: number;
-            }>
+            }>,
           ) => {
             const patch = Object.fromEntries(
               data.map((data) => [
@@ -53,11 +53,11 @@ export function useAffiliations() {
                   factionId: data.faction_id ?? null,
                   allianceId: data.alliance_id ?? null,
                 },
-              ])
+              ]),
             );
 
             update(patch);
-          }
+          },
         )
         .catch((error) => {
           console.error(error);
@@ -76,7 +76,7 @@ export function useAffiliations() {
       }
       queue.add(id);
     },
-    [state]
+    [state],
   );
 
   return useMemo(() => ({ state, query }), [state, query]);

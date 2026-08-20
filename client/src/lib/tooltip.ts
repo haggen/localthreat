@@ -26,6 +26,6 @@ export function useTooltip() {
 
   return useMemo(
     () => ({ ...floating, state, open, close }),
-    [floating, state, open, close]
+    [floating, state, open, close],
   );
 }

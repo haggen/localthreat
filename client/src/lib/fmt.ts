@@ -9,7 +9,7 @@ export const fmt = {
 
   datetime(
     value: Date | string | number,
-    opts: Intl.DateTimeFormatOptions = {}
+    opts: Intl.DateTimeFormatOptions = {},
   ) {
     return new Intl.DateTimeFormat("en-US", {
       dateStyle: "medium",

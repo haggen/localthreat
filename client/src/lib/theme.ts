@@ -7,7 +7,7 @@ const available = ["seo", "gallente", "minmatar", "caldari", "amarr"];
 
 export function useTheme() {
   const [theme, setTheme] = useState(
-    localStorage.getItem(storageKey) ?? initial
+    localStorage.getItem(storageKey) ?? initial,
   );
 
   const cycle = useCallback(
@@ -15,10 +15,10 @@ export function useTheme() {
       const index = available.indexOf(theme);
       const offset = reverse ? -1 : 1;
       setTheme(
-        available[(available.length + index + offset) % available.length]
+        available[(available.length + index + offset) % available.length],
       );
     },
-    [theme]
+    [theme],
   );
 
   useEffect(() => {

@@ -12,7 +12,7 @@ export function Blank() {
     execute(() => request<Report>("POST", "/v1/reports", text)).then(
       (report) => {
         navigate(`${report.id}`);
-      }
+      },
     );
   });
 

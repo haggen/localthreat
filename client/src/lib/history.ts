@@ -9,8 +9,7 @@ type OldHistory = OldEntry[];
 
 function getHistory() {
   const history = JSON.parse(localStorage.getItem("history") ?? "{}") as
-    | History
-    | OldHistory;
+    History | OldHistory;
 
   if (Array.isArray(history)) {
     // Migrate old history format to new format.
@@ -26,9 +25,9 @@ function getHistory() {
               visitedAt: entry.time,
               content: entry.data,
             },
-          ])
-        )
-      )
+          ]),
+        ),
+      ),
     );
 
     return getHistory();
