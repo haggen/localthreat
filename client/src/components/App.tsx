@@ -100,14 +100,14 @@ export function App() {
               <menu className="flex items-center gap-6 font-bold">
                 <li>
                   <button
-                    ref={tooltip.refs.setReference}
+                    ref={tooltip.refs.setReference} // eslint-disable-line react-hooks/refs
                     onClick={onShare}
                     disabled={!hasReportId}
                   >
                     Share
                   </button>
 
-                  <Tooltip context={tooltip}>
+                  <Tooltip context={tooltip} /* eslint-disable-line react-hooks/refs */>
                     Copied. Paste it to share.
                   </Tooltip>
                 </li>

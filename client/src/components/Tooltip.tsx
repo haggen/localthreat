@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/refs */
+
 import { type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import type { useTooltip } from "~/lib/tooltip";
@@ -18,6 +20,6 @@ export function Tooltip({
     >
       {children}
     </div>,
-    document.body
+    document.body,
   );
 }

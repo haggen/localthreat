@@ -123,7 +123,7 @@ export function Entity({
       className={twMerge("flex gap-1.5 items-center", className)}
       onMouseOver={onMouseOver}
       onMouseOut={onMouseOut}
-      ref={tooltip.refs.setReference}
+      ref={tooltip.refs.setReference} // eslint-disable-line react-hooks/refs
       target="_blank"
     >
       {/* We still want to render the generic protrait for characters. */}
@@ -142,7 +142,7 @@ export function Entity({
         </div>
       )}
       {collapsed || truncated ? (
-        <Tooltip context={tooltip}>{name}</Tooltip>
+        <Tooltip context={tooltip} /* eslint-disable-line react-hooks/refs */>{name}</Tooltip>
       ) : null}
     </a>
   );
